@@ -1,0 +1,19 @@
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+
+body {
+    font-size: 18px;
+}
+
+.btn-primary{
+    background-color: $olivegreen_lighter;
+    color: black;
+
+    &:hover{
+        background-color: $olivegreen_darker;
+    }
+}
