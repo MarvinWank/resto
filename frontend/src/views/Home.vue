@@ -9,9 +9,9 @@
         name: "Home",
 
         mounted() {
-            if (!this.$store.getters.isLoggedin){
-                this.$router.push('/login')
-            }
+            // if (!this.$store.getters.isLoggedin){
+            //     this.$router.push('/login')
+            // }
         }
     }
 </script>

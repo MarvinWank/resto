@@ -1,6 +1,7 @@
 <template>
-    <div class="container-fluid">
-        <router-view></router-view>
+    <div class="container-fluid" id="app">
+<!--        <router-view></router-view>-->
+        sdfsadf
     </div>
 </template>
 
