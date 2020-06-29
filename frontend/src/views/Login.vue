@@ -9,19 +9,37 @@
 
         <div class="form-group mt-3">
             <label for="email">E-Mail Adresse</label>
-            <input type="email" class="form-control" id="email" placeholder="E-Mail Adresse">
+            <input v-model="email" type="email" class="form-control" id="email" placeholder="E-Mail Adresse">
         </div>
         <div class="form-group">
             <label for="passwort">Passwort</label>
-            <input type="password" class="form-control" id="passwort" placeholder="Passwort">
+            <input v-model="password" type="password" class="form-control" id="passwort" placeholder="Passwort">
         </div>
-        <button type="submit" class="btn btn-primary btn-block">Anmelden</button>
+        <button type="submit" :class="get_button_classes">Anmelden</button>
     </div>
 </template>
 
 <script>
     export default {
-        name: "Login"
+        name: "Login",
+
+        data(){
+            return{
+                'email': '',
+                'password': ''
+            }
+        },
+
+        computed:{
+            get_button_classes(){
+                return {
+                    "btn": true,
+                    "btn-primary": true,
+                    "btn-block": true,
+                    "disabled": this.email === '' || this.password === ''
+                }
+            }
+        }
     }
 </script>
 
