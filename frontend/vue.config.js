@@ -9,6 +9,10 @@ module.exports = {
         appleMobileWebAppCapable: 'yes',
         appleMobileWebAppStatusBarStyle: 'black',
 
+        workboxOptions: {
+            navigateFallback: 'index.html'
+        },
+
         manifestOptions: {
             "short_name": "resto",
             "name": "resto - recipe storage",
@@ -20,6 +24,11 @@ module.exports = {
             "icons": [
                 {
                     "src": "img/icons/android-chrome-192x192.png",
+                    "type": "img/png",
+                    "sizes": "48x48"
+                },
+                {
+                    "src": "img/resto_logo.png",
                     "type": "img/png",
                     "sizes": "48x48"
                 }
