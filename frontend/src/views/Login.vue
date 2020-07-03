@@ -1,13 +1,13 @@
 <template>
-    <div class="col-12">
+    <div class="col-12 mt-auto" >
 
         <div style="width: 100%; text-align: center">
             <img class="img-fluid text-center" src="/img/icons/resto_logo.png">
         </div>
 
-        <h1 class="mb-4 text-center">Anmelden</h1>
+        <h2 class="mb-4 mt-3">Anmelden</h2>
 
-        <div class="form-group mt-3">
+        <div class="form-group mt-4">
             <label for="email">E-Mail Adresse</label>
             <input v-model="email" type="email" class="form-control" id="email" placeholder="E-Mail Adresse">
         </div>
@@ -15,7 +15,7 @@
             <label for="passwort">Passwort</label>
             <input v-model="password" type="password" class="form-control" id="passwort" placeholder="Passwort">
         </div>
-        <button type="submit" :class="get_button_classes">Anmelden</button>
+        <button type="submit" :class="get_button_classes" @click="attempt_login">Anmelden</button>
     </div>
 </template>
 
@@ -38,6 +38,12 @@
                     "btn-block": true,
                     "disabled": this.email === '' || this.password === ''
                 }
+            },
+        },
+
+        methods:{
+            attempt_login(){
+                this.$api.login(this.email, this.password);
             }
         }
     }
