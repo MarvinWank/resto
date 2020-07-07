@@ -6,7 +6,7 @@ class api {
 
     constructor() {
         if (process.env.NODE_ENV === "development") {
-            this.host = "localhost:8080";
+            this.host = "localhost:8000";
         }
 
     }
@@ -17,12 +17,13 @@ class api {
 
     login(email, passwort) {
 
-        let result = axios.post(this.host + '/login', {
+        let result = alios.post(this.host + '/login', {
             email: email,
             passwort: passwort
-        }).then(function (response) {
-            console.log(response);
         })
+            .then(function (response) {
+                console.log(response);
+            })
             .catch(function (error) {
                 console.log(error);
             });
