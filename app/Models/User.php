@@ -15,5 +15,14 @@ class User
         $this->email = $email;
     }
 
+    public function get_name(): string
+    {
+        return $this->name;
+    }
+
+    public function get_email(): string
+    {
+        return $this->email;
+    }
 
 }
