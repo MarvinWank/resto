@@ -17,7 +17,7 @@ class api {
 
     login(email, passwort) {
 
-        let result = alios.post(this.host + '/login', {
+        let result = axios.post(this.host + '/login', {
             email: email,
             passwort: passwort
         })

@@ -2,7 +2,8 @@
 
 namespace App\Console;
 
-use App\Console\Commands\Serve;
+use App\Console\Commands\ServeBackend;
+use App\Console\Commands\ServeFrontend;
 use Illuminate\Console\Scheduling\Schedule;
 use Laravel\Lumen\Console\Kernel as ConsoleKernel;
 
@@ -14,7 +15,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Serve::class
+        ServeFrontend::class,
+        ServeBackend::class,
     ];
 
     /**
