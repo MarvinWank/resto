@@ -15,7 +15,8 @@ class LoginApiActionTest extends \ApiActionTestCase
     {
         $response = $this->client->post('/login', [
                 'body' => [
-                    'email'
+                    'email' => $this->test_user->get_email(),
+                    'password' => "test"
                 ]
             ]
         );

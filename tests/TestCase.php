@@ -9,7 +9,7 @@ abstract class TestCase extends BaseTestCase
     /** @var UserFactory $userFactory */
     private $userFactory;
 
-    private $test_user;
+    protected $test_user;
 
     /**
      * Creates the application.
@@ -27,7 +27,7 @@ abstract class TestCase extends BaseTestCase
 
         $this->userFactory = app(UserFactory::class);
 
-        $this->create_test_user();
+        $this->test_user = $this->create_test_user();
     }
 
     private function create_test_user(): User
