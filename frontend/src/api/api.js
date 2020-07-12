@@ -1,4 +1,4 @@
-import axios from "axios"
+const superagent = require('superagent');
 import store from "../store/store";
 
 class api {
@@ -6,7 +6,7 @@ class api {
 
     constructor() {
         if (process.env.NODE_ENV === "development") {
-            this.host = "localhost:8000";
+            this.host = "localhost:8000/index.php";
         }
 
     }
@@ -16,17 +16,12 @@ class api {
     }
 
     login(email, passwort) {
-
-        let result = axios.post(this.host + '/login', {
-            email: email,
-            passwort: passwort
-        })
-            .then(function (response) {
-                console.log(response);
+        superagent.post('http://resto.local/login')
+            .send({"email": email})
+            .then(res => {
+                console.log(res);
             })
-            .catch(function (error) {
-                console.log(error);
-            });
+            .catch(console.error);
     }
 }
 
