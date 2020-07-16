@@ -1,5 +1,5 @@
 <template>
-    <div class="col-12 mt-auto" >
+    <div class="col-12 mt-auto">
 
         <div style="width: 100%; text-align: center">
             <img class="img-fluid text-center" src="/img/icons/resto_logo.png">
@@ -15,23 +15,29 @@
             <label for="passwort">Passwort</label>
             <input v-model="password" type="password" class="form-control" id="passwort" placeholder="Passwort">
         </div>
-        <button type="submit" :class="get_button_classes" @click="attempt_login">Anmelden</button>
+        <div v-if="login_fehler" class="alert alert-danger">Login Fehlgeschlagen!</div>
+        <button type="submit" :class="get_login_button_classes" @click="attempt_login">Anmelden</button>
     </div>
 </template>
 
 <script>
+    import axios from "axios";
+    import api from "../api/api";
+
     export default {
         name: "Login",
 
-        data(){
-            return{
+        data() {
+            return {
                 'email': '',
-                'password': ''
+                'password': '',
+                'api_response': {},
+                'login_fehler': false
             }
         },
 
-        computed:{
-            get_button_classes(){
+        computed: {
+            get_login_button_classes() {
                 return {
                     "btn": true,
                     "btn-primary": true,
@@ -41,9 +47,17 @@
             },
         },
 
-        methods:{
-            attempt_login(){
-                this.$api.login(this.email, this.password);
+        methods: {
+           async attempt_login() {
+
+                let user = await axios.post('http://resto.local/login', {
+                    "email": this.email,
+                    "password": this.password
+                }).then(res => res.data)
+
+
+
+               console.log(user);
             }
         }
     }

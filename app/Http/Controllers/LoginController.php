@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Factories\UserFactory;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class LoginController extends Controller
 {
@@ -12,14 +12,26 @@ class LoginController extends Controller
      *
      * @return void
      */
-    public function __construct()
+
+    private $userFactory;
+
+    public function __construct(UserFactory $userFactory)
     {
-        //
+        $this->userFactory = $userFactory;
     }
 
     public function login(Request $request)
     {
         $data = $request->json();
+        $email = $data->get('email');
+        $password = $data->get('password');
+
+        $user = $this->userFactory->from_auth($email, $password);
+        if($user === null){
+            return response()->json(["fehler" => "Login nicht erfolgreich"]);
+        }
+        return response()->json($user->toArray());
+
     }
 
 }

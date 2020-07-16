@@ -1,12 +1,13 @@
 const superagent = require('superagent');
 import store from "../store/store";
+import axios from "axios"
 
 class api {
     host
 
     constructor() {
         if (process.env.NODE_ENV === "development") {
-            this.host = "localhost:8000/index.php";
+            this.host = "http://resto.local";
         }
 
     }
@@ -15,13 +16,14 @@ class api {
         return this.host;
     }
 
-    login(email, passwort) {
-        superagent.post('http://resto.local/login')
-            .send({"email": email})
-            .then(res => {
-                console.log(res);
-            })
-            .catch(console.error);
+    async login(email, password) {
+        let user = await axios.post('http://resto.local/login', {
+            "email": this.email,
+            "password": this.password
+        }).then(res => res.data)
+
+        return user;
+
     }
 }
 

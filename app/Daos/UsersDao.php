@@ -20,12 +20,31 @@ class UsersDao extends Model
     public $timestamps = false;
     protected static $unguarded = true;
 
-    public function get_user_by_id(string $id): Collection
+    public function get_user_by_id(string $id): UsersDao
     {
         return UsersDao::query()
             ->select('*')
             ->where(self::PROPERTY_ID, '=', $id)
-            ->get();
+            ->get()->first();
+    }
+
+    public function get_user_by_email(string $email): UsersDao
+    {
+        $collection = UsersDao::query()
+            ->select('*')
+            ->where(self::PROPERTY_EMAIL, '=', $email);
+        return  $collection->get()->first();
+    }
+
+    public function validate_auth(string $email, string $password): bool
+    {
+        $dao_password = UsersDao::query()
+            ->select('password')
+            ->where(self::PROPERTY_EMAIL, '=', $email)
+            ->firstOrFail()
+            ->getAttribute('password');
+        return ($dao_password === $password);
+
     }
 
     public function insert_user(User $user, string $password): int

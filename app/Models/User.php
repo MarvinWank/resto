@@ -4,7 +4,9 @@
 namespace App\Models;
 
 
-class User
+use Illuminate\Contracts\Support\Arrayable;
+
+class User implements Arrayable
 {
     private $name;
     private $email;
@@ -25,4 +27,11 @@ class User
         return $this->email;
     }
 
+    public function toArray()
+    {
+        return [
+            "name" => $this->name,
+            "email" => $this->email,
+        ];
+    }
 }

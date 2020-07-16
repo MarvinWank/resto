@@ -6,6 +6,7 @@ namespace App\Factories;
 
 use App\Daos\UsersDao;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 
 class UserFactory
 {
@@ -21,15 +22,35 @@ class UserFactory
     public function from_id(int $id): User
     {
         $dao_user = $this->usersDao->get_user_by_id($id);
-        $name = $dao_user->get('name');
-        $email = $dao_user->get('email');
+        return $this->user_from_dao($dao_user);
+    }
 
-        return new User($name, $email);
+    public function from_auth(string $email, string $password): ?User
+    {
+        try{
+            $dao_user = $this->usersDao->get_user_by_email($email);
+        }catch (\Throwable $exception){
+            //Email existiert nicht
+            return null;
+        }
+        if (!$this->usersDao->validate_auth($email, $password)) {
+            return null;
+        }
+
+        return $this->user_from_dao($dao_user);
     }
 
     public function add_user(string $name, string $email, string $pasword): User
     {
         $user = new User($name, $email);
         return $this->from_id($this->usersDao->insert_user($user, $pasword));
+    }
+
+    private function user_from_dao(UsersDao $dao_user): User
+    {
+        $name = $dao_user->getAttribute('name');
+        $email = $dao_user->getAttribute('email');
+
+        return new User($name, $email);
     }
 }

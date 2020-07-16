@@ -13,7 +13,8 @@ class UsersTableSeeder extends Seeder
             ([
                 "name" => "Test User",
                 "email" => 'test@test.de',
-                "password" => password_hash("test", 1)
+//                "password" => password_hash("test", 1)
+                "password" => "test"
             ]);
     }
 }
