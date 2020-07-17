@@ -18,8 +18,8 @@ class api {
 
     async login(email, password) {
         let user = await axios.post('http://resto.local/login', {
-            "email": this.email,
-            "password": this.password
+            "email": email,
+            "password": password
         }).then(res => res.data)
 
         return user;

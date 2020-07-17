@@ -28,9 +28,9 @@ class LoginController extends Controller
 
         $user = $this->userFactory->from_auth($email, $password);
         if($user === null){
-            return response()->json(["fehler" => "Login nicht erfolgreich"]);
+            return response()->json(["status" => "fehler"]);
         }
-        return response()->json($user->toArray());
+        return response()->json(["status" => "ok", "user" => $user->toArray()]);
 
     }
 

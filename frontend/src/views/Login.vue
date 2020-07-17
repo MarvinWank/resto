@@ -48,16 +48,17 @@
         },
 
         methods: {
-           async attempt_login() {
+            async attempt_login() {
 
-                let user = await axios.post('http://resto.local/login', {
-                    "email": this.email,
-                    "password": this.password
-                }).then(res => res.data)
+                let api_response = await api.login(this.email, this.password);
+                console.log(api_response);
 
+                if(api_response.status === "fehler"){
+                    this.login_fehler = true;
+                    return
+                }
 
-
-               console.log(user);
+               await this.$store.dispatch('authenticate', api_response.user)
             }
         }
     }
