@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class UsersDao extends Model
 {
+    protected $connection = "mysql";
+
     const PROPERTY_ID = 'id';
     const PROPERTY_EMAIL = 'email';
     const PROPERTY_NAME = 'name';

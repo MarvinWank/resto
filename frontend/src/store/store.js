@@ -8,7 +8,8 @@ export default new Vuex.Store({
 
     state: {
         isLoggedin: false,
-        user: {}
+        user: {},
+        apiKey: ""
     },
 
     mutations: {
@@ -16,11 +17,12 @@ export default new Vuex.Store({
     },
 
     actions:{
-        authenticate(context, user){
+        authenticate(context, {user, apiKey}){
             console.log(user)
 
             context.state.user = user;
             context.state.isLoggedin = true;
+            context.state.apiKey = apiKey;
 
             router.push("/home")
         }
@@ -29,7 +31,9 @@ export default new Vuex.Store({
 
 
     getters:{
-        isLoggedin : state => state.isLoggedin
+        isLoggedin : state => state.isLoggedin,
+        currentUser: state => state.user,
+        apiKey: state => state.apiKey
     }
 
 });

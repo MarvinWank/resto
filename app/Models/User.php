@@ -8,13 +8,22 @@ use Illuminate\Contracts\Support\Arrayable;
 
 class User implements Arrayable
 {
+    /** @var int $id */
+    private $id;
+    /** @var string $name */
     private $name;
+    /** @var string $email */
     private $email;
 
-    public function __construct(string $name, string $email)
+    public function __construct(int $id, string $name, string $email)
     {
         $this->name = $name;
         $this->email = $email;
+    }
+
+    public function get_id(): int
+    {
+        return $this->id;
     }
 
     public function get_name(): string

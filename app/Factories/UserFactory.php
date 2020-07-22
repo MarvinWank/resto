@@ -54,15 +54,20 @@ class UserFactory
 
     public function add_user(string $name, string $email, string $pasword): User
     {
-        $user = new User($name, $email);
-        return $this->from_id($this->usersDao->insert_user($user, $pasword));
+        $this->usersDao->setAttribute(UsersDao::PROPERTY_NAME, $name);
+        $this->usersDao->setAttribute(UsersDao::PROPERTY_EMAIL, $email);
+        $this->usersDao->setAttribute(UsersDao::PROPERTY_PASSWORD, $pasword);
+        $this->usersDao->save();
+
+        return $this->user_from_dao($this->usersDao);
     }
 
     private function user_from_dao(UsersDao $dao_user): User
     {
-        $name = $dao_user->getAttribute('name');
-        $email = $dao_user->getAttribute('email');
+        $id = $dao_user->getAttribute(UsersDao::PROPERTY_ID);
+        $email = $dao_user->getAttribute(UsersDao::PROPERTY_EMAIL);
+        $name = $dao_user->getAttribute(UsersDao::PROPERTY_NAME);
 
-        return new User($name, $email);
+        return new User($id, $name, $email);
     }
 }

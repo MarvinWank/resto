@@ -53,12 +53,16 @@
                 let api_response = await api.login(this.email, this.password);
                 console.log(api_response);
 
-                if(api_response.status === "fehler"){
+                if (api_response.status === "fehler") {
                     this.login_fehler = true;
                     return
                 }
 
-               await this.$store.dispatch('authenticate', api_response.user)
+                await this.$store.dispatch('authenticate', {
+                        "user": api_response.user,
+                        "key": api_response.key
+                    }
+                )
             }
         }
     }
