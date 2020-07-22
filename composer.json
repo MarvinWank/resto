@@ -9,7 +9,8 @@
         "guzzlehttp/guzzle": "^7.0",
         "laravel/lumen-framework": "^7.0",
       "ext-xdebug": "*",
-      "ext-iconv": "*"
+      "ext-iconv": "*",
+      "ext-json": "*"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.9.1",

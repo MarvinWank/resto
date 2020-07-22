@@ -23,8 +23,8 @@ class Session
         $this->dao = $dao;
 
         //Session ist schon vorhanden
-        if($this->dao->get_by_id($this->id) !== null){
-            $this->dao = $this->dao->get_by_id($this->id);
+        if($this->dao->find($this->id)!== null){
+            $this->dao = $this->dao->find($this->id);
         }else{
             //Erzeuge neue Session
             $this->dao->setAttribute(SessionDao::PROPERTY_ID, $this->id);
@@ -45,4 +45,12 @@ class Session
 
         return $this->storage[$key];
     }
+
+    public function save(): void
+    {
+        $this->dao->setAttribute('data', json_encode($this->storage));
+        $this->dao->save();
+    }
+
+
 }

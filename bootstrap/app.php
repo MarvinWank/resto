@@ -80,6 +80,9 @@ $app->middleware([
      App\Http\Middleware\CorsMiddleware::class
  ]);
 
+$app->middleware([
+    App\Http\Middleware\SessionMiddleware::class
+]);
 
 /*
 |--------------------------------------------------------------------------
