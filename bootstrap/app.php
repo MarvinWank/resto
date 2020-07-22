@@ -1,5 +1,7 @@
 <?php
 
+use App\Daos\SessionDao;
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
 (new Laravel\Lumen\Bootstrap\LoadEnvironmentVariables(
@@ -81,7 +83,11 @@ $app->middleware([
  ]);
 
 $app->middleware([
-    App\Http\Middleware\SessionMiddleware::class
+    App\Http\Middleware\InitializeSessionMiddleware::class
+]);
+
+$app->middleware([
+    App\Http\Middleware\SaveSessionMiddleware::class
 ]);
 
 /*
@@ -100,7 +106,7 @@ $app->middleware([
 // $app->register(App\Providers\EventServiceProvider::class);
 
 $app->singleton(\App\Models\Session::class, function (){
-    return new \App\Models\Session();
+    return new \App\Models\Session(app(SessionDao::class));
 });
 
 /*

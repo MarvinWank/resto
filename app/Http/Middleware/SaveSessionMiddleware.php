@@ -6,12 +6,13 @@ namespace App\Http\Middleware;
 use App\Models\Session;
 use Closure;
 
-class SessionMiddleware
+class SaveSessionMiddleware
 {
-    public function handle($request, Closure $next, Session $session)
+    public function handle($request, Closure $next)
     {
         $response = $next($request);
 
+        $session = app(Session::class);
         $session->save();
 
         return $response;

@@ -29,6 +29,6 @@ class CorsMiddleware
             $response->header($key, $value);
         }
 
-        return $response;
+        return $next($response);
     }
 }

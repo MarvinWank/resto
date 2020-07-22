@@ -13,6 +13,8 @@ class SessionDao extends Model
     protected $keyType = "string";
     protected $primaryKey = "id";
 
+    public $timestamps = false;
+
     public const PROPERTY_ID = "id";
     public const PROPERTY_DATA = "data";
 }

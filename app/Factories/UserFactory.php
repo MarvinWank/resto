@@ -5,6 +5,7 @@ namespace App\Factories;
 
 
 use App\Daos\UsersDao;
+use App\Models\Session;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -13,16 +14,16 @@ class UserFactory
 {
     /** @var UsersDao $usersDao */
     private $usersDao;
-    /**
-     * @var Request
-     */
+    /** @var Request */
     private $request;
+    /** @var Session $session */
+    private $session;
 
-
-    public function __construct(UsersDao $usersDao, Request $request)
+    public function __construct(UsersDao $usersDao, Request $request, Session $session)
     {
         $this->usersDao = $usersDao;
         $this->request = $request;
+        $this->session = $session;
     }
 
     public function current_user(): User
@@ -48,7 +49,7 @@ class UserFactory
         if (!$this->usersDao->validate_auth($email, $password)) {
             return null;
         }
-        $this->request->session()->put('current_user', $dao_user->getAttribute('id') );
+        $this->session->setPrimitive("current_user",  $dao_user->getAttribute(UsersDao::PROPERTY_ID));
         return $this->user_from_dao($dao_user);
     }
 

@@ -17,6 +17,7 @@ class User implements Arrayable
 
     public function __construct(int $id, string $name, string $email)
     {
+        $this->id = $id;
         $this->name = $name;
         $this->email = $email;
     }
