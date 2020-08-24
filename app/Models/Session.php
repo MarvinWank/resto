@@ -14,49 +14,23 @@ class Session
     private $id;
     /** @var array $storage */
     private $storage;
-    /** @var array $dao_storage */
-    private $dao_storage;
-    /** @var SessionDao $dao */
-    private $dao;
     /** @var bool $data_was_mutated */
-    private $data_was_mutated = false;
+    private $data_was_mutated;
 
-    public function __construct(SessionDao $dao)
+    public function __construct(string $id, array $storage = [])
     {
-        $this->dao = $dao;
+        $this->id = $id;
+        $this->storage = $storage;
+        $this->data_was_mutated = false;
     }
 
-    public function init(?string $id)
-    {
-        if($id === null){
-            $this->id = Uuid::uuid();
-        }else{
-            $this->id = $id;
-        }
 
-        //Session ist schon vorhanden
-        if ($this->dao->find($this->id) !== null) {
-            $this->dao = $this->dao->find($this->id);
-        } else {
-            //Erzeuge neue Session
-            $this->dao->setAttribute(SessionDao::PROPERTY_ID, $this->id);
-        }
-        $this->storage = json_decode($this->dao->getAttribute(SessionDao::PROPERTY_DATA));
-        $this->dao_storage = json_decode($this->dao->getAttribute(SessionDao::PROPERTY_DATA));
-    }
-
-    public function setObject(string $key, Arrayable $value): void
+    public function set(string $key, $value): void
     {
         $this->data_was_mutated = true;
-        $this->storage[$key] = $value;
-        $this->dao_storage[$key] = $value->toArray();
-    }
+        $value = serialize($value);
 
-    public function setPrimitive(string $key, $value): void
-    {
-        $this->data_was_mutated = true;
         $this->storage[$key] = $value;
-        $this->dao_storage[$key] = $value;
     }
 
     public function get($key)
@@ -65,16 +39,17 @@ class Session
             return null;
         }
 
-        return $this->storage[$key];
+        return unserialize($this->storage[$key]);
     }
 
-    public function save(): void
+    public function dataWasMutated(): bool
     {
-        if ($this->data_was_mutated) {
-            $this->dao->setAttribute(SessionDao::PROPERTY_DATA, json_encode($this->dao_storage));
-            $this->dao->save();
-        }
+        return $this->data_was_mutated;
     }
 
+    public function getAll(): array
+    {
+        return $this->storage;
+    }
 
 }

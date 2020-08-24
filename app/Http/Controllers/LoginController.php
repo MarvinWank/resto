@@ -23,18 +23,19 @@ class LoginController extends Controller
 
     public function login(Request $request, Session $session)
     {
-        $data = $request->json();
-        $email = $data->get('email');
-        $password = $data->get('password');
-
-        $user = $this->userFactory->from_auth($email, $password);
-
-
-        if($user === null){
-            return response()->json(["status" => "fehler"]);
-        }
-        $session->setObject('user', $user);
-        return response()->json(["status" => "ok", "user" => $user->toArray()]);
+//        $data = $request->json();
+//        $email = $data->get('email');
+//        $password = $data->get('password');
+//
+//        $user = $this->userFactory->from_auth($email, $password);
+//
+//
+//        if($user === null){
+//            return response()->json(["status" => "fehler"]);
+//        }
+//        $session->setObject('user', $user);
+//        return response()->json(["status" => "ok", "user" => $user->toArray()]);
+        return response()->json(["status" => "ok"]);
 
     }
 

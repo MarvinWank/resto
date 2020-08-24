@@ -17,4 +17,5 @@ class SessionDao extends Model
 
     public const PROPERTY_ID = "id";
     public const PROPERTY_DATA = "data";
+
 }

@@ -104,10 +104,7 @@ $app->middleware([
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
-
-$app->singleton(\App\Models\Session::class, function (){
-    return new \App\Models\Session(app(SessionDao::class));
-});
+$app->register(\App\Providers\SessionServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

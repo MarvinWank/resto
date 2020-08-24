@@ -49,7 +49,7 @@ class UserFactory
         if (!$this->usersDao->validate_auth($email, $password)) {
             return null;
         }
-        $this->session->setPrimitive("current_user",  $dao_user->getAttribute(UsersDao::PROPERTY_ID));
+        $this->session->set("current_user",  $dao_user->getAttribute(UsersDao::PROPERTY_ID));
         return $this->user_from_dao($dao_user);
     }
 
