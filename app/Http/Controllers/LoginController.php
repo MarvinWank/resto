@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Factories\UserFactory;
-use App\Models\Session;
+use App\Models\State;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
@@ -21,7 +21,7 @@ class LoginController extends Controller
         $this->userFactory = $userFactory;
     }
 
-    public function login(Request $request, Session $session)
+    public function login(Request $request, State $session)
     {
 //        $data = $request->json();
 //        $email = $data->get('email');

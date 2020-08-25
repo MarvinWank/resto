@@ -83,7 +83,7 @@ $app->middleware([
  ]);
 
 $app->middleware([
-    App\Http\Middleware\InitializeSessionMiddleware::class
+    App\Http\Middleware\InitializeStateMiddleware::class
 ]);
 
 $app->middleware([

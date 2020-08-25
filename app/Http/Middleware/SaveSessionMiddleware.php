@@ -3,7 +3,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Session;
+use App\Models\State;
 use Closure;
 
 class SaveSessionMiddleware
@@ -12,7 +12,7 @@ class SaveSessionMiddleware
     {
         $response = $next($request);
 
-        $session = app(Session::class);
+        $session = app(State::class);
         $session->save();
 
         return $response;

@@ -4,15 +4,15 @@
 namespace App\Http\Middleware;
 
 
-use App\Models\Session;
+use App\Models\State;
 use Illuminate\Http\Request;
 
-class InitializeSessionMiddleware
+class InitializeStateMiddleware
 {
     public function handle(Request $request, \Closure $next)
     {
-        /** @var Session $session */
-        $session = app(Session::class);
+        /** @var State $session */
+        $session = app(State::class);
         $session_id = $request->json('apiKey');
 
         $session->init($session_id);

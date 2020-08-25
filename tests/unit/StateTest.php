@@ -2,21 +2,21 @@
 
 namespace unit;
 
-use App\Factories\SessionFactory;
-use App\Models\Session;
+use App\Factories\StateFactory;
+use App\Models\State;
 use App\Models\User;
 use PHPUnit\Framework\TestCase;
 
-class SessionTest extends TestCase
+class StateTest extends TestCase
 {
-    /** @var SessionFactory $sessionFactory */
+    /** @var StateFactory $sessionFactory */
     private $sessionFactory;
-    /** @var Session $session */
+    /** @var State $session */
     private $session;
 
     public function setUp(): void
     {
-        $this->sessionFactory = app(SessionFactory::class);
+        $this->sessionFactory = app(StateFactory::class);
         $this->session = $this->sessionFactory->retrieve(null);
     }
 

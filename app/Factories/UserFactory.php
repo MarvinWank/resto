@@ -5,7 +5,7 @@ namespace App\Factories;
 
 
 use App\Daos\UsersDao;
-use App\Models\Session;
+use App\Models\State;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -16,10 +16,10 @@ class UserFactory
     private $usersDao;
     /** @var Request */
     private $request;
-    /** @var Session $session */
+    /** @var State $session */
     private $session;
 
-    public function __construct(UsersDao $usersDao, Request $request, Session $session)
+    public function __construct(UsersDao $usersDao, Request $request, State $session)
     {
         $this->usersDao = $usersDao;
         $this->request = $request;

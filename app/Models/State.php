@@ -8,7 +8,7 @@ use Faker\Provider\Uuid;
 use Illuminate\Contracts\Support\Arrayable;
 use function json_decode;
 
-class Session
+class State
 {
     /** @var string $id */
     private $id;
