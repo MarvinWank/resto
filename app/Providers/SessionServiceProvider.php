@@ -13,7 +13,7 @@ class SessionServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->app->singleton('App\Models\State', function ($app) {
+        $this->app->singleton('App\Models\State', function () {
 
             /** @var Request $request */
             $request = app(Request::class);

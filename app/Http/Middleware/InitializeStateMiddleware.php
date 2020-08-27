@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class InitializeStateMiddleware
 {
-    public function handle(Request $request, \Closure $next)
+    public function handle( $request, \Closure $next)
     {
         /** @var State $session */
         $session = app(State::class);

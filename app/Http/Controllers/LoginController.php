@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Factories\UserFactory;
 use App\Models\State;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
@@ -14,7 +15,7 @@ class LoginController extends Controller
      * @return void
      */
 
-    private $userFactory;
+    private UserFactory $userFactory;
 
     public function __construct(UserFactory $userFactory)
     {
@@ -23,20 +24,18 @@ class LoginController extends Controller
 
     public function login(Request $request, State $session)
     {
-//        $data = $request->json();
-//        $email = $data->get('email');
-//        $password = $data->get('password');
-//
-//        $user = $this->userFactory->from_auth($email, $password);
-//
-//
-//        if($user === null){
-//            return response()->json(["status" => "fehler"]);
-//        }
-//        $session->setObject('user', $user);
-//        return response()->json(["status" => "ok", "user" => $user->toArray()]);
-        return response()->json(["status" => "ok"]);
+        $data = $request->json();
+        $email = $data->get('email');
+        $password = $data->get('password');
 
+        $user = $this->userFactory->from_auth($email, $password);
+
+        if ($user === null) {
+            return response()->json(["status" => "fehler"]);
+        }
+
+        $session->setUser($user);
+        return response()->json(["status" => "ok", "user" => $user->toArray()]);
     }
 
 }

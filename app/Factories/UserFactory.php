@@ -49,8 +49,11 @@ class UserFactory
         if (!$this->usersDao->validate_auth($email, $password)) {
             return null;
         }
-        $this->session->set("current_user",  $dao_user->getAttribute(UsersDao::PROPERTY_ID));
-        return $this->user_from_dao($dao_user);
+
+        $user = $this->user_from_dao($dao_user);
+        $this->session->setUser($user);
+        
+        return $user;
     }
 
     public function add_user(string $name, string $email, string $pasword): User

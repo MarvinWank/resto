@@ -3,43 +3,26 @@
 
 namespace App\Models;
 
-use App\Daos\SessionDao;
-use Faker\Provider\Uuid;
-use Illuminate\Contracts\Support\Arrayable;
-use function json_decode;
-
 class State
 {
-    /** @var string $id */
-    private $id;
-    /** @var array $storage */
-    private $storage;
-    /** @var bool $data_was_mutated */
-    private $data_was_mutated;
+    private string $stateId;
+    private User $user;
+    private bool $data_was_mutated;
 
-    public function __construct(string $id, array $storage = [])
+    public function __construct(string $stateID)
     {
-        $this->id = $id;
-        $this->storage = $storage;
+        $this->stateId = $stateID;
         $this->data_was_mutated = false;
     }
 
-
-    public function set(string $key, $value): void
+    public function setUser(User $userID)
     {
-        $this->data_was_mutated = true;
-        $value = serialize($value);
-
-        $this->storage[$key] = $value;
+        $this->user = $userID;
     }
 
-    public function get($key)
+    public function getUser(): string
     {
-        if (!array_key_exists($key, $this->storage)) {
-            return null;
-        }
-
-        return unserialize($this->storage[$key]);
+        return $this->user;
     }
 
     public function dataWasMutated(): bool
@@ -47,9 +30,5 @@ class State
         return $this->data_was_mutated;
     }
 
-    public function getAll(): array
-    {
-        return $this->storage;
-    }
 
 }

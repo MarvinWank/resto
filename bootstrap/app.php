@@ -1,6 +1,6 @@
 <?php
 
-use App\Daos\SessionDao;
+use App\Daos\StateDao;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -122,5 +122,6 @@ $app->router->group([
 ], function ($router) {
     require __DIR__ . '/../routes/web.php';
 });
+$app->boot();
 
 return $app;

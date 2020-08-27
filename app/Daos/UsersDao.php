@@ -24,10 +24,7 @@ class UsersDao extends Model
 
     public function get_user_by_id(string $id): UsersDao
     {
-        return UsersDao::query()
-            ->select('*')
-            ->where(self::PROPERTY_ID, '=', $id)
-            ->get()->first();
+        return UsersDao::find($id);
     }
 
     public function get_user_by_email(string $email): UsersDao

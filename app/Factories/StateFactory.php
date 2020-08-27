@@ -4,16 +4,16 @@
 namespace App\Factories;
 
 
-use App\Daos\SessionDao;
+use App\Daos\StateDao;
 use App\Models\State;
 use Faker\Provider\Uuid;
 
 class StateFactory
 {
-    /** @var SessionDao $dao */
+    /** @var StateDao $dao */
     private $dao;
 
-    public function __construct(SessionDao $dao)
+    public function __construct(StateDao $dao)
     {
         $this->dao = $dao;
     }
@@ -31,10 +31,9 @@ class StateFactory
                 return new State($id);
             }
 
-            $data = $this->dao->getAttribute(SessionDao::PROPERTY_DATA);
+            $data = $this->dao->getAttribute(StateDao::PROPERTY_DATA);
             $data = json_decode($data);
-            $data = unserialize($data);
-            return new State($id, $data);
+            return new State($id);
         }
     }
 
@@ -42,7 +41,7 @@ class StateFactory
     public function save(State $session): void
     {
         if ($session->dataWasMutated()) {
-            $this->dao->setAttribute(SessionDao::PROPERTY_DATA, json_encode($session->getAll()));
+            $this->dao->setAttribute(StateDao::PROPERTY_DATA, json_encode($session->getAll()));
             $this->dao->save();
         }
     }

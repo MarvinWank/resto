@@ -7,15 +7,15 @@ namespace App\Daos;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class SessionDao extends Model
+class StateDao extends Model
 {
     protected $table = "session";
     protected $keyType = "string";
-    protected $primaryKey = "id";
+    protected $primaryKey = self::PROPERTY_ID;
 
     public $timestamps = false;
 
-    public const PROPERTY_ID = "id";
-    public const PROPERTY_DATA = "data";
+    public const PROPERTY_ID = "stateID";
+    public const PROPERTY_USER_ID = "userID";
 
 }
