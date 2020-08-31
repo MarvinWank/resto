@@ -12,13 +12,11 @@ use Illuminate\Http\Request;
 
 class UserFactory
 {
-    /** @var UsersDao $usersDao */
-    private $usersDao;
-    /** @var Request */
-    private $request;
-    /** @var State $session */
-    private $session;
+    private UsersDao $usersDao;
+    private Request $request;
+    private State $session;
 
+//    public function __construct(UsersDao $usersDao, Request $request)
     public function __construct(UsersDao $usersDao, Request $request, State $session)
     {
         $this->usersDao = $usersDao;
@@ -51,8 +49,8 @@ class UserFactory
         }
 
         $user = $this->user_from_dao($dao_user);
-        $this->session->setUser($user);
-        
+        $this->session->setUserID($user->getID());
+
         return $user;
     }
 

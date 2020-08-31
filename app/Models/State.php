@@ -6,7 +6,7 @@ namespace App\Models;
 class State
 {
     private string $stateId;
-    private User $user;
+    private int $userID;
     private bool $data_was_mutated;
 
     public function __construct(string $stateID)
@@ -15,14 +15,14 @@ class State
         $this->data_was_mutated = false;
     }
 
-    public function setUser(User $userID)
+    public function setUserID(int $userID)
     {
-        $this->user = $userID;
+        $this->userID = $userID;
     }
 
-    public function getUser(): string
+    public function getUserID(): int
     {
-        return $this->user;
+        return $this->userID;
     }
 
     public function dataWasMutated(): bool

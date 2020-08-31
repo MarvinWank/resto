@@ -22,7 +22,7 @@ class User implements Arrayable
         $this->email = $email;
     }
 
-    public function get_id(): int
+    public function getID(): int
     {
         return $this->id;
     }

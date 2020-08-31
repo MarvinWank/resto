@@ -18,4 +18,6 @@ class StateDao extends Model
     public const PROPERTY_ID = "stateID";
     public const PROPERTY_USER_ID = "userID";
 
+    protected $attributes = [self::PROPERTY_ID, self::PROPERTY_USER_ID];
+
 }

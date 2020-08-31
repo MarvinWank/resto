@@ -11,11 +11,11 @@ class InitializeStateMiddleware
 {
     public function handle( $request, \Closure $next)
     {
-        /** @var State $session */
-        $session = app(State::class);
-        $session_id = $request->json('apiKey');
+        /** @var State $state */
+        $state = app(State::class);
+        $stateID = $request->json('apiKey');
 
-        $session->init($session_id);
+        $state->init($stateID);
 
         return $next($request);
     }

@@ -10,8 +10,7 @@ use Faker\Provider\Uuid;
 
 class StateFactory
 {
-    /** @var StateDao $dao */
-    private $dao;
+    private StateDao $dao;
 
     public function __construct(StateDao $dao)
     {
@@ -23,25 +22,32 @@ class StateFactory
         //Erzeuge neue State
         if ($id === null) {
             $id = Uuid::uuid();
+            $this->dao = new StateDao;
+            $this->dao->setAttribute(StateDao::PROPERTY_ID, $id);
+
             return new State($id);
         } // Setze bestehende State
         else {
             $this->dao = $this->dao->find($id);
-            if ($this->dao !== null) {
+            if ($this->dao === null) {
+                $this->dao = new StateDao;
+                $this->dao->setAttribute(StateDao::PROPERTY_ID, $id);
                 return new State($id);
             }
 
-            $data = $this->dao->getAttribute(StateDao::PROPERTY_DATA);
-            $data = json_decode($data);
-            return new State($id);
+            $state = new State($id);
+            $userID = $this->dao->getAttribute(StateDao::PROPERTY_USER_ID);
+            $state->setUserID($userID);
+
+            return $state;
         }
     }
 
 
-    public function save(State $session): void
+    public function save(State $state): void
     {
-        if ($session->dataWasMutated()) {
-            $this->dao->setAttribute(StateDao::PROPERTY_DATA, json_encode($session->getAll()));
+        if ($state->dataWasMutated()) {
+            $this->dao->setAttribute(StateDao::PROPERTY_USER_ID, $state->getUserID()->getID());
             $this->dao->save();
         }
     }

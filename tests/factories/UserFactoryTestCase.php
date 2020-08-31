@@ -29,6 +29,6 @@ class UserFactoryTestCase extends FactoryTestCase
     public function es_testet_erzeuge_neuen_user()
     {
         $user = $this->userFactory->add_user("Marvin Wank", "m.wank@test.de", "test");
-        $dao_user = $this->usersDao->find($user->get_id());
+        $dao_user = $this->usersDao->find($user->getID());
     }
 }
