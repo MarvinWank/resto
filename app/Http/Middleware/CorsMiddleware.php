@@ -33,6 +33,7 @@ class CorsMiddleware
         }
 
         //Returnt reponse
-        return $next($response);
+//        return $next($response);
+        return $next($request);
     }
 }

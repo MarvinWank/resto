@@ -7,7 +7,6 @@ namespace App\Factories;
 use App\Daos\UsersDao;
 use App\Models\State;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class UserFactory

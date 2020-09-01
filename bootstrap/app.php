@@ -82,13 +82,9 @@ $app->middleware([
      App\Http\Middleware\CorsMiddleware::class
  ]);
 
-$app->middleware([
-    App\Http\Middleware\InitializeStateMiddleware::class
-]);
-
-$app->middleware([
-    App\Http\Middleware\SaveSessionMiddleware::class
-]);
+//$app->middleware([
+//    App\Http\Middleware\SaveSessionMiddleware::class
+//]);
 
 /*
 |--------------------------------------------------------------------------
@@ -122,6 +118,6 @@ $app->router->group([
 ], function ($router) {
     require __DIR__ . '/../routes/web.php';
 });
-$app->boot();
+//$app->boot();
 
 return $app;
