@@ -60,7 +60,7 @@
 
                 await this.$store.dispatch('authenticate', {
                         "user": api_response.user,
-                        "key": api_response.key
+                        "apiKey": api_response.apiKey
                     }
                 )
             }

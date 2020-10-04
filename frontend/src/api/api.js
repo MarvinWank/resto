@@ -17,13 +17,12 @@ class api {
     }
 
     async login(email, password) {
-        let user = await axios.post('http://resto.local/login', {
-            "email": email,
-            "password": password
-        }).then(res => res.data)
+        const data = await this.post('/login', {email: email, password: password})
+        return data;
+    }
 
-        return user;
-
+    async post(route, data){
+        return await axios.post(this.host + route, data).then(res => res.data)
     }
 }
 

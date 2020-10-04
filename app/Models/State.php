@@ -17,6 +17,7 @@ class State
 
     public function setUserID(int $userID)
     {
+        $this->data_was_mutated = true;
         $this->userID = $userID;
     }
 
@@ -30,5 +31,9 @@ class State
         return $this->data_was_mutated;
     }
 
+    public function getStateId(): string
+    {
+        return  $this->stateId;
+    }
 
 }

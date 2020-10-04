@@ -35,7 +35,11 @@ class LoginController extends Controller
         }
 
         $session->setUserID($user->getID());
-        return response()->json(["status" => "ok", "user" => $user->toArray()]);
+        return response()->json([
+            "status" => "ok",
+            "user" => $user->toArray(),
+            "apiKey" => $session->getStateId()
+        ]);
     }
 
 }

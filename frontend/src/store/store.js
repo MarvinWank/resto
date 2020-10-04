@@ -22,7 +22,7 @@ export default new Vuex.Store({
 
     actions:{
         authenticate(context, {user, apiKey}){
-            console.log(user)
+            console.log(apiKey)
 
             context.commit("setzeDatenInitial", {apiKey: apiKey, user: user})
 
