@@ -13,16 +13,18 @@ export default new Vuex.Store({
     },
 
     mutations: {
-
+        setzeDatenInitial(state, daten){
+            state.apiKey = daten.apiKey;
+            state.user = daten.user;
+            state.isLoggedin = true;
+        }
     },
 
     actions:{
         authenticate(context, {user, apiKey}){
             console.log(user)
 
-            context.state.user = user;
-            context.state.isLoggedin = true;
-            context.state.apiKey = apiKey;
+            context.commit("setzeDatenInitial", {apiKey: apiKey, user: user})
 
             router.push("/home")
         }

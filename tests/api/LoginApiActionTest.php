@@ -4,8 +4,6 @@
 namespace api;
 
 
-use GuzzleHttp\Client;
-
 class LoginApiActionTest extends \ApiActionTestCase
 {
     /**
@@ -18,5 +16,6 @@ class LoginApiActionTest extends \ApiActionTestCase
             'password' => "test"
         ]];
         $response = $this->client->post('/login', $body);
+        $this->assertEquals('{"status":"ok","user":{"name":"Test User","email":"test@test.de"}}',$response->getBody()->getContents() );
     }
 }
