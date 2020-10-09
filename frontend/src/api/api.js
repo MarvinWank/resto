@@ -1,4 +1,3 @@
-const superagent = require('superagent');
 import store from "../store/store";
 import axios from "axios"
 
@@ -22,7 +21,7 @@ class api {
     }
 
     async post(route, data){
-        return await axios.post(this.host + route, data).then(res => res.data)
+        return await axios.post(this.host + route, {...data, "apiKey": store.getters.apiKey}).then(res => res.data)
     }
 }
 

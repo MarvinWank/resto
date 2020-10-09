@@ -79,7 +79,8 @@ $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
 ]);
 $app->middleware([
-    \palanik\lumen\Middleware\LumenCors::class
+    \palanik\lumen\Middleware\LumenCors::class,
+    \App\Http\Middleware\SaveSessionMiddleware::class
 ]);
 //$app->middleware([
 //    Fruitcake\Cors\CorsServiceProvider::class

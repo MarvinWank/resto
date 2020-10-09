@@ -3,6 +3,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Factories\StateFactory;
 use App\Models\State;
 use Closure;
 
@@ -12,8 +13,11 @@ class SaveSessionMiddleware
     {
         $response = $next($request);
 
-        $session = app(State::class);
-        $session->save();
+        /** @var StateFactory $stateFactory */
+        $stateFactory = app(StateFactory::class);
+        /** @var State $state */
+        $state = app(State::class);
+        $stateFactory->save($state);
 
         return $response;
     }
