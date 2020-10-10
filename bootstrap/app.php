@@ -80,7 +80,7 @@ $app->routeMiddleware([
 ]);
 $app->middleware([
     \palanik\lumen\Middleware\LumenCors::class,
-    \App\Http\Middleware\SaveSessionMiddleware::class
+    \App\Http\Middleware\SaveStateMiddleware::class
 ]);
 //$app->middleware([
 //    Fruitcake\Cors\CorsServiceProvider::class

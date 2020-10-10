@@ -7,7 +7,7 @@ use App\Factories\StateFactory;
 use App\Models\State;
 use Closure;
 
-class SaveSessionMiddleware
+class SaveStateMiddleware
 {
     public function handle($request, Closure $next)
     {

@@ -1,5 +1,6 @@
 import store from "../store/store";
 import axios from "axios"
+import router from "@/router/router";
 
 class api {
     host
@@ -20,8 +21,17 @@ class api {
         return data;
     }
 
-    async post(route, data){
-        return await axios.post(this.host + route, {...data, "apiKey": store.getters.apiKey}).then(res => res.data)
+    async post(route, data) {
+        const result = await axios.post(this.host + route, {
+            ...data,
+            "apiKey": store.getters.apiKey
+        }).then(res => res.data)
+
+        if (result.message === "apiKey ungueltig") {
+            router.push('/login');
+            return {};
+        }
+        return result;
     }
 }
 

@@ -42,7 +42,6 @@ class StateFactory
         }
     }
 
-
     public function save(State $state): void
     {
         if ($state->dataWasMutated()) {
@@ -50,5 +49,10 @@ class StateFactory
             $this->dao->setAttribute(StateDao::PROPERTY_USER_ID, $state->getUserID());
             $this->dao->save();
         }
+    }
+
+    public function is_key_valid(string $key_to_check): bool
+    {
+        return $this->dao->find($key_to_check) === null;
     }
 }

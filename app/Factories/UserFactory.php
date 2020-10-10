@@ -15,7 +15,6 @@ class UserFactory
     private Request $request;
     private State $session;
 
-//    public function __construct(UsersDao $usersDao, Request $request)
     public function __construct(UsersDao $usersDao, Request $request, State $session)
     {
         $this->usersDao = $usersDao;

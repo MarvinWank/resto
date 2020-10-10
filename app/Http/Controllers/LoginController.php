@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Factories\UserFactory;
 use App\Models\State;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
