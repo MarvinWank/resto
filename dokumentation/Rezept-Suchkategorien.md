@@ -48,3 +48,7 @@ Variante 2 vermutlich besser
 ### Darf nicht Zutat x enthalten
 - Der Nutzer kann hier Zutaten angaben, die das Essen NICHT enthalten darf
 - Auch als Permanentoption möglich
+
+### Wer isst mit?
+- Hier werden Rezepte anhand der Permanent-Suchrkiterien der angegebenen 
+Mitesser gefiltert
