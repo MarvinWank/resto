@@ -42,5 +42,22 @@ class StateFactoryTestCase extends \FactoryTestCase
 
         $dao_state = $this->stateDao->find($uuid);
         $this->assertEquals(1, $dao_state->getAttribute(StateDao::PROPERTY_USER_ID));
+
+        StateDao::query()->where(StateDao::PROPERTY_ID, '=', $uuid)->delete();
+    }
+
+    /**
+     * @test
+     */
+    public function es_testet_holen_von_vorhandener_session()
+    {
+        $uuid = Uuid::uuid4();
+        $state = $this->stateFactory->retrieve($uuid);
+        $state->setUserID($this->test_user->getID());
+        $this->stateFactory->save($state);
+
+
+        $state = $this->stateFactory->retrieve($uuid);
+        $this->assertEquals(1, $state->getUserID());
     }
 }
