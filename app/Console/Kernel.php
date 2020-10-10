@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\ParseNutrition;
 use App\Console\Commands\ServeBackend;
 use App\Console\Commands\ServeFrontend;
 use Illuminate\Console\Scheduling\Schedule;
@@ -17,6 +18,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         ServeFrontend::class,
         ServeBackend::class,
+        ParseNutrition::class,
     ];
 
     /**

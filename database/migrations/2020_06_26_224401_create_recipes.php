@@ -21,6 +21,7 @@ class CreateRecipes extends Migration
             $table->enum('type_of_meal', ['fruehstück', 'mittagessen', 'abendbrot', 'snack']);
             $table->enum('meat_contents', ['fleischhaltig', 'vegetarisch', 'vegan']);
             $table->enum('cuisine', ['deutsch', 'mediteran', 'asiatisch', 'amerikanisch', 'indisch']);
+            $table->json('uses_ingredients');
             $table->timestamps();
         });
     }
