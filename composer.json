@@ -12,7 +12,8 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0",
         "laravel/lumen-framework": "^7.0",
-        "palanik/lumen-cors": "dev-master"
+        "palanik/lumen-cors": "dev-master",
+        "prolic/fpp": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.9.1",

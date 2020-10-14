@@ -52,7 +52,8 @@ class ParseNutrition extends Command
 
         foreach ($content as $raw_line) {
             $parsed_value[IngredientsDao::PROPERTY_NAME] = $raw_line->Name;
-            $parsed_value[IngredientsDao::PROPERTY_KCAL] = $raw_line->kcal;
+            //Werte in Tabelle sind in Kj angegeben
+            $parsed_value[IngredientsDao::PROPERTY_KCAL] = $raw_line->kcal * 0.239006;
 
             $parsed_values[] = $parsed_value;
         }
