@@ -18,10 +18,12 @@ class CreateRecipes extends Migration
 
             $table->unsignedBigInteger('author');
             $table->foreign('author')->references('id')->on('users');
-            $table->enum('type_of_meal', ['fruehstück', 'mittagessen', 'abendbrot', 'snack']);
-            $table->enum('meat_contents', ['fleischhaltig', 'vegetarisch', 'vegan']);
+            $table->string('title');
+            $table->enum('diet_style', ['fleischhaltig', 'vegetarisch', 'vegan']);
             $table->enum('cuisine', ['deutsch', 'mediteran', 'asiatisch', 'amerikanisch', 'indisch']);
-            $table->json('uses_ingredients');
+            $table->integer('time_to_prepare');
+            $table->integer('kcal');
+            $table->json('ingredients');
             $table->timestamps();
         });
     }
