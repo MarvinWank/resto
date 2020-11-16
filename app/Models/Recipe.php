@@ -9,7 +9,7 @@ use Illuminate\Contracts\Support\Arrayable;
 class Recipe
 {
     private string $id;
-    private string $author_id;
+    private User $author;
     private string $title;
     private DietStyle $diet_style;
     private Cuisine $cuisine;
@@ -21,7 +21,7 @@ class Recipe
     (
         int $id,
         string $title,
-        int $author_id,
+        User $author,
         DietStyle $diet_style,
         Cuisine $cuisine,
         int $time_to_prepare,
@@ -35,7 +35,7 @@ class Recipe
         $this->time_to_prepare = $time_to_prepare;
         $this->kcal = $kcal;
         $this->ingredients = $ingredients;
-        $this->author_id = $author_id;
+        $this->author = $author;
         $this->id = $id;
     }
 
@@ -44,9 +44,9 @@ class Recipe
         return $this->id;
     }
 
-    public function getAuthorId(): int
+    public function getAuthor(): User
     {
-        return $this->author_id;
+        return $this->author;
     }
 
     public function getTitle(): string

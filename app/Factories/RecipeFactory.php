@@ -9,32 +9,33 @@ use App\Models\Recipe;
 use App\Models\User;
 use App\Value\Cuisine;
 use App\Value\DietStyle;
+use Illuminate\Database\Eloquent\Model;
 
 class RecipeFactory
 {
 
     private RecipeDao $recipeDao;
+    private UserFactory $userFactory;
 
-    public function __construct(RecipeDao $recipeDao)
+    public function __construct(RecipeDao $recipeDao, UserFactory $userFactory)
     {
         $this->recipeDao = $recipeDao;
+        $this->userFactory = $userFactory;
     }
 
     public function add_recipe
     (
         User $author,
         string $title,
-        string $diet_style,
-        string $cuisine,
+        DietStyle $diet_style,
+        Cuisine $cuisine,
         int $time_to_prepare,
         int $kcal,
         array $ingredients
 
     ): Recipe
     {
-        $diet_style = DietStyle::fromName($diet_style);
-        $cuisine = Cuisine::fromName($cuisine);
-        $recipe = new Recipe(-1, $title, $author->getID(), $diet_style, $cuisine, $time_to_prepare, $kcal, $ingredients);
+        $recipe = new Recipe(-1, $title, $author, $diet_style, $cuisine, $time_to_prepare, $kcal, $ingredients);
         $id = $this->recipeDao->add($recipe);
 
         return $this->fromId($id);
@@ -42,6 +43,17 @@ class RecipeFactory
 
     public function fromId(int $id): Recipe
     {
-
+        /** @var Model $dao_recipe */
+        $dao_recipe = $this->recipeDao->find($id);
+        return new Recipe(
+            $id,
+            $dao_recipe->getAttribute(RecipeDao::PROPERTY_TITLE),
+            $this->userFactory->from_id($dao_recipe->getAttribute(RecipeDao::PROPERTY_AUTHOR_ID)),
+            DietStyle::fromName($dao_recipe->getAttribute(RecipeDao::PROPERTY_DIET_STYLE)),
+            Cuisine::fromName($dao_recipe->getAttribute(RecipeDao::PROPERTY_CUISINE)),
+            $dao_recipe->getAttribute(RecipeDao::PROPERTY_TIME_TO_PREPARE),
+            $dao_recipe->getAttribute(RecipeDao::PROPERTY_KCAL),
+            \json_decode($dao_recipe->getAttribute(RecipeDao::PROPERTY_INGREDIENTS), true)
+        );
     }
 }

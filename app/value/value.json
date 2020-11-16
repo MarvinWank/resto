@@ -1,0 +1,25 @@
+{
+    "root_path": "/home/marvw/Projekte/Privat/resto",
+    "App\\value": [
+        {
+            "type": "enum",
+            "name": "DietStyle",
+            "values": {
+                "ALLES": "alles",
+                "VEGETARISCH": "vegetarisch",
+                "VEGAN": "vegan"
+            }
+        },
+        {
+            "type": "enum",
+            "name": "Cuisine",
+            "values": {
+                "DEUTSCH": "deutsch",
+                "MEDITERAN": "mediteran",
+                "ASIATISCH": "asiatisch",
+                "AMERIKANISCH": "amerikanisch",
+                "INDISCH": "indisch"
+            }
+        }
+    ]
+}
