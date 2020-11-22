@@ -12,7 +12,7 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0",
         "laravel/lumen-framework": "^7.0",
-        "marvinwank/vog": "^0.1.0",
+        "marvinwank/vog": "^0.2.1",
         "palanik/lumen-cors": "dev-master"
     },
     "require-dev": {

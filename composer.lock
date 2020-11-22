@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9a63ab7d33faa6d7fceb34c57503bd60",
+    "content-hash": "bb18fb50e8127030870aa94625d0cfc7",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2128,16 +2128,16 @@
         },
         {
             "name": "marvinwank/vog",
-            "version": "0.1.2",
+            "version": "0.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MarvinWank/vog.git",
-                "reference": "e819029ba3512c37e04d5cfae4c0c6c814675075"
+                "reference": "5726a3c6def4ee95959f7f7c5956af0ff86560d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MarvinWank/vog/zipball/e819029ba3512c37e04d5cfae4c0c6c814675075",
-                "reference": "e819029ba3512c37e04d5cfae4c0c6c814675075",
+                "url": "https://api.github.com/repos/MarvinWank/vog/zipball/5726a3c6def4ee95959f7f7c5956af0ff86560d7",
+                "reference": "5726a3c6def4ee95959f7f7c5956af0ff86560d7",
                 "shasum": ""
             },
             "require": {
@@ -2166,9 +2166,9 @@
             "description": "A simple php value object generator",
             "support": {
                 "issues": "https://github.com/MarvinWank/vog/issues",
-                "source": "https://github.com/MarvinWank/vog/tree/0.1.2"
+                "source": "https://github.com/MarvinWank/vog/tree/0.2.1"
             },
-            "time": "2020-11-16T21:36:12+00:00"
+            "time": "2020-11-22T11:46:07+00:00"
         },
         {
             "name": "monolog/monolog",

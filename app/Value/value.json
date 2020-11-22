@@ -1,6 +1,6 @@
 {
     "root_path": "/home/marvw/Projekte/Privat/resto",
-    "App\\value": [
+    "app/Value": [
         {
             "type": "enum",
             "name": "DietStyle",
@@ -19,6 +19,17 @@
                 "ASIATISCH": "asiatisch",
                 "AMERIKANISCH": "amerikanisch",
                 "INDISCH": "indisch"
+            }
+        },
+        {
+            "type": "valueObject",
+            "name": "AddRecipeRequestDto",
+            "values": {
+                "title": "string",
+                "dietStyle": "DietStyle",
+                "cuisine": "Cuisine",
+                "timeToPrepare": "int",
+                "ingredient": "array"
             }
         }
     ]

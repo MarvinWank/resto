@@ -16,6 +16,11 @@ class LoginApiActionTest extends \ApiActionTestCase
             'password' => "test"
         ]];
         $response = $this->client->post('/login', $body);
-        $this->assertEquals('{"status":"ok","user":{"name":"Test User","email":"test@test.de"}}',$response->getBody()->getContents() );
+        $response = json_decode($response->getBody()->getContents(), true);
+        $this->assertIsArray($response);
+        $this->assertEquals("ok", $response['status']);
+        $this->assertEquals("Test User", $response['user']['name']);
+        $this->assertEquals("test@test.de", $response['user']['email']);
+        $this->assertArrayHasKey("apiKey", $response);
     }
 }

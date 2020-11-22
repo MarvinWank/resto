@@ -2,20 +2,22 @@
 
 declare(strict_types=1);
 
-namespace App\value;
+namespace App\Value;
 
-final class DietStyle
+final class Cuisine
 {
 
-	public const OPTIONS = [ "ALLES" => "alles", "VEGETARISCH" => "vegetarisch", "VEGAN" => "vegan",];
+	public const OPTIONS = [ "DEUTSCH" => "deutsch", "MEDITERAN" => "mediteran", "ASIATISCH" => "asiatisch", "AMERIKANISCH" => "amerikanisch", "INDISCH" => "indisch",];
 
-	public const ALLES = 'alles';
-	public const VEGETARISCH = 'vegetarisch';
-	public const VEGAN = 'vegan';
-
+	public const DEUTSCH = 'deutsch';
+	public const MEDITERAN = 'mediteran';
+	public const ASIATISCH = 'asiatisch';
+	public const AMERIKANISCH = 'amerikanisch';
+	public const INDISCH = 'indisch';
+        
     private string $name;
     private string $value;
-
+        
     private function __construct(string $name)
     {
         $this->name = $name;
@@ -23,19 +25,29 @@ final class DietStyle
     }
 
 
-	public static function ALLES(): self
+	public static function DEUTSCH(): self
 	{
-		return new self('ALLES');
+		return new self('DEUTSCH');
 	}
 
-	public static function VEGETARISCH(): self
+	public static function MEDITERAN(): self
 	{
-		return new self('VEGETARISCH');
+		return new self('MEDITERAN');
 	}
 
-	public static function VEGAN(): self
+	public static function ASIATISCH(): self
 	{
-		return new self('VEGAN');
+		return new self('ASIATISCH');
+	}
+
+	public static function AMERIKANISCH(): self
+	{
+		return new self('AMERIKANISCH');
+	}
+
+	public static function INDISCH(): self
+	{
+		return new self('INDISCH');
 	}
 
 
@@ -49,13 +61,13 @@ final class DietStyle
 
         throw new \InvalidArgumentException("Unknown enum value '$input_value' given");
     }
-
+    
     public static function fromName(string $name): self
     {
         if(!array_key_exists($name, self::OPTIONS)){
              throw new \InvalidArgumentException("Unknown enum name $name given");
         }
-
+        
         return new self($name);
     }
 

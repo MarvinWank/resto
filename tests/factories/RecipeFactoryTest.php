@@ -5,8 +5,8 @@ namespace factories;
 
 
 use App\Factories\RecipeFactory;
-use App\value\Cuisine;
-use App\value\DietStyle;
+use App\Value\Cuisine;
+use App\Value\DietStyle;
 
 class RecipeFactoryTest extends \FactoryTestCase
 {
