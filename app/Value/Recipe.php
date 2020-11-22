@@ -11,7 +11,7 @@ final class Recipe
 	private User $author;
 	private DietStyle $dietStyle;
 	private Cuisine $cuisine;
-	private int $timeToPrepapre;
+	private int $timeToPrepare;
 	private array $ingredients;
 
 	public function __construct (
@@ -20,7 +20,7 @@ final class Recipe
 		User $author,
 		DietStyle $dietStyle,
 		Cuisine $cuisine,
-		int $timeToPrepapre,
+		int $timeToPrepare,
 		array $ingredients
 	)
 	{
@@ -29,7 +29,7 @@ final class Recipe
 		$this->author = $author;
 		$this->dietStyle = $dietStyle;
 		$this->cuisine = $cuisine;
-		$this->timeToPrepapre = $timeToPrepapre;
+		$this->timeToPrepare = $timeToPrepare;
 		$this->ingredients = $ingredients;
 	}
 	public function id(): int {
@@ -52,8 +52,8 @@ final class Recipe
 		return $this->cuisine;
 	}
 
-	public function timeToPrepapre(): int {
-		return $this->timeToPrepapre;
+	public function timeToPrepare(): int {
+		return $this->timeToPrepare;
 	}
 
 	public function ingredients(): array {
@@ -63,37 +63,37 @@ final class Recipe
 
 	public function with_id (int $id):self
 	{
-		return new self($id,$this->title,$this->author,$this->dietStyle,$this->cuisine,$this->timeToPrepapre,$this->ingredients,);
+		return new self($id,$this->title,$this->author,$this->dietStyle,$this->cuisine,$this->timeToPrepare,$this->ingredients,);
 	}
 
 	public function with_title (string $title):self
 	{
-		return new self($this->id,$title,$this->author,$this->dietStyle,$this->cuisine,$this->timeToPrepapre,$this->ingredients,);
+		return new self($this->id,$title,$this->author,$this->dietStyle,$this->cuisine,$this->timeToPrepare,$this->ingredients,);
 	}
 
 	public function with_author (User $author):self
 	{
-		return new self($this->id,$this->title,$author,$this->dietStyle,$this->cuisine,$this->timeToPrepapre,$this->ingredients,);
+		return new self($this->id,$this->title,$author,$this->dietStyle,$this->cuisine,$this->timeToPrepare,$this->ingredients,);
 	}
 
 	public function with_dietStyle (DietStyle $dietStyle):self
 	{
-		return new self($this->id,$this->title,$this->author,$dietStyle,$this->cuisine,$this->timeToPrepapre,$this->ingredients,);
+		return new self($this->id,$this->title,$this->author,$dietStyle,$this->cuisine,$this->timeToPrepare,$this->ingredients,);
 	}
 
 	public function with_cuisine (Cuisine $cuisine):self
 	{
-		return new self($this->id,$this->title,$this->author,$this->dietStyle,$cuisine,$this->timeToPrepapre,$this->ingredients,);
+		return new self($this->id,$this->title,$this->author,$this->dietStyle,$cuisine,$this->timeToPrepare,$this->ingredients,);
 	}
 
-	public function with_timeToPrepapre (int $timeToPrepapre):self
+	public function with_timeToPrepare (int $timeToPrepare):self
 	{
-		return new self($this->id,$this->title,$this->author,$this->dietStyle,$this->cuisine,$timeToPrepapre,$this->ingredients,);
+		return new self($this->id,$this->title,$this->author,$this->dietStyle,$this->cuisine,$timeToPrepare,$this->ingredients,);
 	}
 
 	public function with_ingredients (array $ingredients):self
 	{
-		return new self($this->id,$this->title,$this->author,$this->dietStyle,$this->cuisine,$this->timeToPrepapre,$ingredients,);
+		return new self($this->id,$this->title,$this->author,$this->dietStyle,$this->cuisine,$this->timeToPrepare,$ingredients,);
 	}
 	public function toArray(): array
 	{
@@ -103,7 +103,7 @@ final class Recipe
 			 'author' => strval($this->author), 
 			 'dietStyle' => strval($this->dietStyle), 
 			 'cuisine' => strval($this->cuisine), 
-			 'timeToPrepapre' => $this->timeToPrepapre, 
+			 'timeToPrepare' => $this->timeToPrepare, 
 			 'ingredients' => $this->ingredients, 
 		];
 	}
@@ -125,14 +125,14 @@ final class Recipe
 		if(!array_key_exists('cuisine', $array)){
 			 throw new \UnexpectedValueException('Array key cuisine does not exist');
 		}
-		if(!array_key_exists('timeToPrepapre', $array)){
-			 throw new \UnexpectedValueException('Array key timeToPrepapre does not exist');
+		if(!array_key_exists('timeToPrepare', $array)){
+			 throw new \UnexpectedValueException('Array key timeToPrepare does not exist');
 		}
 		if(!array_key_exists('ingredients', $array)){
 			 throw new \UnexpectedValueException('Array key ingredients does not exist');
 		}
 
-		return new self($array['id'],$array['title'],$array['author'],$array['dietStyle'],$array['cuisine'],$array['timeToPrepapre'],$array['ingredients'],);
+		return new self($array['id'],$array['title'],$array['author'],$array['dietStyle'],$array['cuisine'],$array['timeToPrepare'],$array['ingredients'],);
 	}
 
 	public function __toString(): string

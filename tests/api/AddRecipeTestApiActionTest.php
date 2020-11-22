@@ -28,5 +28,15 @@ class AddRecipeTestApiActionTest extends ApiActionTestCase
             "ingredients" => ["Milch", "Mehl"]
         ];
         $response = $this->apiCall("/recipes/add", $body);
+        $response = $response->getBody()->getContents();
+        $response = json_decode($response, true);
+
+        $this->assertEquals("ok", $response['status']);
+        $this->assertEquals("Test Recipe", $response['recipe']['title']);
+        $this->assertEquals("ALLES", $response['recipe']['dietStyle']);
+        $this->assertEquals("ASIATISCH", $response['recipe']['cuisine']);
+        $this->assertEquals(60, $response['recipe']['timeToPrepare']);
+        $this->assertEquals("Milch", $response['recipe']['ingredients'][0]);
+        $this->assertEquals("Mehl", $response['recipe']['ingredients'][1]);
     }
 }

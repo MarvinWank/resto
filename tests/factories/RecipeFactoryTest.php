@@ -36,7 +36,7 @@ class RecipeFactoryTest extends \FactoryTestCase
         $this->assertEquals("Test Rezept", $recipe->title());
         $this->assertTrue(DietStyle::ALLES()->equals($recipe->dietStyle()));
         $this->assertTrue(Cuisine::DEUTSCH()->equals($recipe->cuisine()));
-        $this->assertEquals(60, $recipe->timeToPrepapre());
+        $this->assertEquals(60, $recipe->timeToPrepare());
         $this->assertEquals(["Butter", "Schmalz", "Milch", "Mehl"], $recipe->ingredients());
     }
 }

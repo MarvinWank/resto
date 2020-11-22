@@ -41,7 +41,7 @@
                 "author": "User",
                 "dietStyle": "DietStyle",
                 "cuisine": "Cuisine",
-                "timeToPrepapre": "int",
+                "timeToPrepare": "int",
                 "ingredients": "array"
             },
             "string_value": "id"
