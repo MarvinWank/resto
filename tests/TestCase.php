@@ -1,7 +1,6 @@
 <?php
 
 use App\Factories\UserFactory;
-use App\Value\User;
 use Laravel\Lumen\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -33,7 +32,7 @@ abstract class TestCase extends BaseTestCase
         $this->test_user = $this->create_test_user();
     }
 
-    private function create_test_user(): User
+    private function create_test_user(): \App\Value\User
     {
         return $this->userFactory->from_id(1);
     }

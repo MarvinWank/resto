@@ -27,6 +27,6 @@ class AddRecipeTestApiActionTest extends ApiActionTestCase
             "timeToPrepare" => 60,
             "ingredients" => ["Milch", "Mehl"]
         ];
-        $reponse = $this->apiCall("/recipes/add", $body);
+        $response = $this->apiCall("/recipes/add", $body);
     }
 }

@@ -4,7 +4,7 @@
 namespace App\Daos;
 
 
-use App\Models\User;
+use App\Value\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 

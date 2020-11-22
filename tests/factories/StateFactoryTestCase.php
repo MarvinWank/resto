@@ -37,7 +37,7 @@ class StateFactoryTestCase extends \FactoryTestCase
     {
         $uuid = Uuid::uuid4();
         $state = $this->stateFactory->retrieve($uuid);
-        $state->setUserID($this->test_user->getID());
+        $state->setUserID($this->test_user->id());
         $this->stateFactory->save($state);
 
         $dao_state = $this->stateDao->find($uuid);
@@ -53,7 +53,7 @@ class StateFactoryTestCase extends \FactoryTestCase
     {
         $uuid = Uuid::uuid4();
         $state = $this->stateFactory->retrieve($uuid);
-        $state->setUserID($this->test_user->getID());
+        $state->setUserID($this->test_user->id());
         $this->stateFactory->save($state);
 
 

@@ -5,7 +5,7 @@ namespace App\Factories;
 
 
 use App\Daos\RecipeDao;
-use App\Models\User;
+use App\Value\User;
 use App\Value\Cuisine;
 use App\Value\DietStyle;
 use App\Value\Recipe;

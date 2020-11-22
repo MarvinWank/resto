@@ -73,11 +73,11 @@ final class User
 
 	public function __toString(): string
 	{
-		return $this->id;
+		return strval($this->id);
 	}
 
 	public function toString(): string
 	{
-		return $this->id;
+		return strval($this->id);
 	}
 }

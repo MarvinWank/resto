@@ -18,7 +18,7 @@ class ApiActionTestCase extends TestCase
     public function testLogin()
     {
         $body = ["json" => [
-            'email' => $this->test_user->get_email(),
+            'email' => $this->test_user->email(),
             'password' => "test"
         ]];
         $response = $this->client->post('/login', $body)->getBody()->getContents();

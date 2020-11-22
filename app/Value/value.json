@@ -38,7 +38,7 @@
             "values": {
                 "id": "int",
                 "title": "string",
-                "author": "\\App\\Models\\User",
+                "author": "User",
                 "dietStyle": "DietStyle",
                 "cuisine": "Cuisine",
                 "timeToPrepapre": "int",

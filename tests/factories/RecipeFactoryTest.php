@@ -32,7 +32,7 @@ class RecipeFactoryTest extends \FactoryTestCase
             ["Butter", "Schmalz", "Milch", "Mehl"]
         );
 
-        $this->assertEquals($this->test_user->getID(), $recipe->author()->getID());
+        $this->assertEquals($this->test_user->id(), $recipe->author()->id());
         $this->assertEquals("Test Rezept", $recipe->title());
         $this->assertTrue(DietStyle::ALLES()->equals($recipe->dietStyle()));
         $this->assertTrue(Cuisine::DEUTSCH()->equals($recipe->cuisine()));

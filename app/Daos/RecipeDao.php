@@ -24,7 +24,7 @@ class RecipeDao extends Model
     public function add(Recipe $recipe): int
     {
        return $this->newQuery()->insertGetId([
-            self::PROPERTY_AUTHOR_ID => $recipe->author()->getID(),
+            self::PROPERTY_AUTHOR_ID => $recipe->author()->id(),
             self::PROPERTY_TITLE => $recipe->title(),
             self::PROPERTY_DIET_STYLE => $recipe->dietStyle()->name(),
             self::PROPERTY_CUISINE => $recipe->cuisine()->name(),

@@ -8,7 +8,7 @@ final class Recipe
 {
 	private int $id;
 	private string $title;
-	private \App\Models\User $author;
+	private User $author;
 	private DietStyle $dietStyle;
 	private Cuisine $cuisine;
 	private int $timeToPrepapre;
@@ -17,7 +17,7 @@ final class Recipe
 	public function __construct (
 		int $id,
 		string $title,
-		\App\Models\User $author,
+		User $author,
 		DietStyle $dietStyle,
 		Cuisine $cuisine,
 		int $timeToPrepapre,
@@ -40,7 +40,7 @@ final class Recipe
 		return $this->title;
 	}
 
-	public function author(): \App\Models\User {
+	public function author(): User {
 		return $this->author;
 	}
 
@@ -71,7 +71,7 @@ final class Recipe
 		return new self($this->id,$title,$this->author,$this->dietStyle,$this->cuisine,$this->timeToPrepapre,$this->ingredients,);
 	}
 
-	public function with_author (\App\Models\User $author):self
+	public function with_author (User $author):self
 	{
 		return new self($this->id,$this->title,$author,$this->dietStyle,$this->cuisine,$this->timeToPrepapre,$this->ingredients,);
 	}
@@ -137,11 +137,11 @@ final class Recipe
 
 	public function __toString(): string
 	{
-		return $this->id;
+		return strval($this->id);
 	}
 
 	public function toString(): string
 	{
-		return $this->id;
+		return strval($this->id);
 	}
 }
