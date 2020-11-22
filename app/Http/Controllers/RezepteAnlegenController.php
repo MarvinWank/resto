@@ -27,7 +27,6 @@ class RezepteAnlegenController extends Controller
             DietStyle::fromName($data->dietStyle()),
             Cuisine::fromName($data->cuisine()),
             $data->timeToPrepare(),
-            600,
             $data->ingredients()
         );
 

@@ -13,18 +13,18 @@ class UserFactory
 {
     private UsersDao $usersDao;
     private Request $request;
-    private State $session;
+    private State $state;
 
-    public function __construct(UsersDao $usersDao, Request $request, State $session)
+    public function __construct(UsersDao $usersDao, Request $request, State $state)
     {
         $this->usersDao = $usersDao;
         $this->request = $request;
-        $this->session = $session;
+        $this->state = $state;
     }
 
     public function current_user(): User
     {
-        return  $this->from_id($this->request->session()->get('current_user'));
+        return  $this->from_id($this->state->getUserID());
     }
 
     public function from_id(int $id): User
@@ -47,7 +47,7 @@ class UserFactory
         }
 
         $user = $this->user_from_dao($dao_user);
-        $this->session->setUserID($user->getID());
+        $this->state->setUserID($user->getID());
 
         return $user;
     }
