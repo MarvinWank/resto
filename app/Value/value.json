@@ -26,8 +26,8 @@
             "name": "AddRecipeRequestDto",
             "values": {
                 "title": "string",
-                "dietStyle": "DietStyle",
-                "cuisine": "Cuisine",
+                "dietStyle": "string",
+                "cuisine": "string",
                 "timeToPrepare": "int",
                 "ingredient": "array"
             }

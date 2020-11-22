@@ -7,15 +7,15 @@ namespace App\Value;
 final class AddRecipeRequestDto
 {
 	private string $title;
-	private DietStyle $dietStyle;
-	private Cuisine $cuisine;
+	private string $dietStyle;
+	private string $cuisine;
 	private int $timeToPrepare;
 	private array $ingredient;
 
 	public function __construct (
 		string $title,
-		DietStyle $dietStyle,
-		Cuisine $cuisine,
+		string $dietStyle,
+		string $cuisine,
 		int $timeToPrepare,
 		array $ingredient
 	)
@@ -30,11 +30,11 @@ final class AddRecipeRequestDto
 		return $this->title;
 	}
 
-	public function dietStyle(): DietStyle {
+	public function dietStyle(): string {
 		return $this->dietStyle;
 	}
 
-	public function cuisine(): Cuisine {
+	public function cuisine(): string {
 		return $this->cuisine;
 	}
 
@@ -52,12 +52,12 @@ final class AddRecipeRequestDto
 		return new self($title,$this->dietStyle,$this->cuisine,$this->timeToPrepare,$this->ingredient,);
 	}
 
-	public function with_dietStyle (DietStyle $dietStyle):self
+	public function with_dietStyle (string $dietStyle):self
 	{
 		return new self($this->title,$dietStyle,$this->cuisine,$this->timeToPrepare,$this->ingredient,);
 	}
 
-	public function with_cuisine (Cuisine $cuisine):self
+	public function with_cuisine (string $cuisine):self
 	{
 		return new self($this->title,$this->dietStyle,$cuisine,$this->timeToPrepare,$this->ingredient,);
 	}
