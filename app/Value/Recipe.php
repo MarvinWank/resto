@@ -134,4 +134,14 @@ final class Recipe
 
 		return new self($array['id'],$array['title'],$array['author'],$array['dietStyle'],$array['cuisine'],$array['timeToPrepapre'],$array['ingredients'],);
 	}
+
+	public function __toString(): string
+	{
+		return $this->id;
+	}
+
+	public function toString(): string
+	{
+		return $this->id;
+	}
 }

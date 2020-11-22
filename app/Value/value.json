@@ -43,7 +43,18 @@
                 "cuisine": "Cuisine",
                 "timeToPrepapre": "int",
                 "ingredients": "array"
-            }
+            },
+            "string_value": "id"
+        },
+        {
+            "type": "valueObject",
+            "name": "User",
+            "values": {
+                "id": "int",
+                "name": "string",
+                "email": "string"
+            },
+            "string_value": "id"
         }
     ]
 }

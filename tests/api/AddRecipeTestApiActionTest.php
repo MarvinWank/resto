@@ -22,8 +22,8 @@ class AddRecipeTestApiActionTest extends ApiActionTestCase
     {
         $body = [
             "title" => "Test Recipe",
-            "dietStyle" => "OMNIVORE",
-            "cuisine" => "ASIAN",
+            "dietStyle" => "ALLES",
+            "cuisine" => "ASIATISCH",
             "timeToPrepare" => 60,
             "ingredients" => ["Milch", "Mehl"]
         ];

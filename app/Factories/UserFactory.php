@@ -6,7 +6,7 @@ namespace App\Factories;
 
 use App\Daos\UsersDao;
 use App\Models\State;
-use App\Models\User;
+use App\Value\User;
 use Illuminate\Http\Request;
 
 class UserFactory
@@ -47,7 +47,7 @@ class UserFactory
         }
 
         $user = $this->user_from_dao($dao_user);
-        $this->state->setUserID($user->getID());
+        $this->state->setUserID($user->id());
 
         return $user;
     }
