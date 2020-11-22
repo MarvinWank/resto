@@ -22,7 +22,6 @@ class CreateRecipes extends Migration
             $table->enum('diet_style', ['ALLES', 'VEGETARISCH', 'VEGAN']);
             $table->enum('cuisine', ['DEUTSCH', 'MEDITERAN', 'ASIATISCH', 'AMERIKANISCH', 'INDISCH']);
             $table->integer('time_to_prepare');
-            $table->integer('kcal');
             $table->json('ingredients');
             $table->timestamps();
         });

@@ -18,7 +18,7 @@ class AddRecipeTestApiActionTest extends ApiActionTestCase
             "dietStyle" => "OMNIVORE",
             "cuisine" => "ASIAN",
             "timeToPrepare" => 60,
-            "ingredient" => ["Milch", "Mehl"]
+            "ingredients" => ["Milch", "Mehl"]
         ]];
         $reponse = $this->client->post("/recipes/add", $body);
     }

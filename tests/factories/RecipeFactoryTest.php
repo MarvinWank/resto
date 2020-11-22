@@ -29,15 +29,14 @@ class RecipeFactoryTest extends \FactoryTestCase
             DietStyle::ALLES(),
             Cuisine::DEUTSCH(),
             60,
-            800,
             ["Butter", "Schmalz", "Milch", "Mehl"]
         );
 
-        $this->assertEquals($this->test_user->getID(), $recipe->getAuthor()->getID());
-        $this->assertEquals("Test Rezept", $recipe->getTitle());
-        $this->assertTrue(DietStyle::ALLES()->equals($recipe->getDietStyle()));
-        $this->assertTrue(Cuisine::DEUTSCH()->equals($recipe->getCuisine()));
-        $this->assertEquals(60, $recipe->getTimeToPrepare());
-        $this->assertEquals(["Butter", "Schmalz", "Milch", "Mehl"], $recipe->getIngredients());
+        $this->assertEquals($this->test_user->getID(), $recipe->author()->getID());
+        $this->assertEquals("Test Rezept", $recipe->title());
+        $this->assertTrue(DietStyle::ALLES()->equals($recipe->dietStyle()));
+        $this->assertTrue(Cuisine::DEUTSCH()->equals($recipe->cuisine()));
+        $this->assertEquals(60, $recipe->timeToPrepapre());
+        $this->assertEquals(["Butter", "Schmalz", "Milch", "Mehl"], $recipe->ingredients());
     }
 }

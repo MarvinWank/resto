@@ -29,7 +29,20 @@
                 "dietStyle": "string",
                 "cuisine": "string",
                 "timeToPrepare": "int",
-                "ingredient": "array"
+                "ingredients": "array"
+            }
+        },
+        {
+            "type": "valueObject",
+            "name": "Recipe",
+            "values": {
+                "id": "int",
+                "title": "string",
+                "author": "\\App\\Models\\User",
+                "dietStyle": "DietStyle",
+                "cuisine": "Cuisine",
+                "timeToPrepapre": "int",
+                "ingredients": "array"
             }
         }
     ]

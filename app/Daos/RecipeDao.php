@@ -4,7 +4,7 @@
 namespace App\Daos;
 
 
-use App\Models\Recipe;
+use App\Value\Recipe;
 use Illuminate\Database\Eloquent\Model;
 
 class RecipeDao extends Model
@@ -24,13 +24,12 @@ class RecipeDao extends Model
     public function add(Recipe $recipe): int
     {
        return $this->newQuery()->insertGetId([
-            self::PROPERTY_AUTHOR_ID => $recipe->getAuthor()->getID(),
-            self::PROPERTY_TITLE => $recipe->getTitle(),
-            self::PROPERTY_DIET_STYLE => $recipe->getDietStyle()->name(),
-            self::PROPERTY_CUISINE => $recipe->getCuisine()->name(),
-            self::PROPERTY_TIME_TO_PREPARE => $recipe->getTimeToPrepare(),
-            self::PROPERTY_KCAL => $recipe->getKcal(),
-            self::PROPERTY_INGREDIENTS => json_encode($recipe->getIngredients())
+            self::PROPERTY_AUTHOR_ID => $recipe->author()->getID(),
+            self::PROPERTY_TITLE => $recipe->title(),
+            self::PROPERTY_DIET_STYLE => $recipe->dietStyle()->name(),
+            self::PROPERTY_CUISINE => $recipe->cuisine()->name(),
+            self::PROPERTY_TIME_TO_PREPARE => $recipe->timeToPrepapre(),
+            self::PROPERTY_INGREDIENTS => json_encode($recipe->ingredients())
         ]);
     }
 }

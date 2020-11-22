@@ -10,21 +10,21 @@ final class AddRecipeRequestDto
 	private string $dietStyle;
 	private string $cuisine;
 	private int $timeToPrepare;
-	private array $ingredient;
+	private array $ingredients;
 
 	public function __construct (
 		string $title,
 		string $dietStyle,
 		string $cuisine,
 		int $timeToPrepare,
-		array $ingredient
+		array $ingredients
 	)
 	{
 		$this->title = $title;
 		$this->dietStyle = $dietStyle;
 		$this->cuisine = $cuisine;
 		$this->timeToPrepare = $timeToPrepare;
-		$this->ingredient = $ingredient;
+		$this->ingredients = $ingredients;
 	}
 	public function title(): string {
 		return $this->title;
@@ -42,34 +42,34 @@ final class AddRecipeRequestDto
 		return $this->timeToPrepare;
 	}
 
-	public function ingredient(): array {
-		return $this->ingredient;
+	public function ingredients(): array {
+		return $this->ingredients;
 	}
 
 
 	public function with_title (string $title):self
 	{
-		return new self($title,$this->dietStyle,$this->cuisine,$this->timeToPrepare,$this->ingredient,);
+		return new self($title,$this->dietStyle,$this->cuisine,$this->timeToPrepare,$this->ingredients,);
 	}
 
 	public function with_dietStyle (string $dietStyle):self
 	{
-		return new self($this->title,$dietStyle,$this->cuisine,$this->timeToPrepare,$this->ingredient,);
+		return new self($this->title,$dietStyle,$this->cuisine,$this->timeToPrepare,$this->ingredients,);
 	}
 
 	public function with_cuisine (string $cuisine):self
 	{
-		return new self($this->title,$this->dietStyle,$cuisine,$this->timeToPrepare,$this->ingredient,);
+		return new self($this->title,$this->dietStyle,$cuisine,$this->timeToPrepare,$this->ingredients,);
 	}
 
 	public function with_timeToPrepare (int $timeToPrepare):self
 	{
-		return new self($this->title,$this->dietStyle,$this->cuisine,$timeToPrepare,$this->ingredient,);
+		return new self($this->title,$this->dietStyle,$this->cuisine,$timeToPrepare,$this->ingredients,);
 	}
 
-	public function with_ingredient (array $ingredient):self
+	public function with_ingredients (array $ingredients):self
 	{
-		return new self($this->title,$this->dietStyle,$this->cuisine,$this->timeToPrepare,$ingredient,);
+		return new self($this->title,$this->dietStyle,$this->cuisine,$this->timeToPrepare,$ingredients,);
 	}
 	public function toArray(): array
 	{
@@ -78,7 +78,7 @@ final class AddRecipeRequestDto
 			 'dietStyle' => $this->dietStyle, 
 			 'cuisine' => $this->cuisine, 
 			 'timeToPrepare' => $this->timeToPrepare, 
-			 'ingredient' => $this->ingredient, 
+			 'ingredients' => $this->ingredients, 
 		];
 	}
 
@@ -96,10 +96,10 @@ final class AddRecipeRequestDto
 		if(!array_key_exists('timeToPrepare', $array)){
 			 throw new \UnexpectedValueException('Array key timeToPrepare does not exist');
 		}
-		if(!array_key_exists('ingredient', $array)){
-			 throw new \UnexpectedValueException('Array key ingredient does not exist');
+		if(!array_key_exists('ingredients', $array)){
+			 throw new \UnexpectedValueException('Array key ingredients does not exist');
 		}
 
-		return new self($array['title'],$array['dietStyle'],$array['cuisine'],$array['timeToPrepare'],$array['ingredient'],);
+		return new self($array['title'],$array['dietStyle'],$array['cuisine'],$array['timeToPrepare'],$array['ingredients'],);
 	}
 }

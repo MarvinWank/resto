@@ -5,10 +5,10 @@ namespace App\Factories;
 
 
 use App\Daos\RecipeDao;
-use App\Models\Recipe;
 use App\Models\User;
 use App\Value\Cuisine;
 use App\Value\DietStyle;
+use App\Value\Recipe;
 use Illuminate\Database\Eloquent\Model;
 
 class RecipeFactory
@@ -30,12 +30,11 @@ class RecipeFactory
         DietStyle $diet_style,
         Cuisine $cuisine,
         int $time_to_prepare,
-        int $kcal,
         array $ingredients
 
     ): Recipe
     {
-        $recipe = new Recipe(-1, $title, $author, $diet_style, $cuisine, $time_to_prepare, $kcal, $ingredients);
+        $recipe = new Recipe(-1, $title, $author, $diet_style, $cuisine, $time_to_prepare, $ingredients);
         $id = $this->recipeDao->add($recipe);
 
         return $this->fromId($id);
@@ -52,7 +51,6 @@ class RecipeFactory
             DietStyle::fromName($dao_recipe->getAttribute(RecipeDao::PROPERTY_DIET_STYLE)),
             Cuisine::fromName($dao_recipe->getAttribute(RecipeDao::PROPERTY_CUISINE)),
             $dao_recipe->getAttribute(RecipeDao::PROPERTY_TIME_TO_PREPARE),
-            $dao_recipe->getAttribute(RecipeDao::PROPERTY_KCAL),
             \json_decode($dao_recipe->getAttribute(RecipeDao::PROPERTY_INGREDIENTS), true)
         );
     }
