@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Home from "../views/Home";
+import Home from "../views/home/Home";
 import Login from "../views/Login";
+import AddRecipe from "../views/addRecipe/AddRecipe.vue";
 
 Vue.use(VueRouter)
 
@@ -19,6 +20,11 @@ const routes = [
         name: 'Login',
         component: Login
     },
+    {
+        path: '/recipe/add',
+        name: 'AddRecipe',
+        component: AddRecipe
+    }
 
 ]
 
