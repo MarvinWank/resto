@@ -18,13 +18,13 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
 .add-recipe {
     border: 2px dashed #cbcbcb;
     text-align: center;
     height: 5rem;
-    color: #cbcbcb;
+    color: $grey_lighter;
 
     cursor: pointer;
 }
