@@ -5,27 +5,30 @@
         <div class="row mt-5">
 
             <div class="col-12">
-                <div class="form-group">
-                    <label for="title">Titel</label>
-                    <input v-model="title" id="title" class="form-control">
-                </div>
-            </div>
-
-            <div class="col-12">
-                <label for="title">Ernährungsweise</label>
-                <v-select
-                    label="title"
-                    :options="dietStyles"
-                    v-model="dietStyle"
+                <FormulateInput
+                    v-model="title"
+                    type="text"
+                    label="Titel"
                 />
             </div>
 
             <div class="col-12">
-                <label for="title">Küche</label>
-                <v-select
-                    label="title"
-                    :options="cuisines"
+                <FormulateInput
+                    v-model="dietStyle"
+                    :options="dietStyles"
+                    type="select"
+                    placeholder=""
+                    label="Ernährungsweise"
+                />
+            </div>
+
+            <div class="col-12">
+                <FormulateInput
                     v-model="cuisine"
+                    :options="cuisines"
+                    type="select"
+                    placeholder=""
+                    label="Küche"
                 />
             </div>
 
@@ -37,20 +40,19 @@
             </div>
         </div>
 
-        <div :disabled="buttonDisabled" class="mt-3 btn btn-primary btn-block" :class="getButtonDisabledClass">Rezept anlegen</div>
+        <div :disabled="buttonDisabled" class="mt-3 btn btn-primary btn-block" :class="getButtonDisabledClass">Rezept
+            anlegen
+        </div>
     </div>
 </template>
 
 <script>
 import RestoHeader from "@/components/RestoHeader";
-import 'vue-select/dist/vue-select.css';
-import vSelect from 'vue-select'
 
 export default {
     name: "AddRecipe",
     components: {
         RestoHeader,
-        vSelect
     },
 
     data() {
@@ -62,27 +64,27 @@ export default {
             "ingredients": [],
 
             "dietStyles": [
-                {title: "alles", value: "ALLES"},
-                {title: "vegetarisch", value: "VEGETARISCH"},
-                {title: "vegan", value: "VEGAN"},
+                {label: "alles", value: "ALLES"},
+                {label: "vegetarisch", value: "VEGETARISCH"},
+                {label: "vegan", value: "VEGAN"},
             ],
             "cuisines": [
-                {title: "deutsch", value: "DEUTSCH"},
-                {title: "mediteran", value: "MEDITERAN"},
-                {title: "asiatisch", value: "ASIATISCH"},
-                {title: "amerikanisch", value: "AMERIKANISCH"},
-                {title: "indisch", value: "INDISCH"},
+                {label: "deutsch", value: "DEUTSCH"},
+                {label: "mediteran", value: "MEDITERAN"},
+                {label: "asiatisch", value: "ASIATISCH"},
+                {label: "amerikanisch", value: "AMERIKANISCH"},
+                {label: "indisch", value: "INDISCH"},
             ]
         }
     },
 
-    computed:{
-        buttonDisabled(){
+    computed: {
+        buttonDisabled() {
             return this.title === "" || this.dietStyle === null || this.cuisine === null || this.timeToPrepare === null ||
                 this.ingredients.length === 0
         },
 
-        getButtonDisabledClass(){
+        getButtonDisabledClass() {
             return {
                 "disabled": this.buttonDisabled
             }
@@ -93,11 +95,11 @@ export default {
 </script>
 
 <style scoped>
-    .col-12{
-        margin-bottom: 1.5rem;
-    }
+.col-12 {
+    margin-bottom: 1.5rem;
+}
 
-    .form-group{
-        margin-bottom: 0;
-    }
+.form-group {
+    margin-bottom: 0;
+}
 </style>

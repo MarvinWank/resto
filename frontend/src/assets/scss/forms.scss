@@ -20,3 +20,28 @@ label {
     color: $grey;
     margin-bottom: 0;
 }
+
+.formulate-input-wrapper {
+    width: 100%;
+
+    select, input {
+        width: 100%;
+        height: 2rem;
+
+        :focus{
+            outline-color: $olivegreen !important;
+        }
+    }
+
+    select {
+        border: 1px solid $grey_lighter;
+        background-color: #fff;
+    }
+
+    input {
+        border: 1px solid $grey_lighter;
+        padding-left: 0.3rem;
+        padding-right: 0.3rem;
+    }
+
+}
