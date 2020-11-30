@@ -2,92 +2,55 @@
     <div>
         <RestoHeader/>
         <h3 class=" mt-4">Neues Rezept anlegen</h3>
-        <div class="row mt-5">
-
-            <div class="col-12">
-                <FormulateInput
-                    v-model="title"
-                    type="text"
-                    label="Titel"
-                />
-            </div>
-
-            <div class="col-12">
-                <FormulateInput
-                    v-model="dietStyle"
-                    :options="dietStyles"
-                    type="select"
-                    placeholder=""
-                    label="Ernährungsweise"
-                />
-            </div>
-
-            <div class="col-12">
-                <FormulateInput
-                    v-model="cuisine"
-                    :options="cuisines"
-                    type="select"
-                    placeholder=""
-                    label="Küche"
-                />
-            </div>
-
-            <div class="col-12">
-                <div class="form-group">
-                    <label for="time_to_prepare">ungefähre Arbeitszeit (Minuten)</label>
-                    <input v-model="timeToPrepare" id="time_to_prepare" class="form-control">
-                </div>
-            </div>
+        <div class="mt-5">
+            <SetBasicRecipeData
+                v-if="currentStep === 1"
+                @dataSet="setBasicData"
+            />
+            <SetIngredients
+                v-if="currentStep === 2"
+            />
         </div>
 
-        <div :disabled="buttonDisabled" class="mt-3 btn btn-primary btn-block" :class="getButtonDisabledClass">Rezept
-            anlegen
-        </div>
+
     </div>
 </template>
 
 <script>
 import RestoHeader from "@/components/RestoHeader";
+import SetBasicRecipeData from "@/views/addRecipe/SetBasicRecipeData";
+import SetIngredients from "@/views/addRecipe/SetIngredients";
 
 export default {
     name: "AddRecipe",
     components: {
+        SetIngredients,
+        SetBasicRecipeData,
         RestoHeader,
     },
 
     data() {
         return {
-            "title": "",
-            "dietStyle": null,
-            "cuisine": null,
-            "timeToPrepare": null,
-            "ingredients": [],
+            currentStep: 1,
 
-            "dietStyles": [
-                {label: "alles", value: "ALLES"},
-                {label: "vegetarisch", value: "VEGETARISCH"},
-                {label: "vegan", value: "VEGAN"},
-            ],
-            "cuisines": [
-                {label: "deutsch", value: "DEUTSCH"},
-                {label: "mediteran", value: "MEDITERAN"},
-                {label: "asiatisch", value: "ASIATISCH"},
-                {label: "amerikanisch", value: "AMERIKANISCH"},
-                {label: "indisch", value: "INDISCH"},
-            ]
+            title: "",
+            dietStyle: null,
+            cuisine: null,
+            timeToPrepare: null,
+            ingredients: [],
         }
     },
 
-    computed: {
-        buttonDisabled() {
-            return this.title === "" || this.dietStyle === null || this.cuisine === null || this.timeToPrepare === null ||
-                this.ingredients.length === 0
-        },
 
-        getButtonDisabledClass() {
-            return {
-                "disabled": this.buttonDisabled
-            }
+
+    methods: {
+        setBasicData(payload){
+            this.title = payload.title;
+            this.dietStyle = payload.dietStyle;
+            this.cuisine = payload.cuisine;
+            this.timeToPrepare = payload.timeToPrepare;
+
+            this.currentStep = 2;
         }
     }
 
