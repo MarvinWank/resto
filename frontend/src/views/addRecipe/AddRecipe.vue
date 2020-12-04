@@ -31,7 +31,7 @@ export default {
 
     data() {
         return {
-            currentStep: 1,
+            currentStep: 2,
 
             title: "",
             dietStyle: null,

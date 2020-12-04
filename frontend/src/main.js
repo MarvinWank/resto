@@ -3,7 +3,6 @@ import App from './App.vue'
 import router from './router/router'
 import store from './store/store'
 
-import VModal from 'vue-js-modal'
 import VueFormulate from '@braid/vue-formulate'
 
 import api from './api/api'
@@ -21,7 +20,6 @@ Object.defineProperty(Vue.prototype, '$api', {
 })
 
 Vue.use(VueFormulate)
-Vue.use(VModal);
 
 new Vue({
     router,

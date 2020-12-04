@@ -3,6 +3,7 @@
 .btn-primary {
     background-color: $olivegreen_lighter;
     color: black;
+    border-color: $olivegreen_lighter;
 
     &:hover, &:active, &:focus {
         background-color: $olivegreen_darker;
@@ -22,6 +23,7 @@ label {
 }
 
 .formulate-input-wrapper {
+    margin-bottom: 1rem;
     width: 100%;
 
     select, input {
