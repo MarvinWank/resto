@@ -16,11 +16,6 @@ class api {
         return this.host;
     }
 
-    async login(email, password) {
-        const data = await this.post('/login', {email: email, password: password})
-        return data;
-    }
-
     async post(route, data) {
         const result = await axios.post(this.host + route, {
             ...data,
@@ -33,6 +28,19 @@ class api {
         }
         return result;
     }
+
+    //Actions
+    async login(email, password) {
+        const data = await this.post('/login', {email: email, password: password})
+        return data;
+    }
+
+    async addRecipe(recipe){
+        const data = await this.post('/recipes/add', {recipe: recipe})
+        return data;
+    }
+
+
 }
 
 export default new api();

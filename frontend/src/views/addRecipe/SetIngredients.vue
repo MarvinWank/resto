@@ -1,15 +1,42 @@
 <template>
     <div class="row">
+        <div class="col-12 mb-4">
+            Zutaten
+        </div>
         <div class="col-12 ">
             <div class="add-ingredient" @click="show_modal">
                 <div class="mt-3">Zutat hinzufügen +</div>
             </div>
         </div>
+
+        <div v-for="(ingredient, key) in ingredients"  :key="key" class="col-12">
+            <div class="ingredient-card">
+                <div class="mt-3">
+                   - {{ingredient.amount}} {{ingredient.unit}} {{ingredient.name}}
+                </div>
+            </div>
+        </div>
+
         <v-easy-dialog v-model="showDialog">
             <AddIngredientModal
-
+                @addIngredient="addIngredient"
             />
         </v-easy-dialog>
+
+        <div class="col-12">
+            <div class="mt-3 btn btn-primary float-left"
+                 @click="goBack"
+            >
+                Zurück
+            </div>
+            <div :disabled="buttonDisabled"
+                 class="mt-3 btn btn-primary float-right"
+                 :class="getButtonDisabledClass"
+                 @click="emitData"
+            >
+                Weiter
+            </div>
+        </div>
     </div>
 </template>
 
@@ -27,17 +54,45 @@ export default {
         VEasyDialog
     },
 
-    data(){
+    data() {
         return {
-            ingredients: [],
+            ingredients: {},
             showDialog: false
 
         }
     },
 
-    methods:{
-        show_modal(){
+    computed: {
+        buttonDisabled() {
+            return Object.keys(this.ingredients).length === 0;
+        },
+
+        getButtonDisabledClass() {
+            return {
+                "disabled": this.buttonDisabled
+            }
+        }
+    },
+
+    methods: {
+        show_modal() {
             this.showDialog = true;
+        },
+
+        addIngredient(data) {
+            this.ingredients[data.name] = {
+                name: data.name,
+                amount: data.amount,
+                unit: data.unit
+            };
+            this.showDialog = false;
+        },
+
+        emitData(){
+            this.$emit("ingredientsSet", this.ingredients)
+        },
+        goBack(){
+            this.$emit("goBack", this.ingredients)
         }
     }
 }
@@ -52,15 +107,16 @@ export default {
     color: $grey_lighter;
 
     cursor: pointer;
+    margin-bottom: 1rem;
 }
 
-.example-modal-content {
-    //  height: 100%;
-    box-sizing: border-box;
-    padding: 10px;
-    font-size: 13px;
-    line-height: 1.5;
-    overflow: auto;
+.ingredient-card {
+    border: 2px solid #e3e3e3;
+    height: 4rem;
+    padding-left: 1rem;
+
+    cursor: pointer;
 }
+
 
 </style>

@@ -30,8 +30,8 @@
             </div>
         </div>
 
-        <button class="mt-3 btn btn-primary btn-block" @click="showDialog = false">
-            Close
+        <button class="mt-3 btn btn-primary btn-block" @click="addIngredient">
+            {{name}} hinzufügen
         </button>
     </div>
 </template>
@@ -45,11 +45,20 @@ export default {
 
             name: "",
             amount: "",
-            unit: "",
+            unit: "g",
 
             units: {
-                gramm: "g", kilogramm: "kg", liter: "l",
+                gramm: "g", kilogramm: "kg", milliliter: "ml", liter: "l",
             }
+        }
+    },
+    methods:{
+        addIngredient(){
+            this.$emit("addIngredient", {
+                name: this.name,
+                amount: this.amount,
+                unit: this.unit
+            })
         }
     }
 }
