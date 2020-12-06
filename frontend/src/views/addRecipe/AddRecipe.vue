@@ -30,11 +30,16 @@ import SetDescription from "@/views/addRecipe/SetDescription";
 
 export default {
     name: "AddRecipe",
+
     components: {
         SetDescription,
         SetIngredients,
         SetBasicRecipeData,
         RestoHeader,
+    },
+
+    mounted() {
+
     },
 
     data() {

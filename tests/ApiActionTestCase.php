@@ -24,6 +24,7 @@ class ApiActionTestCase extends TestCase
         $response = $this->client->post('/login', $body)->getBody()->getContents();
         $response = json_decode($response, true);
 
+        $this->assertEquals("ok", $response['status']);
         $this->apiKey = $response['apiKey'];
     }
 

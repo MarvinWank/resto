@@ -10,7 +10,8 @@ export default new Vuex.Store({
     state: {
         isLoggedin: false,
         user: {},
-        apiKey: ""
+        apiKey: "",
+        recipeCurentlyAdded: {}
     },
 
     mutations: {
@@ -21,6 +22,9 @@ export default new Vuex.Store({
         },
         addRecipe(state, recipe){
 
+        },
+        updateRecipe(state, {recipeId, recipe}){
+            
         }
     },
 
