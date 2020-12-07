@@ -30,7 +30,7 @@
 
         <div class="col-12">
             <div class="form-group">
-                <label for="time_to_prepare">ungefähre Arbeitszeit (Minuten)</label>
+                <label for="time_to_prepare">geschätzte Arbeitszeit (Minuten)</label>
                 <input v-model="timeToPrepare" id="time_to_prepare" class="form-control">
             </div>
         </div>

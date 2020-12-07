@@ -48,7 +48,7 @@ export default {
             unit: "g",
 
             units: {
-                gramm: "g", kilogramm: "kg", milliliter: "ml", liter: "l",
+                g: "g", kg: "kg", ml: "ml", l: "l",
             }
         }
     },

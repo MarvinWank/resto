@@ -12,7 +12,7 @@
         <div v-for="(ingredient, key) in ingredients"  :key="key" class="col-12">
             <div class="ingredient-card">
                 <div class="mt-3">
-                   - {{ingredient.amount}} {{ingredient.unit}} {{ingredient.name}}
+                    {{ingredient.amount}}{{ingredient.unit}} {{ingredient.name}}
                 </div>
             </div>
         </div>
@@ -114,6 +114,7 @@ export default {
     border: 2px solid #e3e3e3;
     height: 4rem;
     padding-left: 1rem;
+    margin-bottom: .5rem;
 
     cursor: pointer;
 }
