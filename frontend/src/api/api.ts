@@ -2,8 +2,8 @@ import store from "../store/store";
 import axios from "axios"
 import router from "@/router/router";
 
-class api {
-    host: string = '';
+class Api {
+    host = '';
 
     constructor() {
         if (process.env.NODE_ENV === "development") {
@@ -12,7 +12,7 @@ class api {
 
     }
 
-    get_host() {
+    getHost() {
         return this.host;
     }
 
@@ -41,4 +41,4 @@ class api {
     }
 }
 
-export default new api();
+export default new Api();

@@ -38,10 +38,6 @@ export default {
         RestoHeader,
     },
 
-    mounted() {
-
-    },
-
     data() {
         return {
             currentStep: 1,
