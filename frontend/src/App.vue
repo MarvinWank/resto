@@ -4,10 +4,16 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 
-    export default {
-        name: "App",
+import Component from "vue-class-component";
+import Vue from "vue";
+
+@Component
+export default class App extends Vue{
+    created(){
+        console.log("foo");
     }
+}
 
 </script>
