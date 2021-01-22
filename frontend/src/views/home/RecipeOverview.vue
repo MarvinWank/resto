@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-<!--        Liste von Rezepten-->
+        <!--        Liste von Rezepten-->
 
         <router-link class="col-12 add-recipe" to="recipe/add">
             <div class="mt-4">Rezept hinzufügen +</div>

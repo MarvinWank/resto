@@ -14,13 +14,13 @@
             >
                 Zurück
             </div>
-<!--            <div :disabled="buttonDisabled"-->
-<!--                 class="mt-3 btn btn-primary float-right"-->
-<!--                 :class="getButtonDisabledClass"-->
-<!--                 @click="emitData"-->
-<!--            >-->
-<!--                Weiter-->
-<!--            </div>-->
+            <!--            <div :disabled="buttonDisabled"-->
+            <!--                 class="mt-3 btn btn-primary float-right"-->
+            <!--                 :class="getButtonDisabledClass"-->
+            <!--                 @click="emitData"-->
+            <!--            >-->
+            <!--                Weiter-->
+            <!--            </div>-->
         </div>
     </div>
 </template>

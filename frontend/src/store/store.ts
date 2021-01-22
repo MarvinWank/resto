@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import router from "../router/router";
-import api from "../api/api";
 
 Vue.use(Vuex)
 
@@ -20,12 +19,6 @@ export default new Vuex.Store({
             state.user = daten.user;
             state.isLoggedin = true;
         },
-        addRecipe(state, recipe){
-
-        },
-        updateRecipe(state, {recipeId, recipe}){
-
-        }
     },
 
     actions:{

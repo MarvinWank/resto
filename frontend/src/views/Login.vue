@@ -15,8 +15,8 @@
             <label for="passwort">Passwort</label>
             <input v-model="password" type="password" class="form-control" id="passwort" placeholder="Passwort">
         </div>
-        <div v-if="login_fehler" class="alert alert-danger">Login Fehlgeschlagen!</div>
-        <button type="submit" :class="get_login_button_classes" @click="attempt_login">Anmelden</button>
+        <div v-if="loginError" class="alert alert-danger">Login Fehlgeschlagen!</div>
+        <button type="submit" :class="getLoginButtonClasses" @click="attemptLogin">Anmelden</button>
     </div>
 </template>
 
@@ -29,9 +29,9 @@ import { Component, Vue } from 'vue-property-decorator'
 export default class Login extends Vue {
     email = '';
     password = '';
-    login_fehler = false;
+    loginError = false;
 
-    get get_login_button_classes() {
+    get getLoginButtonClasses() {
         return {
             "btn": true,
             "btn-primary": true,
@@ -41,19 +41,19 @@ export default class Login extends Vue {
     }
 
 
-    async attempt_login() {
+    async attemptLogin() {
 
-        let api_response = await api.login(this.email, this.password);
-        console.log(api_response);
+        const apiResponse = await api.login(this.email, this.password);
+        console.log(apiResponse);
 
-        if (api_response.status === "fehler") {
-            this.login_fehler = true;
+        if (apiResponse.status === "fehler") {
+            this.loginError = true;
             return
         }
 
         await this.$store.dispatch('authenticate', {
-                "user": api_response.user,
-                "apiKey": api_response.apiKey
+                "user": apiResponse.user,
+                "apiKey": apiResponse.apiKey
             }
         )
     }

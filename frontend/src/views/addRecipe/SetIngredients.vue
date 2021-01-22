@@ -4,7 +4,7 @@
             Zutaten
         </div>
         <div class="col-12 ">
-            <div class="add-ingredient" @click="show_modal">
+            <div class="add-ingredient" @click="showModal">
                 <div class="mt-3">Zutat hinzufügen +</div>
             </div>
         </div>
@@ -75,7 +75,7 @@ export default {
     },
 
     methods: {
-        show_modal() {
+        showModal() {
             this.showDialog = true;
         },
 

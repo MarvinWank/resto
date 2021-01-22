@@ -2,8 +2,8 @@ import store from "../store/store";
 import axios from "axios"
 import router from "@/router/router";
 
-class api {
-    host: string = '';
+class Api {
+    host = '';
 
     constructor() {
         if (process.env.NODE_ENV === "development") {
@@ -12,7 +12,7 @@ class api {
 
     }
 
-    get_host() {
+    getHost() {
         return this.host;
     }
 
@@ -35,10 +35,10 @@ class api {
         return data;
     }
 
-    async addRecipe(recipe: any){
+    async addRecipe(recipe: any) {
         const data = await this.post('/recipes/add', {recipe: recipe})
         return data;
     }
 }
 
-export default new api();
+export default new Api();

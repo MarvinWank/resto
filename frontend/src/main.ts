@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router/router'
 import store from './store/store'
 
+/* eslint-disable */
 // @ts-ignore
 import VueFormulate from '@braid/vue-formulate'
 
@@ -15,6 +16,8 @@ import './registerServiceWorker.ts'
 Vue.config.productionTip = false
 // @ts-ignore
 Vue.$api = api;
+/* eslint-enable */
+
 Object.defineProperty(Vue.prototype, '$api', {
     get() {
         return api
