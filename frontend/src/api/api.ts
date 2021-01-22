@@ -2,17 +2,6 @@ import store from "../store/store";
 import axios from "axios"
 import router from "@/router/router";
 
-// const api = {
-//     host: "",
-//     init() {
-//         if (process.env.NODE_ENV === "development") {
-//             this.host = "http://resto.local";
-//         }
-//     }
-// }
-//
-// export default api;
-
 class api {
     host: string = '';
 
