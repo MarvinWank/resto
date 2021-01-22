@@ -20,52 +20,44 @@
     </div>
 </template>
 
-<script>
-    import axios from "axios";
-    import api from "../api/api";
+<script lang="ts">
 
-    export default {
-        name: "Login",
+import api from "../api/api";
+import { Component, Vue } from 'vue-property-decorator'
 
-        data() {
-            return {
-                'email': '',
-                'password': '',
-                'api_response': {},
-                'login_fehler': false
-            }
-        },
+@Component
+export default class Login extends Vue {
+    email = '';
+    password = '';
+    login_fehler = false;
 
-        computed: {
-            get_login_button_classes() {
-                return {
-                    "btn": true,
-                    "btn-primary": true,
-                    "btn-block": true,
-                    "disabled": this.email === '' || this.password === ''
-                }
-            },
-        },
-
-        methods: {
-            async attempt_login() {
-
-                let api_response = await api.login(this.email, this.password);
-                console.log(api_response);
-
-                if (api_response.status === "fehler") {
-                    this.login_fehler = true;
-                    return
-                }
-
-                await this.$store.dispatch('authenticate', {
-                        "user": api_response.user,
-                        "apiKey": api_response.apiKey
-                    }
-                )
-            }
+    get get_login_button_classes() {
+        return {
+            "btn": true,
+            "btn-primary": true,
+            "btn-block": true,
+            "disabled": this.email === '' || this.password === ''
         }
     }
+
+
+    async attempt_login() {
+
+        let api_response = await api.login(this.email, this.password);
+        console.log(api_response);
+
+        if (api_response.status === "fehler") {
+            this.login_fehler = true;
+            return
+        }
+
+        await this.$store.dispatch('authenticate', {
+                "user": api_response.user,
+                "apiKey": api_response.apiKey
+            }
+        )
+    }
+}
 </script>
 
 <style scoped>

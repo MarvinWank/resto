@@ -24,7 +24,7 @@ export default new Vuex.Store({
 
         },
         updateRecipe(state, {recipeId, recipe}){
-            
+
         }
     },
 

@@ -9,12 +9,13 @@
     </div>
 </template>
 
-<script>
-export default {
-    name: "RecipeOverview",
+<script lang="ts">
+import Vue from "vue";
+import Component from "vue-class-component";
 
-    components:{
-    }
+@Component
+export default class RecipeOverview extends Vue{
+
 }
 </script>
 

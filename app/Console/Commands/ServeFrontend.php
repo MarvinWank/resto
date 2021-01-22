@@ -40,6 +40,6 @@ class ServeFrontend extends Command
      */
     public function handle()
     {
-      return  exec('cd frontend; npm run serve src/main.js');
+      return  exec('cd frontend; npm run serve src/main.ts');
     }
 }
