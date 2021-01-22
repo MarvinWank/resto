@@ -3,7 +3,7 @@ import axios from "axios"
 import router from "@/router/router";
 
 class api {
-    host
+    host: string = '';
 
     constructor() {
         if (process.env.NODE_ENV === "development") {
@@ -16,7 +16,7 @@ class api {
         return this.host;
     }
 
-    async post(route, data) {
+    async post(route: string, data: any) {
         const result = await axios.post(this.host + route, {
             ...data,
             "apiKey": store.getters.apiKey
@@ -30,17 +30,15 @@ class api {
     }
 
     //Actions
-    async login(email, password) {
+    async login(email: string, password: string) {
         const data = await this.post('/login', {email: email, password: password})
         return data;
     }
 
-    async addRecipe(recipe){
+    async addRecipe(recipe: any){
         const data = await this.post('/recipes/add', {recipe: recipe})
         return data;
     }
-
-
 }
 
 export default new api();
