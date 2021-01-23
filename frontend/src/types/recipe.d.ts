@@ -5,13 +5,13 @@ export interface recipe {
     ingredients: Array<Ingredient>
 }
 
-enum dietStyle {
+export enum dietStyle {
     ALLES = "alles",
     VEGETARISCH = "vegetarisch",
     VEGAN = "vegan"
 }
 
-enum cuisine {
+export enum cuisine {
     DEUTSCH = 'deutsch',
     MEDITERAN = 'mediteran',
     ASIATISCH = 'asiatisch',
@@ -19,7 +19,14 @@ enum cuisine {
     INDISCH = 'indisch',
 }
 
-interface Ingredient {
+export interface Ingredient {
     name: string,
     gramm: int,
+}
+
+export interface basicDataPayload {
+    title: string,
+    dietStyle: dietStyle,
+    cuisine: cuisine,
+    timeToPrepare: number
 }

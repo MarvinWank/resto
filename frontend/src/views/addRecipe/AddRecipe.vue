@@ -22,52 +22,48 @@
     </div>
 </template>
 
-<script>
-import RestoHeader from "@/components/RestoHeader";
-import SetBasicRecipeData from "@/views/addRecipe/SetBasicRecipeData";
-import SetIngredients from "@/views/addRecipe/SetIngredients";
-import SetDescription from "@/views/addRecipe/SetDescription";
+<script lang="ts">
+import RestoHeader from "@/components/RestoHeader.vue";
+import SetBasicRecipeData from "@/views/addRecipe/SetBasicRecipeData.vue";
+import SetIngredients from "@/views/addRecipe/SetIngredients.vue";
+import SetDescription from "@/views/addRecipe/SetDescription.vue";
+import Component from "vue-class-component";
+import Vue from "vue";
+import {basicDataPayload, cuisine, dietStyle, Ingredient} from "@/types/recipe";
 
-export default {
-    name: "AddRecipe",
-
+@Component({
     components: {
         SetDescription,
         SetIngredients,
         SetBasicRecipeData,
         RestoHeader,
-    },
-
-    data() {
-        return {
-            currentStep: 1,
-
-            title: "",
-            dietStyle: null,
-            cuisine: null,
-            timeToPrepare: null,
-            ingredients: {},
-        }
-    },
+    }
+})
+export default class AddRecipe extends Vue {
+    currentStep = 1;
+    title = "";
+    dietStyle: dietStyle = dietStyle.ALLES;
+    cuisine: cuisine = cuisine.DEUTSCH;
+    timeToPrepare: number = 0;
+    ingredients: Array<Ingredient> = [];
 
 
+    setBasicData(payload: basicDataPayload) {
+        this.title = payload.title;
+        this.dietStyle = payload.dietStyle;
+        this.cuisine = payload.cuisine;
+        this.timeToPrepare = payload.timeToPrepare;
 
-    methods: {
-        setBasicData(payload){
-            this.title = payload.title;
-            this.dietStyle = payload.dietStyle;
-            this.cuisine = payload.cuisine;
-            this.timeToPrepare = payload.timeToPrepare;
+        this.currentStep++;
+    }
 
-            this.currentStep++;
-        },
-        setIngredients(ingredients){
-            this.ingredients = ingredients;
-            this.currentStep++;
-        },
-        goBack(){
-            this.currentStep--;
-        }
+    setIngredients(ingredients: Array<Ingredient>) {
+        this.ingredients = ingredients;
+        this.currentStep++;
+    }
+
+    goBack() {
+        this.currentStep--;
     }
 
 }
