@@ -1,5 +1,5 @@
 {
-    "root_path": "/home/marvw/Projekte/Privat/resto",
+    "root_path": ".",
     "app/Value": [
         {
             "type": "enum",
@@ -42,7 +42,7 @@
                 "dietStyle": "DietStyle",
                 "cuisine": "Cuisine",
                 "timeToPrepare": "int",
-                "ingredients": "array"
+                "ingredients": "IngredientsSet"
             },
             "string_value": "id"
         },
@@ -55,6 +55,20 @@
                 "email": "string"
             },
             "string_value": "id"
+        },
+        {
+            "type": "valueObject",
+            "name": "Ingredient",
+            "values": {
+                "name": "string",
+                "gramm": "int",
+                "kcal": "int"
+            }
+        },
+        {
+            "type": "set",
+            "name": "IngredientsSet",
+            "itemType": "Ingredient"
         }
     ]
 }

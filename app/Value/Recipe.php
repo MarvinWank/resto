@@ -18,7 +18,7 @@ final class Recipe implements ValueObject
     private DietStyle $dietStyle;
     private Cuisine $cuisine;
     private int $timeToPrepare;
-    private array $ingredients;
+    private IngredientsSet $ingredients;
 
     public function __construct (
         int $id,
@@ -27,7 +27,7 @@ final class Recipe implements ValueObject
         DietStyle $dietStyle,
         Cuisine $cuisine,
         int $timeToPrepare,
-        array $ingredients
+        IngredientsSet $ingredients
     ) {
         $this->id = $id;
         $this->title = $title;
@@ -68,7 +68,7 @@ final class Recipe implements ValueObject
         return $this->timeToPrepare;
     }
     
-    public function getIngredients(): array 
+    public function getIngredients(): IngredientsSet 
     {
         return $this->ingredients;
     }
@@ -151,7 +151,7 @@ final class Recipe implements ValueObject
         );
     }
     
-    public function withIngredients(array $ingredients): self 
+    public function withIngredients(IngredientsSet $ingredients): self 
     {
         return new self(
             $this->id,
@@ -173,7 +173,7 @@ final class Recipe implements ValueObject
             'dietStyle' =>  $this->valueToArray($this->dietStyle),
             'cuisine' =>  $this->valueToArray($this->cuisine),
             'timeToPrepare' => $this->timeToPrepare,
-            'ingredients' => $this->ingredients,
+            'ingredients' =>  $this->valueToArray($this->ingredients),
         ];
     }
     
@@ -231,6 +231,14 @@ final class Recipe implements ValueObject
             throw new UnexpectedValueException('Array key ingredients does not exist');
         }
         
+        if (is_string($array['ingredients']) && is_a(IngredientsSet::class, Enum::class, true)) {
+            $array['ingredients'] = IngredientsSet::fromName($array['ingredients']);
+        }
+    
+        if (is_array($array['ingredients']) && (is_a(IngredientsSet::class, Set::class, true) || is_a(IngredientsSet::class, ValueObject::class, true))) {
+            $array['ingredients'] = IngredientsSet::fromArray($array['ingredients']);
+        }
+
         return new self(
             $array['id'],
             $array['title'],
