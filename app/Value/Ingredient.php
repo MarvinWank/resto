@@ -26,22 +26,22 @@ final class Ingredient implements ValueObject
         $this->kcal = $kcal;
     }
     
-    public function getName(): string 
+    public function name(): string 
     {
         return $this->name;
     }
     
-    public function getGramm(): int 
+    public function gramm(): int 
     {
         return $this->gramm;
     }
     
-    public function getKcal(): int 
+    public function kcal(): int 
     {
         return $this->kcal;
     }
     
-    public function withName(string $name): self 
+    public function with_name(string $name): self 
     {
         return new self(
             $name,
@@ -50,7 +50,7 @@ final class Ingredient implements ValueObject
         );
     }
     
-    public function withGramm(int $gramm): self 
+    public function with_gramm(int $gramm): self 
     {
         return new self(
             $this->name,
@@ -59,7 +59,7 @@ final class Ingredient implements ValueObject
         );
     }
     
-    public function withKcal(int $kcal): self 
+    public function with_kcal(int $kcal): self 
     {
         return new self(
             $this->name,

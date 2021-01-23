@@ -5,6 +5,7 @@ namespace api;
 
 
 use ApiActionTestCase;
+use App\Value\Ingredient;
 
 class AddRecipeTestApiActionTest extends ApiActionTestCase
 {
@@ -25,7 +26,10 @@ class AddRecipeTestApiActionTest extends ApiActionTestCase
             "dietStyle" => "ALLES",
             "cuisine" => "ASIATISCH",
             "timeToPrepare" => 60,
-            "ingredients" => ["Milch", "Mehl"]
+            "ingredients" => [
+                ["name" => "Milch", "gramm" => 200, "kcal" => 400],
+                ["name" => "Mehl", "gramm" => 200, "kcal" => 400],
+            ]
         ];
         $response = $this->apiCall("/recipes/add", $body);
         $response = $response->getBody()->getContents();
@@ -36,7 +40,7 @@ class AddRecipeTestApiActionTest extends ApiActionTestCase
         $this->assertEquals("ALLES", $response['recipe']['dietStyle']);
         $this->assertEquals("ASIATISCH", $response['recipe']['cuisine']);
         $this->assertEquals(60, $response['recipe']['timeToPrepare']);
-        $this->assertEquals("Milch", $response['recipe']['ingredients'][0]);
-        $this->assertEquals("Mehl", $response['recipe']['ingredients'][1]);
+        $this->assertEquals(   ["name" => "Milch", "gramm" => 200, "kcal" => 400], $response['recipe']['ingredients'][0]);
+        $this->assertEquals( ["name" => "Mehl", "gramm" => 200, "kcal" => 400], $response['recipe']['ingredients'][1]);
     }
 }

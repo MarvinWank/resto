@@ -29,7 +29,7 @@
                 "dietStyle": "string",
                 "cuisine": "string",
                 "timeToPrepare": "int",
-                "ingredients": "array"
+                "ingredients": "IngredientsSet"
             }
         },
         {

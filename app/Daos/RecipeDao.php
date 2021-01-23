@@ -29,7 +29,7 @@ class RecipeDao extends Model
             self::PROPERTY_DIET_STYLE => $recipe->dietStyle()->name(),
             self::PROPERTY_CUISINE => $recipe->cuisine()->name(),
             self::PROPERTY_TIME_TO_PREPARE => $recipe->timeToPrepare(),
-            self::PROPERTY_INGREDIENTS => json_encode($recipe->ingredients())
+            self::PROPERTY_INGREDIENTS => json_encode($recipe->ingredients()->toArray())
         ]);
     }
 }

@@ -16,14 +16,14 @@ final class AddRecipeRequestDto implements ValueObject
     private string $dietStyle;
     private string $cuisine;
     private int $timeToPrepare;
-    private array $ingredients;
+    private IngredientsSet $ingredients;
 
     public function __construct (
         string $title,
         string $dietStyle,
         string $cuisine,
         int $timeToPrepare,
-        array $ingredients
+        IngredientsSet $ingredients
     ) {
         $this->title = $title;
         $this->dietStyle = $dietStyle;
@@ -32,32 +32,32 @@ final class AddRecipeRequestDto implements ValueObject
         $this->ingredients = $ingredients;
     }
     
-    public function getTitle(): string 
+    public function title(): string 
     {
         return $this->title;
     }
     
-    public function getDietStyle(): string 
+    public function dietStyle(): string 
     {
         return $this->dietStyle;
     }
     
-    public function getCuisine(): string 
+    public function cuisine(): string 
     {
         return $this->cuisine;
     }
     
-    public function getTimeToPrepare(): int 
+    public function timeToPrepare(): int 
     {
         return $this->timeToPrepare;
     }
     
-    public function getIngredients(): array 
+    public function ingredients(): IngredientsSet 
     {
         return $this->ingredients;
     }
     
-    public function withTitle(string $title): self 
+    public function with_title(string $title): self 
     {
         return new self(
             $title,
@@ -68,7 +68,7 @@ final class AddRecipeRequestDto implements ValueObject
         );
     }
     
-    public function withDietStyle(string $dietStyle): self 
+    public function with_dietStyle(string $dietStyle): self 
     {
         return new self(
             $this->title,
@@ -79,7 +79,7 @@ final class AddRecipeRequestDto implements ValueObject
         );
     }
     
-    public function withCuisine(string $cuisine): self 
+    public function with_cuisine(string $cuisine): self 
     {
         return new self(
             $this->title,
@@ -90,7 +90,7 @@ final class AddRecipeRequestDto implements ValueObject
         );
     }
     
-    public function withTimeToPrepare(int $timeToPrepare): self 
+    public function with_timeToPrepare(int $timeToPrepare): self 
     {
         return new self(
             $this->title,
@@ -101,7 +101,7 @@ final class AddRecipeRequestDto implements ValueObject
         );
     }
     
-    public function withIngredients(array $ingredients): self 
+    public function with_ingredients(IngredientsSet $ingredients): self 
     {
         return new self(
             $this->title,
@@ -119,7 +119,7 @@ final class AddRecipeRequestDto implements ValueObject
             'dietStyle' => $this->dietStyle,
             'cuisine' => $this->cuisine,
             'timeToPrepare' => $this->timeToPrepare,
-            'ingredients' => $this->ingredients,
+            'ingredients' =>  $this->valueToArray($this->ingredients),
         ];
     }
     
@@ -145,6 +145,14 @@ final class AddRecipeRequestDto implements ValueObject
             throw new UnexpectedValueException('Array key ingredients does not exist');
         }
         
+        if (is_string($array['ingredients']) && is_a(IngredientsSet::class, Enum::class, true)) {
+            $array['ingredients'] = IngredientsSet::fromName($array['ingredients']);
+        }
+    
+        if (is_array($array['ingredients']) && (is_a(IngredientsSet::class, Set::class, true) || is_a(IngredientsSet::class, ValueObject::class, true))) {
+            $array['ingredients'] = IngredientsSet::fromArray($array['ingredients']);
+        }
+
         return new self(
             $array['title'],
             $array['dietStyle'],

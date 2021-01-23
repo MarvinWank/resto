@@ -5,6 +5,7 @@ namespace App\Factories;
 
 
 use App\Daos\RecipeDao;
+use App\Value\IngredientsSet;
 use App\Value\User;
 use App\Value\Cuisine;
 use App\Value\DietStyle;
@@ -30,7 +31,7 @@ class RecipeFactory
         DietStyle $diet_style,
         Cuisine $cuisine,
         int $time_to_prepare,
-        array $ingredients
+        IngredientsSet $ingredients
 
     ): Recipe
     {
@@ -51,7 +52,7 @@ class RecipeFactory
             DietStyle::fromName($dao_recipe->getAttribute(RecipeDao::PROPERTY_DIET_STYLE)),
             Cuisine::fromName($dao_recipe->getAttribute(RecipeDao::PROPERTY_CUISINE)),
             $dao_recipe->getAttribute(RecipeDao::PROPERTY_TIME_TO_PREPARE),
-            \json_decode($dao_recipe->getAttribute(RecipeDao::PROPERTY_INGREDIENTS), true)
+            IngredientsSet::fromArray(\json_decode($dao_recipe->getAttribute(RecipeDao::PROPERTY_INGREDIENTS), true))
         );
     }
 }
