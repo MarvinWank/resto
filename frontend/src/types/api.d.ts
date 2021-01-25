@@ -1,6 +1,6 @@
 import {User} from "@/types/user";
 
-export interface setzeDatenInitialPayload {
+export interface setInitialDataPayload {
     apiKey: string,
     user: User
 }

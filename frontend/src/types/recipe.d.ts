@@ -1,6 +1,7 @@
 export interface recipe {
     title: string,
-    dietStye: dietStyle,
+    dietStyle: dietStyle,
+    cuisine: cuisine,
     timeToPrepare: int,
     ingredients: Array<Ingredient>
 }

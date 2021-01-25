@@ -29,7 +29,7 @@ import SetIngredients from "@/views/addRecipe/SetIngredients.vue";
 import SetDescription from "@/views/addRecipe/SetDescription.vue";
 import Component from "vue-class-component";
 import Vue from "vue";
-import {basicDataPayload, cuisine, dietStyle, Ingredient} from "@/types/recipe";
+import {basicDataPayload, cuisine, dietStyle, Ingredient, recipe} from "@/types/recipe";
 
 @Component({
     components: {
@@ -41,29 +41,35 @@ import {basicDataPayload, cuisine, dietStyle, Ingredient} from "@/types/recipe";
 })
 export default class AddRecipe extends Vue {
     currentStep = 1;
-    title = "";
-    dietStyle?: dietStyle = "alles";
-    cuisine: cuisine = "deutsch";
-    timeToPrepare = 0;
-    ingredients: Array<Ingredient> = [];
-
+    declare recipe: recipe;
 
     setBasicData(payload: basicDataPayload) {
-        this.title = payload.title;
-        this.dietStyle = payload.dietStyle;
-        this.cuisine = payload.cuisine;
-        this.timeToPrepare = payload.timeToPrepare;
+        this.recipe.title = payload.title;
+        this.recipe.dietStyle = payload.dietStyle;
+        this.recipe.cuisine = payload.cuisine;
+        this.recipe.timeToPrepare = payload.timeToPrepare;
 
+        this.updateRecipe();
         this.currentStep++;
     }
 
     setIngredients(ingredients: Array<Ingredient>) {
-        this.ingredients = ingredients;
+        this.recipe.ingredients = ingredients;
+
+        this.updateRecipe();
         this.currentStep++;
     }
 
     goBack() {
         this.currentStep--;
+    }
+
+    updateRecipe(){
+        this.$store.commit("updateRecipe", this.recipe);
+    }
+
+    saveRecipe(){
+        this.$store.commit("saveRecipe");
     }
 
 }
