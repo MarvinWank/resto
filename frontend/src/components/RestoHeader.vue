@@ -1,6 +1,6 @@
 <template>
-    <div className="homescreen-header">
-        <p className="homescreen-headline">resto</p>
+    <div class="homescreen-header">
+        <p class="homescreen-headline">resto</p>
     </div>
 </template>
 
