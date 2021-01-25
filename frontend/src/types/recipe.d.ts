@@ -5,19 +5,9 @@ export interface recipe {
     ingredients: Array<Ingredient>
 }
 
-export enum dietStyle {
-    ALLES = "alles",
-    VEGETARISCH = "vegetarisch",
-    VEGAN = "vegan"
-}
+export type dietStyle = "alles" | "vegetarisch" | "vegan"
 
-export enum cuisine {
-    DEUTSCH = 'deutsch',
-    MEDITERAN = 'mediteran',
-    ASIATISCH = 'asiatisch',
-    AMERIKANISCH = 'amerikanisch',
-    INDISCH = 'indisch',
-}
+export type cuisine = "deutsch" | "mediteran" | "asiatisch" | "amerikanisch" | "indisch";
 
 export interface Ingredient {
     name: string,

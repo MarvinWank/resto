@@ -33,6 +33,7 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
+    "tests/**/*.d.ts",
     "tests/**/*.tsx"
   ],
   "exclude": [

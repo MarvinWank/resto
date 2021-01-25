@@ -42,9 +42,9 @@ import {basicDataPayload, cuisine, dietStyle, Ingredient} from "@/types/recipe";
 export default class AddRecipe extends Vue {
     currentStep = 1;
     title = "";
-    dietStyle: dietStyle = dietStyle.ALLES;
-    cuisine: cuisine = cuisine.DEUTSCH;
-    timeToPrepare: number = 0;
+    dietStyle?: dietStyle = "alles";
+    cuisine: cuisine = "deutsch";
+    timeToPrepare = 0;
     ingredients: Array<Ingredient> = [];
 
 
