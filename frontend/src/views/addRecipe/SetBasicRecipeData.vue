@@ -47,53 +47,64 @@
     </div>
 </template>
 
-<script>
-export default {
-    name: "SetBasicRecipeData",
+<script lang="ts">
 
-    data() {
+
+import Component from "vue-class-component";
+import {basicDataPayload, cuisine, dietStyle, recipe} from "@/types/recipe";
+import Vue from "vue";
+
+@Component
+export default class SetBasicRecipeData extends Vue {
+
+    title = "";
+    declare dietStyle: dietStyle;
+    declare cuisine: cuisine;
+    timeToPrepare = 0;
+
+    cuisines = [
+        {label: "deutsch", value: "DEUTSCH"},
+        {label: "mediteran", value: "MEDITERAN"},
+        {label: "asiatisch", value: "ASIATISCH"},
+        {label: "amerikanisch", value: "AMERIKANISCH"},
+        {label: "indisch", value: "INDISCH"},
+    ];
+    dietStyles = [
+        {label: "alles", value: "ALLES"},
+        {label: "vegetarisch", value: "VEGETARISCH"},
+        {label: "vegan", value: "VEGAN"},
+    ];
+
+    mounted(){
+        if (!this.currentRecipe){
+            return;
+        }
+
+        this.cuisine = this.currentRecipe.cuisine;
+    }
+
+    get currentRecipe(): recipe | undefined{
+        return this.$store.getters.currentRecipe;
+    }
+
+    get buttonDisabled() {
+        return this.title === "" || this.timeToPrepare !== 0
+    }
+
+    get getButtonDisabledClass() {
         return {
-            "title": "",
-            "dietStyle": null,
-            "cuisine": null,
-            "timeToPrepare": null,
-
-            "dietStyles": [
-                {label: "alles", value: "ALLES"},
-                {label: "vegetarisch", value: "VEGETARISCH"},
-                {label: "vegan", value: "VEGAN"},
-            ],
-            "cuisines": [
-                {label: "deutsch", value: "DEUTSCH"},
-                {label: "mediteran", value: "MEDITERAN"},
-                {label: "asiatisch", value: "ASIATISCH"},
-                {label: "amerikanisch", value: "AMERIKANISCH"},
-                {label: "indisch", value: "INDISCH"},
-            ]
+            "disabled": this.buttonDisabled
         }
-    },
+    }
 
-    computed: {
-        buttonDisabled() {
-            return this.title === "" || this.dietStyle === null || this.cuisine === null || this.timeToPrepare === null
-        },
-
-        getButtonDisabledClass() {
-            return {
-                "disabled": this.buttonDisabled
-            }
+    emitData() {
+        const payload: basicDataPayload = {
+            title: this.title,
+            dietStyle: this.dietStyle,
+            cuisine: this.cuisine,
+            timeToPrepare: this.timeToPrepare
         }
-    },
-
-    methods: {
-        emitData() {
-            this.$emit("dataSet", {
-                "title": this.title,
-                "dietStyle": this.dietStyle,
-                "cuisine": this.cuisine,
-                "timeToPrepare": this.timeToPrepare
-            })
-        }
+        this.$emit("dataSet", payload)
     }
 }
 </script>
