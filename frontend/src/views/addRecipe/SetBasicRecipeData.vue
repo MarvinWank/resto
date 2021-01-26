@@ -39,7 +39,7 @@
             <div :disabled="buttonDisabled"
                  class="mt-3 btn btn-primary float-right"
                  :class="getButtonDisabledClass"
-                 @click="save"
+                 @click="nextStep"
             >
                 Weiter
             </div>
@@ -58,16 +58,16 @@ import Vue from "vue";
 export default class SetBasicRecipeData extends Vue {
 
     cuisines = [
-        {label: "deutsch", value: "DEUTSCH"},
-        {label: "mediteran", value: "MEDITERAN"},
-        {label: "asiatisch", value: "ASIATISCH"},
-        {label: "amerikanisch", value: "AMERIKANISCH"},
-        {label: "indisch", value: "INDISCH"},
+        {value: "deutsch", label: "deutsch"},
+        {value: "mediteran", label: "mediteran"},
+        {value: "asiatisch", label: "asiatisch"},
+        {value: "amerikanisch", label: "amerikanisch"},
+        {value: "indisch", label: "indisch"},
     ];
     dietStyles = [
-        {label: "alles", value: "ALLES"},
-        {label: "vegetarisch", value: "VEGETARISCH"},
-        {label: "vegan", value: "VEGAN"},
+        {value: "alles", label: "alles"},
+        {value: "vegetarisch", label: "vegetarisch"},
+        {value: "vegan", label: "vegan"},
     ];
 
 
@@ -120,7 +120,7 @@ export default class SetBasicRecipeData extends Vue {
     }
 
     get buttonDisabled() {
-        return this.title === "" || this.timeToPrepare !== 0
+        return this.title === "" || this.timeToPrepare === 0
     }
 
     get getButtonDisabledClass() {
@@ -131,6 +131,10 @@ export default class SetBasicRecipeData extends Vue {
 
     save(recipe: Recipe){
         this.$store.commit("updateRecipe", recipe);
+    }
+
+    nextStep(){
+        this.$emit("goForward")
     }
 }
 </script>

@@ -5,7 +5,7 @@
         <div class="mt-3">
             <SetBasicRecipeData
                 v-if="currentStep === 1"
-                @dataSet="setBasicData"
+                @goForward="goForward"
             />
             <SetIngredients
                 v-if="currentStep === 2"
@@ -60,6 +60,9 @@ export default class AddRecipe extends Vue {
         this.currentStep++;
     }
 
+    goForward() {
+        this.currentStep++;
+    }
     goBack() {
         this.currentStep--;
     }
