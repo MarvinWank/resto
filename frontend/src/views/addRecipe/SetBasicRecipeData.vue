@@ -92,8 +92,8 @@ export default class SetBasicRecipeData extends Vue {
 
     set timeToPrepare(time: number) {
         const recipe = this.currentRecipe;
-        recipe.timeToPrepare = time;
-
+        //Is necessary, because the form returns a string for whatever reason
+        recipe.timeToPrepare = Number.parseInt(time.toString());
         this.save(recipe);
     }
 

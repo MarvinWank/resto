@@ -61,14 +61,25 @@
             "name": "Ingredient",
             "values": {
                 "name": "string",
-                "gramm": "int",
-                "kcal": "int"
+                "amount": "int",
+                "unit": "SIUnit",
+                "kcal": "?int"
             }
         },
         {
             "type": "set",
             "name": "IngredientsSet",
             "itemType": "Ingredient"
+        },
+        {
+            "type": "enum",
+            "name": "SIUnit",
+            "values": {
+                "g": "gramm",
+                "kg": "kilogramm",
+                "ml": "millilitre",
+                "l": "litre"
+            }
         }
     ]
 }

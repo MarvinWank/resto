@@ -14,6 +14,7 @@
             <SetDescription
                 v-if="currentStep === 3"
                 @goBack="goBack"
+                @finish="saveRecipe"
             />
         </div>
 

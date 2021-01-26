@@ -48,12 +48,14 @@ export default class AddIngredientModal extends Vue implements Ingredient {
     name =  ""
     amount = 0
     unit: SI_UNIT = "g";
+    kcal = null;
 
     addIngredient(){
         const ingredient: Ingredient = {
             name: this.name,
             amount: this.amount,
-            unit: this.unit
+            unit: this.unit,
+            kcal: this.kcal
         }
         this.$emit("addIngredient", ingredient)
     }

@@ -102,6 +102,8 @@ export default class SetIngredients extends Vue {
 
     addIngredient(ingredient: Ingredient){
         this.showDialog = false;
+        //Is necessary, because the modal returns a string for whatever reason
+        ingredient.amount = Number.parseInt((ingredient.amount.toString()));
         const recipe = this.currentRecipe;
         recipe.ingredients.push(ingredient);
 

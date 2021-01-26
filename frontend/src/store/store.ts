@@ -19,7 +19,8 @@ const state: restoState = {
         dietStyle: "alles",
         ingredients: [],
         timeToPrepare: 0,
-        title: ""
+        title: "",
+        description: ""
     }
 }
 

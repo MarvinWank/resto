@@ -15,6 +15,7 @@ export interface Ingredient {
     name: string,
     amount: number,
     unit: SI_UNIT,
+    kcal: number | null
 }
 
 export interface basicDataPayload {

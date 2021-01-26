@@ -13,16 +13,19 @@ use UnexpectedValueException;
 final class Ingredient implements ValueObject
 {
     private string $name;
-    private int $gramm;
-    private int $kcal;
+    private int $amount;
+    private SIUnit $unit;
+    private ?int $kcal;
 
     public function __construct (
         string $name,
-        int $gramm,
-        int $kcal
+        int $amount,
+        SIUnit $unit,
+        ?int $kcal
     ) {
         $this->name = $name;
-        $this->gramm = $gramm;
+        $this->amount = $amount;
+        $this->unit = $unit;
         $this->kcal = $kcal;
     }
     
@@ -31,12 +34,17 @@ final class Ingredient implements ValueObject
         return $this->name;
     }
     
-    public function gramm(): int 
+    public function amount(): int 
     {
-        return $this->gramm;
+        return $this->amount;
     }
     
-    public function kcal(): int 
+    public function unit(): SIUnit 
+    {
+        return $this->unit;
+    }
+    
+    public function kcal(): ?int 
     {
         return $this->kcal;
     }
@@ -45,25 +53,38 @@ final class Ingredient implements ValueObject
     {
         return new self(
             $name,
-            $this->gramm,
+            $this->amount,
+            $this->unit,
             $this->kcal
         );
     }
     
-    public function with_gramm(int $gramm): self 
+    public function with_amount(int $amount): self 
     {
         return new self(
             $this->name,
-            $gramm,
+            $amount,
+            $this->unit,
             $this->kcal
         );
     }
     
-    public function with_kcal(int $kcal): self 
+    public function with_unit(SIUnit $unit): self 
     {
         return new self(
             $this->name,
-            $this->gramm,
+            $this->amount,
+            $unit,
+            $this->kcal
+        );
+    }
+    
+    public function with_kcal(?int $kcal): self 
+    {
+        return new self(
+            $this->name,
+            $this->amount,
+            $this->unit,
             $kcal
         );
     }
@@ -72,7 +93,8 @@ final class Ingredient implements ValueObject
     {
         return [
             'name' => $this->name,
-            'gramm' => $this->gramm,
+            'amount' => $this->amount,
+            'unit' =>  $this->valueToArray($this->unit),
             'kcal' => $this->kcal,
         ];
     }
@@ -83,17 +105,30 @@ final class Ingredient implements ValueObject
             throw new UnexpectedValueException('Array key name does not exist');
         }
         
-        if (!array_key_exists('gramm', $array)) {
-            throw new UnexpectedValueException('Array key gramm does not exist');
+        if (!array_key_exists('amount', $array)) {
+            throw new UnexpectedValueException('Array key amount does not exist');
         }
         
+        if (!array_key_exists('unit', $array)) {
+            throw new UnexpectedValueException('Array key unit does not exist');
+        }
+        
+        if (is_string($array['unit']) && is_a(SIUnit::class, Enum::class, true)) {
+            $array['unit'] = SIUnit::fromName($array['unit']);
+        }
+    
+        if (is_array($array['unit']) && (is_a(SIUnit::class, Set::class, true) || is_a(SIUnit::class, ValueObject::class, true))) {
+            $array['unit'] = SIUnit::fromArray($array['unit']);
+        }
+
         if (!array_key_exists('kcal', $array)) {
             throw new UnexpectedValueException('Array key kcal does not exist');
         }
         
         return new self(
             $array['name'],
-            $array['gramm'],
+            $array['amount'],
+            $array['unit'],
             $array['kcal']
         );
     }

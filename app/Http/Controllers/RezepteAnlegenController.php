@@ -17,15 +17,16 @@ class RezepteAnlegenController extends Controller
     public function add(Request $request, State $state, RecipeFactory $recipeFactory, UserFactory $userFactory)
     {
         $data = $request->json()->all();
-        $data = AddRecipeRequestDto::fromArray($data);
+        $data = AddRecipeRequestDto::fromArray($data['recipe']);
 
         $user = $userFactory->current_user();
+
 
         $recipe = $recipeFactory->add_recipe(
             $user,
             $data->title(),
-            DietStyle::fromName($data->dietStyle()),
-            Cuisine::fromName($data->cuisine()),
+            DietStyle::fromValue($data->dietStyle()),
+            Cuisine::fromValue($data->cuisine()),
             $data->timeToPrepare(),
             $data->ingredients()
         );
