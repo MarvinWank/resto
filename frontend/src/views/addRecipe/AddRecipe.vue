@@ -9,7 +9,7 @@
             />
             <SetIngredients
                 v-if="currentStep === 2"
-                @ingredientsSet="setIngredients"
+                @goForward="goForward"
                 @goBack="goBack"
             />
             <SetDescription
@@ -29,7 +29,7 @@ import SetIngredients from "@/views/addRecipe/SetIngredients.vue";
 import SetDescription from "@/views/addRecipe/SetDescription.vue";
 import Component from "vue-class-component";
 import Vue from "vue";
-import {basicDataPayload, Cuisine, dietStyle, Ingredient, Recipe} from "@/types/recipe";
+import {basicDataPayload, Ingredient, Recipe} from "@/types/recipe";
 
 @Component({
     components: {

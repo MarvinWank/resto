@@ -9,10 +9,10 @@
             </div>
         </div>
 
-        <div v-for="(ingredient, key) in ingredients"  :key="key" class="col-12">
+        <div v-for="(ingredient, key) in ingredients" :key="key" class="col-12">
             <div class="ingredient-card">
                 <div class="mt-3">
-                    {{ingredient.amount}}{{ingredient.unit}} {{ingredient.name}}
+                    {{ ingredient.amount }}{{ ingredient.unit }} {{ ingredient.name }}
                 </div>
             </div>
         </div>
@@ -40,60 +40,48 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 
+/* @ts-ignore */
 import VEasyDialog from 'v-easy-dialog'
-import AddIngredientModal from "@/views/addRecipe/AddIngredientModal";
+import AddIngredientModal from "@/views/addRecipe/AddIngredientModal.vue";
+import Component from "vue-class-component";
+import Vue from "vue";
+import {Ingredient} from "@/types/recipe";
 
-
-export default {
-    name: "SetIngredients",
-
+@Component({
     components: {
         AddIngredientModal,
         VEasyDialog
-    },
+    }
+})
+export default class SetIngredients extends Vue {
 
-    data() {
+
+    ingredients: Array<Ingredient> = [];
+    showDialog = false;
+
+
+    get buttonDisabled() {
+        return Object.keys(this.ingredients).length === 0;
+    }
+
+    get isButtonDisabledClass() {
         return {
-            ingredients: {},
-            showDialog: false
-
+            "disabled": this.buttonDisabled
         }
-    },
+    }
 
-    computed: {
-        buttonDisabled() {
-            return Object.keys(this.ingredients).length === 0;
-        },
+    showModal() {
+        this.showDialog = true;
+    }
 
-        getButtonDisabledClass() {
-            return {
-                "disabled": this.buttonDisabled
-            }
-        }
-    },
+    emitData() {
+        this.$emit("ingredientsSet", this.ingredients)
+    }
 
-    methods: {
-        showModal() {
-            this.showDialog = true;
-        },
-
-        addIngredient(data) {
-            this.ingredients[data.name] = {
-                name: data.name,
-                amount: data.amount,
-                unit: data.unit
-            };
-            this.showDialog = false;
-        },
-
-        emitData(){
-            this.$emit("ingredientsSet", this.ingredients)
-        },
-        goBack(){
-            this.$emit("goBack", this.ingredients)
-        }
+    goBack() {
+        this.$emit("goBack", this.ingredients)
     }
 }
 </script>
