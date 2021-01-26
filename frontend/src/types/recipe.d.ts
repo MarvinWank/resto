@@ -12,7 +12,8 @@ export type Cuisine = "deutsch" | "mediteran" | "asiatisch" | "amerikanisch" | "
 
 export interface Ingredient {
     name: string,
-    gramm: int,
+    amount: number,
+    unit: SI_UNIT,
 }
 
 export interface basicDataPayload {
@@ -21,3 +22,5 @@ export interface basicDataPayload {
     cuisine: Cuisine,
     timeToPrepare: number
 }
+
+type SI_UNIT = "g" | "kg" | "ml" | "l";

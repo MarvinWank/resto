@@ -31,7 +31,7 @@
             </div>
             <div :disabled="buttonDisabled"
                  class="mt-3 btn btn-primary float-right"
-                 :class="getButtonDisabledClass"
+                 :class="buttonDisabledClass"
                  @click="emitData"
             >
                 Weiter
@@ -47,7 +47,7 @@ import VEasyDialog from 'v-easy-dialog'
 import AddIngredientModal from "@/views/addRecipe/AddIngredientModal.vue";
 import Component from "vue-class-component";
 import Vue from "vue";
-import {Ingredient} from "@/types/recipe";
+import {Ingredient, Recipe} from "@/types/recipe";
 
 @Component({
     components: {
@@ -61,12 +61,15 @@ export default class SetIngredients extends Vue {
     ingredients: Array<Ingredient> = [];
     showDialog = false;
 
+    get currentRecipe(): Recipe{
+        return this.$store.getters.currentRecipe;
+    }
 
     get buttonDisabled() {
         return Object.keys(this.ingredients).length === 0;
     }
 
-    get isButtonDisabledClass() {
+    get buttonDisabledClass() {
         return {
             "disabled": this.buttonDisabled
         }
@@ -82,6 +85,14 @@ export default class SetIngredients extends Vue {
 
     goBack() {
         this.$emit("goBack", this.ingredients)
+    }
+
+    addIngredient(ingredient: Ingredient){
+        this.showDialog = false;
+        const recipe = this.currentRecipe;
+        recipe.ingredients.push(ingredient);
+
+        this.$store.commit("updateRecipe", recipe);
     }
 }
 </script>

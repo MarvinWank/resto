@@ -31,36 +31,33 @@
         </div>
 
         <button class="mt-3 btn btn-primary btn-block" @click="addIngredient">
-            {{name}} hinzufügen
+            {{ name }} hinzufügen
         </button>
     </div>
 </template>
 
-<script>
-export default {
-    name: "AddIngredientModal",
+<script lang="ts">
+import Vue from "vue";
+import Component from "vue-class-component";
+import {Ingredient, SI_UNIT} from "@/types/recipe";
 
-    data(){
-        return {
+@Component
+export default class AddIngredientModal extends Vue implements Ingredient {
 
-            name: "",
-            amount: "",
-            unit: "g",
+    units = ["g", "kg", "ml", "l"];
+    name =  ""
+    amount = 0
+    unit: SI_UNIT = "g";
 
-            units: {
-                g: "g", kg: "kg", ml: "ml", l: "l",
-            }
+    addIngredient(){
+        const ingredient: Ingredient = {
+            name: this.name,
+            amount: this.amount,
+            unit: this.unit
         }
-    },
-    methods:{
-        addIngredient(){
-            this.$emit("addIngredient", {
-                name: this.name,
-                amount: this.amount,
-                unit: this.unit
-            })
-        }
+        this.$emit("addIngredient", ingredient)
     }
+
 }
 </script>
 
