@@ -3,17 +3,27 @@
         <div class="col-12 mb-4">
             Zutaten
         </div>
-        <div class="col-12 ">
-            <div class="add-ingredient" @click="showModal">
-                <div class="mt-3">Zutat hinzufügen +</div>
-            </div>
-        </div>
 
         <div v-for="(ingredient, key) in ingredients" :key="key" class="col-12">
             <div class="ingredient-card">
-                <div class="mt-3">
-                    {{ ingredient.amount }}{{ ingredient.unit }} {{ ingredient.name }}
+                <div class="row align-items-center h-100">
+                    <div class="col-3">
+                        {{ ingredient.amount }} {{ ingredient.unit }}
+                    </div>
+                    <div class="col-6">
+                        {{ ingredient.name }}
+                    </div>
+                    <div class="col-3">
+
+                    </div>
                 </div>
+
+            </div>
+        </div>
+
+        <div class="col-12 ">
+            <div class="add-ingredient" @click="showModal">
+                <div class="mt-3">Zutat hinzufügen +</div>
             </div>
         </div>
 
@@ -58,11 +68,14 @@ import {Ingredient, Recipe} from "@/types/recipe";
 export default class SetIngredients extends Vue {
 
 
-    ingredients: Array<Ingredient> = [];
     showDialog = false;
 
     get currentRecipe(): Recipe{
         return this.$store.getters.currentRecipe;
+    }
+
+    get ingredients(): Array<Ingredient>{
+        return this.currentRecipe.ingredients;
     }
 
     get buttonDisabled() {
@@ -110,11 +123,8 @@ export default class SetIngredients extends Vue {
 }
 
 .ingredient-card {
-    border: 2px solid #e3e3e3;
-    height: 4rem;
-    padding-left: 1rem;
-    margin-bottom: .5rem;
-
+    border-bottom: 2px solid #e3e3e3;
+    height: 3rem;
     cursor: pointer;
 }
 
