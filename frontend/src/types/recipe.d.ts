@@ -3,7 +3,8 @@ export interface Recipe {
     dietStyle: dietStyle,
     cuisine: Cuisine,
     timeToPrepare: int,
-    ingredients: Array<Ingredient>
+    ingredients: Array<Ingredient>,
+    description: string,
 }
 
 export type dietStyle = "alles" | "vegetarisch" | "vegan"

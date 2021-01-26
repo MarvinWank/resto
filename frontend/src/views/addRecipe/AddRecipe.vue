@@ -1,7 +1,6 @@
 <template>
     <div>
         <RestoHeader/>
-        <h3 class=" mt-4">Neues Rezept anlegen</h3>
         <div class="mt-3">
             <SetBasicRecipeData
                 v-if="currentStep === 1"
@@ -43,32 +42,11 @@ export default class AddRecipe extends Vue {
     currentStep = 1;
     declare recipe: Recipe;
 
-    setBasicData(payload: basicDataPayload) {
-        this.recipe.title = payload.title;
-        this.recipe.dietStyle = payload.dietStyle;
-        this.recipe.cuisine = payload.cuisine;
-        this.recipe.timeToPrepare = payload.timeToPrepare;
-
-        this.updateRecipe();
-        this.currentStep++;
-    }
-
-    setIngredients(ingredients: Array<Ingredient>) {
-        this.recipe.ingredients = ingredients;
-
-        this.updateRecipe();
-        this.currentStep++;
-    }
-
     goForward() {
         this.currentStep++;
     }
     goBack() {
         this.currentStep--;
-    }
-
-    updateRecipe(){
-        this.$store.commit("updateRecipe", this.recipe);
     }
 
     saveRecipe(){

@@ -21,7 +21,7 @@
             </div>
         </div>
 
-        <div class="col-12 ">
+        <div class="col-12 mt-3">
             <div class="add-ingredient" @click="showModal">
                 <div class="mt-3">Zutat hinzufügen +</div>
             </div>
@@ -93,7 +93,7 @@ export default class SetIngredients extends Vue {
     }
 
     emitData() {
-        this.$emit("ingredientsSet", this.ingredients)
+        this.$emit("goForward", this.ingredients)
     }
 
     goBack() {

@@ -4,7 +4,7 @@
             <FormulateInput
                 type="textarea"
                 v-model="description"
-                label="Bescr"
+                label="Beschreibung"
             />
         </div>
 
@@ -14,31 +14,59 @@
             >
                 Zurück
             </div>
-            <!--            <div :disabled="buttonDisabled"-->
-            <!--                 class="mt-3 btn btn-primary float-right"-->
-            <!--                 :class="getButtonDisabledClass"-->
-            <!--                 @click="emitData"-->
-            <!--            >-->
-            <!--                Weiter-->
-            <!--            </div>-->
+        </div>
+
+        <div class="col-12">
+            <div :disabled="buttonDisabled"
+                 class="mt-3 btn btn-primary btn-block"
+                 :class="buttonDisabledClass"
+                 @click="finish"
+            >
+                Rezept hinzufügen
+            </div>
         </div>
     </div>
 </template>
 
-<script>
-export default {
-    name: "SetDescription",
+<script lang="ts">
+import Vue from "vue";
+import Component from "vue-class-component";
+import {Recipe} from "@/types/recipe";
 
-    data() {
+@Component
+export default class SetDescription extends Vue {
+
+    get currentRecipe(): Recipe{
+        return this.$store.getters.currentRecipe;
+    }
+
+    get description(): string{
+        return this.currentRecipe.description
+    }
+
+    //TODO: This is ludicrously bad perfomancewise
+    set description(description: string){
+        const recipe = this.currentRecipe;
+        recipe.description = description;
+
+        this.$store.commit("updateRecipe", recipe);
+    }
+
+    get buttonDisabled() {
+        return this.description === "";
+    }
+
+    get buttonDisabledClass() {
         return {
-            description: ""
+            "disabled": this.buttonDisabled
         }
-    },
+    }
 
-    methods: {
-        goBack(){
-            this.$emit("goBack", this.ingredients)
-        }
+    goBack() {
+        this.$emit("goBack")
+    }
+    finish(){
+        this.$emit("finish");
     }
 }
 </script>
