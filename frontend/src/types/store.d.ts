@@ -1,10 +1,10 @@
 import {User} from "./user"
-import {recipe} from "@/types/recipe";
+import {Recipe} from "@/types/recipe";
 
 export interface restoState {
     apiKey: string,
     isLoggedin: boolean,
     user?: User,
 
-    recipeCurentlyBeingAdded?: recipe
+    recipeCurentlyBeingAdded: Recipe
 }

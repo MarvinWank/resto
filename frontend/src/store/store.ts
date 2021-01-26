@@ -4,7 +4,7 @@ import router from "../router/router";
 import {restoState} from "@/types/store";
 import {setInitialDataPayload} from "@/types/api";
 import {User} from "@/types/user";
-import {recipe} from "@/types/recipe";
+import {Recipe} from "@/types/recipe";
 import api from "@/api/api";
 
 Vue.use(Vuex)
@@ -14,7 +14,13 @@ const state: restoState = {
     isLoggedin: false,
     user: undefined,
 
-    recipeCurentlyBeingAdded: undefined
+    recipeCurentlyBeingAdded: {
+        cuisine: "deutsch",
+        dietStyle: "alles",
+        ingredients: [],
+        timeToPrepare: 0,
+        title: ""
+    }
 }
 
 const mutations: MutationTree<restoState> = {
@@ -23,11 +29,11 @@ const mutations: MutationTree<restoState> = {
         state.user = daten.user;
         state.isLoggedin = true;
     },
-    updateRecipe(state: restoState, recipe: recipe){
+    updateRecipe(state: restoState, recipe: Recipe) {
         state.recipeCurentlyBeingAdded = recipe;
     },
-    saveRecipe(state: restoState){
-        if (state.recipeCurentlyBeingAdded !== undefined){
+    saveRecipe(state: restoState) {
+        if (state.recipeCurentlyBeingAdded !== undefined) {
             api.addRecipe(state.recipeCurentlyBeingAdded);
         }
     }
@@ -44,14 +50,14 @@ const getters: GetterTree<restoState, any> = {
     isLoggedin(state: restoState): boolean {
         return state.isLoggedin
     },
-    currentUser(state: restoState): User | undefined{
+    currentUser(state: restoState): User | undefined {
         return state.user;
     },
-    apiKey(state: restoState): string{
+    apiKey(state: restoState): string {
         return state.apiKey
     },
 
-    currentRecipe(state: restoState): recipe | undefined{
+    currentRecipe(state: restoState): Recipe {
         return state.recipeCurentlyBeingAdded;
     }
 }

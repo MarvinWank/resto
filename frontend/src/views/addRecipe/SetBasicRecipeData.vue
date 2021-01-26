@@ -39,7 +39,7 @@
             <div :disabled="buttonDisabled"
                  class="mt-3 btn btn-primary float-right"
                  :class="getButtonDisabledClass"
-                 @click="emitData"
+                 @click="save"
             >
                 Weiter
             </div>
@@ -51,16 +51,11 @@
 
 
 import Component from "vue-class-component";
-import {basicDataPayload, cuisine, dietStyle, recipe} from "@/types/recipe";
+import {Cuisine, dietStyle, Recipe} from "@/types/recipe";
 import Vue from "vue";
 
 @Component
 export default class SetBasicRecipeData extends Vue {
-
-    title = "";
-    declare dietStyle: dietStyle;
-    declare cuisine: cuisine;
-    timeToPrepare = 0;
 
     cuisines = [
         {label: "deutsch", value: "DEUTSCH"},
@@ -75,16 +70,53 @@ export default class SetBasicRecipeData extends Vue {
         {label: "vegan", value: "VEGAN"},
     ];
 
-    mounted(){
-        if (!this.currentRecipe){
-            return;
-        }
 
-        this.cuisine = this.currentRecipe.cuisine;
+    get currentRecipe(): Recipe {
+        return this.$store.getters.currentRecipe;
     }
 
-    get currentRecipe(): recipe | undefined{
-        return this.$store.getters.currentRecipe;
+    get title(): string {
+        return this.currentRecipe.title;
+    }
+
+    set title(title: string) {
+        const recipe = this.currentRecipe;
+        recipe.title = title;
+
+        this.save(recipe);
+    }
+
+    get timeToPrepare(): number {
+        return this.currentRecipe.timeToPrepare;
+    }
+
+    set timeToPrepare(time: number) {
+        const recipe = this.currentRecipe;
+        recipe.timeToPrepare = time;
+
+        this.save(recipe);
+    }
+
+    get cuisine(): Cuisine {
+        return this.currentRecipe.cuisine
+    }
+
+    set cuisine(cusine: Cuisine){
+        const recipe = this.currentRecipe;
+        recipe.cuisine = cusine;
+
+        this.save(recipe);
+    }
+
+    get dietStyle(): dietStyle {
+        return this.currentRecipe.dietStyle;
+    }
+
+    set dietStyle(dietStyle: dietStyle){
+        const recipe = this.currentRecipe;
+        recipe.dietStyle = dietStyle;
+
+        this.save(recipe);
     }
 
     get buttonDisabled() {
@@ -97,14 +129,8 @@ export default class SetBasicRecipeData extends Vue {
         }
     }
 
-    emitData() {
-        const payload: basicDataPayload = {
-            title: this.title,
-            dietStyle: this.dietStyle,
-            cuisine: this.cuisine,
-            timeToPrepare: this.timeToPrepare
-        }
-        this.$emit("dataSet", payload)
+    save(recipe: Recipe){
+        this.$store.commit("updateRecipe", recipe);
     }
 }
 </script>

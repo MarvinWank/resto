@@ -1,7 +1,7 @@
 import store from "../store/store";
 import axios from "axios"
 import router from "@/router/router";
-import {recipe} from "@/types/recipe";
+import {Recipe} from "@/types/recipe";
 
 class Api {
     host = '';
@@ -36,7 +36,7 @@ class Api {
         return data;
     }
 
-    async addRecipe(recipe: recipe) {
+    async addRecipe(recipe: Recipe) {
         const data = await this.post('/recipes/add', {recipe: recipe})
         return data;
     }

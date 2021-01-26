@@ -29,7 +29,7 @@ import SetIngredients from "@/views/addRecipe/SetIngredients.vue";
 import SetDescription from "@/views/addRecipe/SetDescription.vue";
 import Component from "vue-class-component";
 import Vue from "vue";
-import {basicDataPayload, cuisine, dietStyle, Ingredient, recipe} from "@/types/recipe";
+import {basicDataPayload, Cuisine, dietStyle, Ingredient, Recipe} from "@/types/recipe";
 
 @Component({
     components: {
@@ -41,7 +41,7 @@ import {basicDataPayload, cuisine, dietStyle, Ingredient, recipe} from "@/types/
 })
 export default class AddRecipe extends Vue {
     currentStep = 1;
-    declare recipe: recipe;
+    declare recipe: Recipe;
 
     setBasicData(payload: basicDataPayload) {
         this.recipe.title = payload.title;
