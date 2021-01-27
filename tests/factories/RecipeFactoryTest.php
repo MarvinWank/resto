@@ -4,6 +4,7 @@
 namespace factories;
 
 
+use App\Daos\RecipeDao;
 use App\Factories\RecipeFactory;
 use App\Value\Cuisine;
 use App\Value\DietStyle;
@@ -19,6 +20,14 @@ class RecipeFactoryTest extends \FactoryTestCase
     {
         parent::setUp();
         $this->recipeFactory = app(RecipeFactory::class);
+    }
+
+    public function tearDown(): void
+    {
+        /** @var RecipeDao $recipeDao */
+        $recipeDao = app(RecipeDao::class);
+        $recipeDao->deleteForUser($this->test_user);
+        parent::tearDown();
     }
 
     /**
