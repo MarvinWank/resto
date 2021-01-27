@@ -27,8 +27,8 @@ class AddRecipeTestApiActionTest extends ApiActionTestCase
             "cuisine" => "ASIATISCH",
             "timeToPrepare" => 60,
             "ingredients" => [
-                ["name" => "Milch", "gramm" => 200, "kcal" => 400],
-                ["name" => "Mehl", "gramm" => 200, "kcal" => 400],
+                ["name" => "Milch", "amount" => 200, "unit" => "gram", "kcal" => 400],
+                ["name" => "Mehl", "amout" => 0.2, "unit" => "kg", "kcal" => 400],
             ]
         ];
         $response = $this->apiCall("/recipes/add", $body);
