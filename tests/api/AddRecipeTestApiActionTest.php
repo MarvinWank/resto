@@ -22,13 +22,15 @@ class AddRecipeTestApiActionTest extends ApiActionTestCase
     public function it_tests_adding_recipe()
     {
         $body = [
-            "title" => "Test Recipe",
-            "dietStyle" => "ALLES",
-            "cuisine" => "ASIATISCH",
-            "timeToPrepare" => 60,
-            "ingredients" => [
-                ["name" => "Milch", "amount" => 200, "unit" => "gram", "kcal" => 400],
-                ["name" => "Mehl", "amout" => 0.2, "unit" => "kg", "kcal" => 400],
+            "recipe" => [
+                "title" => "Test Recipe",
+                "dietStyle" => "alles",
+                "cuisine" => "asiatisch",
+                "timeToPrepare" => 60,
+                "ingredients" => [
+                    ["name" => "Milch", "amount" => 200, "unit" => "g", "kcal" => 400],
+                    ["name" => "Mehl", "amount" => 0.2, "unit" => "kg", "kcal" => 400],
+                ]
             ]
         ];
         $response = $this->apiCall("/recipes/add", $body);
@@ -40,7 +42,7 @@ class AddRecipeTestApiActionTest extends ApiActionTestCase
         $this->assertEquals("ALLES", $response['recipe']['dietStyle']);
         $this->assertEquals("ASIATISCH", $response['recipe']['cuisine']);
         $this->assertEquals(60, $response['recipe']['timeToPrepare']);
-        $this->assertEquals(   ["name" => "Milch", "gramm" => 200, "kcal" => 400], $response['recipe']['ingredients'][0]);
-        $this->assertEquals( ["name" => "Mehl", "gramm" => 200, "kcal" => 400], $response['recipe']['ingredients'][1]);
+        $this->assertEquals(["name" => "Milch", "amount" => 200, "unit" => "g", "kcal" => 400], $response['recipe']['ingredients'][0]);
+        $this->assertEquals(["name" => "Mehl", "amount" => 0.2, "unit" => "kg", "kcal" => 400], $response['recipe']['ingredients'][1]);
     }
 }

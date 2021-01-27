@@ -9,6 +9,7 @@ use App\Value\Cuisine;
 use App\Value\DietStyle;
 use App\Value\Ingredient;
 use App\Value\IngredientsSet;
+use App\Value\SIUnit;
 
 class RecipeFactoryTest extends \FactoryTestCase
 {
@@ -26,10 +27,10 @@ class RecipeFactoryTest extends \FactoryTestCase
     public function es_testet_speichern_und_holen_eines_rezepts()
     {
         $ingredients = IngredientsSet::fromArray([
-            new Ingredient("Butter", 200, 400),
-            new Ingredient("Schmalz", 200, 400),
-            new Ingredient("Milch", 200, 400),
-            new Ingredient("Mehl", 200, 400),
+            new Ingredient("Butter", 200, SIUnit::g(), 100),
+            new Ingredient("Schmalz", 200, SIUnit::g(), 100),
+            new Ingredient("Milch", 200, SIUnit::g(), 100),
+            new Ingredient("Mehl", 200, SIUnit::g(), 100),
         ]);
         $recipe = $this->recipeFactory->add_recipe(
             $this->test_user,
@@ -45,6 +46,6 @@ class RecipeFactoryTest extends \FactoryTestCase
         $this->assertTrue(DietStyle::ALLES()->equals($recipe->dietStyle()));
         $this->assertTrue(Cuisine::DEUTSCH()->equals($recipe->cuisine()));
         $this->assertEquals(60, $recipe->timeToPrepare());
-        $this->assertEquals(["name" => "Butter", "gramm" => 200, "kcal" => 400], $recipe->ingredients()->toArray()[0]);
+        $this->assertEquals(["name" => "Butter", "amount" => 200.0, "unit" => "g", "kcal" => 100], $recipe->ingredients()->toArray()[0]);
     }
 }

@@ -61,7 +61,7 @@
             "name": "Ingredient",
             "values": {
                 "name": "string",
-                "amount": "int",
+                "amount": "float",
                 "unit": "SIUnit",
                 "kcal": "?int"
             }

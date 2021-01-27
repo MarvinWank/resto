@@ -13,13 +13,13 @@ use UnexpectedValueException;
 final class Ingredient implements ValueObject
 {
     private string $name;
-    private int $amount;
+    private float $amount;
     private SIUnit $unit;
     private ?int $kcal;
 
     public function __construct (
         string $name,
-        int $amount,
+        float $amount,
         SIUnit $unit,
         ?int $kcal
     ) {
@@ -34,7 +34,7 @@ final class Ingredient implements ValueObject
         return $this->name;
     }
     
-    public function amount(): int 
+    public function amount(): float 
     {
         return $this->amount;
     }
@@ -59,7 +59,7 @@ final class Ingredient implements ValueObject
         );
     }
     
-    public function with_amount(int $amount): self 
+    public function with_amount(float $amount): self 
     {
         return new self(
             $this->name,
