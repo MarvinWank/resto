@@ -15,16 +15,6 @@
                 Zurück
             </div>
         </div>
-
-        <div class="col-12">
-            <div :disabled="buttonDisabled"
-                 class="mt-3 btn btn-primary btn-block"
-                 :class="buttonDisabledClass"
-                 @click="finish"
-            >
-                Rezept hinzufügen
-            </div>
-        </div>
     </div>
 </template>
 

@@ -18,6 +18,16 @@
             />
         </div>
 
+        <div v-if="currentRecipe.description !== '' && currentRecipe.description && !recipeAdded"
+             class="mt-3 btn btn-primary btn-block"
+             @click="saveRecipe"
+        >
+            Rezept hinzufügen
+        </div>
+
+        <div v-if="recipeAdded" class="mt-3 alert alert-success">
+            Rezept "{{ recipeAddedTitle }}" erfolgreich hinzugefügt.
+        </div>
 
     </div>
 </template>
@@ -29,7 +39,7 @@ import SetIngredients from "@/views/addRecipe/SetIngredients.vue";
 import SetDescription from "@/views/addRecipe/SetDescription.vue";
 import Component from "vue-class-component";
 import Vue from "vue";
-import {basicDataPayload, Ingredient, Recipe} from "@/types/recipe";
+import {Recipe} from "@/types/recipe";
 
 @Component({
     components: {
@@ -41,20 +51,27 @@ import {basicDataPayload, Ingredient, Recipe} from "@/types/recipe";
 })
 export default class AddRecipe extends Vue {
     currentStep = 1;
+    recipeAdded = false;
+    recipeAddedTitle = "";
 
-    get currentRecipe(): Recipe{
+    get currentRecipe(): Recipe {
         return this.$store.getters.currentRecipe;
     }
 
     goForward() {
         this.currentStep++;
     }
+
     goBack() {
         this.currentStep--;
     }
 
-    saveRecipe(){
+    saveRecipe() {
         this.$store.commit("saveRecipe");
+        this.recipeAddedTitle = this.currentRecipe.title;
+        this.currentStep = 1;
+        this.recipeAdded = true;
+        this.$store.commit("resetCurrentRecipe");
     }
 
 }

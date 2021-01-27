@@ -33,10 +33,20 @@ const mutations: MutationTree<restoState> = {
     updateRecipe(state: restoState, recipe: Recipe) {
         state.recipeCurentlyBeingAdded = recipe;
     },
-    saveRecipe(state: restoState) {
+    async saveRecipe(state: restoState) {
         if (state.recipeCurentlyBeingAdded !== undefined) {
-            const result = api.addRecipe(state.recipeCurentlyBeingAdded);
+            const result = await api.addRecipe(state.recipeCurentlyBeingAdded);
             console.log(result);
+        }
+    },
+    resetCurrentRecipe(state: restoState){
+        state.recipeCurentlyBeingAdded = {
+            cuisine: "deutsch",
+            dietStyle: "alles",
+            ingredients: [],
+            timeToPrepare: 0,
+            title: "",
+            description: ""
         }
     }
 }
