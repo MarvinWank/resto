@@ -41,7 +41,10 @@ import {basicDataPayload, Ingredient, Recipe} from "@/types/recipe";
 })
 export default class AddRecipe extends Vue {
     currentStep = 1;
-    declare recipe: Recipe;
+
+    get currentRecipe(): Recipe{
+        return this.$store.getters.currentRecipe;
+    }
 
     goForward() {
         this.currentStep++;

@@ -12,7 +12,7 @@ use App\Value\Cuisine;
 use App\Value\DietStyle;
 use Illuminate\Http\Request;
 
-class RezepteAnlegenController extends Controller
+class AddRecipeController extends Controller
 {
     public function add(Request $request, State $state, RecipeFactory $recipeFactory, UserFactory $userFactory)
     {

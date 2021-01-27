@@ -35,7 +35,8 @@ const mutations: MutationTree<restoState> = {
     },
     saveRecipe(state: restoState) {
         if (state.recipeCurentlyBeingAdded !== undefined) {
-            api.addRecipe(state.recipeCurentlyBeingAdded);
+            const result = api.addRecipe(state.recipeCurentlyBeingAdded);
+            console.log(result);
         }
     }
 }

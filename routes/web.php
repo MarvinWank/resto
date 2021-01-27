@@ -21,7 +21,7 @@
 
 
 $router->post('/login', 'LoginController@login');
-$router->post('/recipes/add', 'RezepteAnlegenController@add');
+$router->post('/recipes/add', 'AddRecipeController@add');
 
 //$router->post('/login', function (){
 //    return 'test';
