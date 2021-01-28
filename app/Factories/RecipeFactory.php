@@ -47,9 +47,16 @@ class RecipeFactory
     {
         $set = RecipeSet::fromArray([]);
         $results = $this->recipeDao->getForUser($user);
-        foreach ($results->toArray() as $result){
+        foreach ($results->toArray() as $result) {
+            $result[RecipeDao::PROPERTY_AUTHOR_ID] = $this->userFactory->from_id($result[RecipeDao::PROPERTY_AUTHOR_ID]);
+            $ingredients = json_decode($result[RecipeDao::PROPERTY_INGREDIENTS], true);
+            $ingredients = IngredientsSet::fromArray($ingredients);
+            $result[RecipeDao::PROPERTY_INGREDIENTS] = $ingredients;
             $recipe = Recipe::fromArray($result);
+            $set = $set->add($recipe);
         }
+
+        return $set;
     }
 
     public function fromId(int $id): Recipe

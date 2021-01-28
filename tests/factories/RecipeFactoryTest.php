@@ -10,6 +10,7 @@ use App\Value\Cuisine;
 use App\Value\DietStyle;
 use App\Value\Ingredient;
 use App\Value\IngredientsSet;
+use App\Value\Recipe;
 use App\Value\SIUnit;
 
 class RecipeFactoryTest extends \FactoryTestCase
@@ -91,5 +92,12 @@ class RecipeFactoryTest extends \FactoryTestCase
         );
 
         $allRecipes = $this->recipeFactory->getAllRecipesForUser($this->test_user);
+        /** @var Recipe $recipe1 */
+        $recipe1 = $allRecipes->toArray()[0];
+        /** @var Recipe $recipe2 */
+        $recipe2 = $allRecipes->toArray()[1];
+
+        $this->assertEquals("Test Rezept", $recipe1['title']);
+        $this->assertEquals("Test Rezept 2", $recipe2['title']);
     }
 }

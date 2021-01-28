@@ -15,7 +15,7 @@ class RecipeDao extends Model
     public const PROPERTY_TITLE = 'title';
     public const PROPERTY_DIET_STYLE = 'dietStyle';
     public const PROPERTY_CUISINE = 'cuisine';
-    public const PROPERTY_TIME_TO_COOK = 'timeToPrepare';
+    public const PROPERTY_TIME_TO_COOK = 'timeToCook';
     public const PROPERTY_TOTAL_TIME = 'totalTime';
     public const PROPERTY_KCAL = 'kcal';
     public const PROPERTY_INGREDIENTS = 'ingredients';
