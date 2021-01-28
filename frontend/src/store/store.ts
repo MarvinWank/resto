@@ -18,7 +18,8 @@ const state: restoState = {
         cuisine: "deutsch",
         dietStyle: "alles",
         ingredients: [],
-        timeToPrepare: 0,
+        timeToCook: 0,
+        totalTime: 0,
         title: "",
         description: ""
     }
@@ -44,7 +45,8 @@ const mutations: MutationTree<restoState> = {
             cuisine: "deutsch",
             dietStyle: "alles",
             ingredients: [],
-            timeToPrepare: 0,
+            timeToCook: 0,
+            totalTime: 0,
             title: "",
             description: ""
         }

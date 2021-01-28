@@ -27,7 +27,8 @@ class AddRecipeController extends Controller
             $data->title(),
             DietStyle::fromValue($data->dietStyle()),
             Cuisine::fromValue($data->cuisine()),
-            $data->timeToPrepare(),
+            $data->timeToCook(),
+            $data->totalTime(),
             $data->ingredients()
         );
 

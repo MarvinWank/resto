@@ -30,12 +30,13 @@ class RecipeFactory
         string $title,
         DietStyle $diet_style,
         Cuisine $cuisine,
-        int $time_to_prepare,
+        int $timeToCook,
+        int $totalTime,
         IngredientsSet $ingredients
 
     ): Recipe
     {
-        $recipe = new Recipe(-1, $title, $author, $diet_style, $cuisine, $time_to_prepare, $ingredients);
+        $recipe = new Recipe(-1, $title, $author, $diet_style, $cuisine, $timeToCook, $totalTime, $ingredients);
         $id = $this->recipeDao->add($recipe);
 
         return $this->fromId($id);
@@ -51,7 +52,8 @@ class RecipeFactory
             $this->userFactory->from_id($dao_recipe->getAttribute(RecipeDao::PROPERTY_AUTHOR_ID)),
             DietStyle::fromName($dao_recipe->getAttribute(RecipeDao::PROPERTY_DIET_STYLE)),
             Cuisine::fromName($dao_recipe->getAttribute(RecipeDao::PROPERTY_CUISINE)),
-            $dao_recipe->getAttribute(RecipeDao::PROPERTY_TIME_TO_PREPARE),
+            $dao_recipe->getAttribute(RecipeDao::PROPERTY_TIME_TO_COOK),
+            $dao_recipe->getAttribute(RecipeDao::PROPERTY_TOTAL_TIME),
             IngredientsSet::fromArray(\json_decode($dao_recipe->getAttribute(RecipeDao::PROPERTY_INGREDIENTS), true))
         );
     }

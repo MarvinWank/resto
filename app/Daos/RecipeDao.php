@@ -15,7 +15,8 @@ class RecipeDao extends Model
     public const PROPERTY_TITLE = 'title';
     public const PROPERTY_DIET_STYLE = 'diet_style';
     public const PROPERTY_CUISINE = 'cuisine';
-    public const PROPERTY_TIME_TO_PREPARE = 'time_to_prepare';
+    public const PROPERTY_TIME_TO_COOK = 'time_to_prepare';
+    public const PROPERTY_TOTAL_TIME = 'total_time';
     public const PROPERTY_KCAL = 'kcal';
     public const PROPERTY_INGREDIENTS = 'ingredients';
 
@@ -29,7 +30,8 @@ class RecipeDao extends Model
             self::PROPERTY_TITLE => $recipe->title(),
             self::PROPERTY_DIET_STYLE => $recipe->dietStyle()->name(),
             self::PROPERTY_CUISINE => $recipe->cuisine()->name(),
-            self::PROPERTY_TIME_TO_PREPARE => $recipe->timeToPrepare(),
+            self::PROPERTY_TIME_TO_COOK => $recipe->timeToCook(),
+            self::PROPERTY_TOTAL_TIME => $recipe->totalTime(),
             self::PROPERTY_INGREDIENTS => json_encode($recipe->ingredients()->toArray())
         ]);
     }

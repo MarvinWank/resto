@@ -15,20 +15,23 @@ final class AddRecipeRequestDto implements ValueObject
     private string $title;
     private string $dietStyle;
     private string $cuisine;
-    private int $timeToPrepare;
+    private int $timeToCook;
+    private int $totalTime;
     private IngredientsSet $ingredients;
 
     public function __construct (
         string $title,
         string $dietStyle,
         string $cuisine,
-        int $timeToPrepare,
+        int $timeToCook,
+        int $totalTime,
         IngredientsSet $ingredients
     ) {
         $this->title = $title;
         $this->dietStyle = $dietStyle;
         $this->cuisine = $cuisine;
-        $this->timeToPrepare = $timeToPrepare;
+        $this->timeToCook = $timeToCook;
+        $this->totalTime = $totalTime;
         $this->ingredients = $ingredients;
     }
     
@@ -47,9 +50,14 @@ final class AddRecipeRequestDto implements ValueObject
         return $this->cuisine;
     }
     
-    public function timeToPrepare(): int 
+    public function timeToCook(): int 
     {
-        return $this->timeToPrepare;
+        return $this->timeToCook;
+    }
+    
+    public function totalTime(): int 
+    {
+        return $this->totalTime;
     }
     
     public function ingredients(): IngredientsSet 
@@ -63,7 +71,8 @@ final class AddRecipeRequestDto implements ValueObject
             $title,
             $this->dietStyle,
             $this->cuisine,
-            $this->timeToPrepare,
+            $this->timeToCook,
+            $this->totalTime,
             $this->ingredients
         );
     }
@@ -74,7 +83,8 @@ final class AddRecipeRequestDto implements ValueObject
             $this->title,
             $dietStyle,
             $this->cuisine,
-            $this->timeToPrepare,
+            $this->timeToCook,
+            $this->totalTime,
             $this->ingredients
         );
     }
@@ -85,18 +95,32 @@ final class AddRecipeRequestDto implements ValueObject
             $this->title,
             $this->dietStyle,
             $cuisine,
-            $this->timeToPrepare,
+            $this->timeToCook,
+            $this->totalTime,
             $this->ingredients
         );
     }
     
-    public function with_timeToPrepare(int $timeToPrepare): self 
+    public function with_timeToCook(int $timeToCook): self 
     {
         return new self(
             $this->title,
             $this->dietStyle,
             $this->cuisine,
-            $timeToPrepare,
+            $timeToCook,
+            $this->totalTime,
+            $this->ingredients
+        );
+    }
+    
+    public function with_totalTime(int $totalTime): self 
+    {
+        return new self(
+            $this->title,
+            $this->dietStyle,
+            $this->cuisine,
+            $this->timeToCook,
+            $totalTime,
             $this->ingredients
         );
     }
@@ -107,7 +131,8 @@ final class AddRecipeRequestDto implements ValueObject
             $this->title,
             $this->dietStyle,
             $this->cuisine,
-            $this->timeToPrepare,
+            $this->timeToCook,
+            $this->totalTime,
             $ingredients
         );
     }
@@ -118,7 +143,8 @@ final class AddRecipeRequestDto implements ValueObject
             'title' => $this->title,
             'dietStyle' => $this->dietStyle,
             'cuisine' => $this->cuisine,
-            'timeToPrepare' => $this->timeToPrepare,
+            'timeToCook' => $this->timeToCook,
+            'totalTime' => $this->totalTime,
             'ingredients' =>  $this->valueToArray($this->ingredients),
         ];
     }
@@ -137,8 +163,12 @@ final class AddRecipeRequestDto implements ValueObject
             throw new UnexpectedValueException('Array key cuisine does not exist');
         }
         
-        if (!array_key_exists('timeToPrepare', $array)) {
-            throw new UnexpectedValueException('Array key timeToPrepare does not exist');
+        if (!array_key_exists('timeToCook', $array)) {
+            throw new UnexpectedValueException('Array key timeToCook does not exist');
+        }
+        
+        if (!array_key_exists('totalTime', $array)) {
+            throw new UnexpectedValueException('Array key totalTime does not exist');
         }
         
         if (!array_key_exists('ingredients', $array)) {
@@ -157,7 +187,8 @@ final class AddRecipeRequestDto implements ValueObject
             $array['title'],
             $array['dietStyle'],
             $array['cuisine'],
-            $array['timeToPrepare'],
+            $array['timeToCook'],
+            $array['totalTime'],
             $array['ingredients']
         );
     }

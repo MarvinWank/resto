@@ -47,6 +47,7 @@ class RecipeFactoryTest extends \FactoryTestCase
             DietStyle::ALLES(),
             Cuisine::DEUTSCH(),
             60,
+            90,
             $ingredients
         );
 
@@ -54,7 +55,8 @@ class RecipeFactoryTest extends \FactoryTestCase
         $this->assertEquals("Test Rezept", $recipe->title());
         $this->assertTrue(DietStyle::ALLES()->equals($recipe->dietStyle()));
         $this->assertTrue(Cuisine::DEUTSCH()->equals($recipe->cuisine()));
-        $this->assertEquals(60, $recipe->timeToPrepare());
+        $this->assertEquals(60, $recipe->timeToCook());
+        $this->assertEquals(90, $recipe->totalTime());
         $this->assertEquals(["name" => "Butter", "amount" => 200.0, "unit" => "g", "kcal" => 100], $recipe->ingredients()->toArray()[0]);
     }
 }

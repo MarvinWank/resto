@@ -28,7 +28,8 @@
                 "title": "string",
                 "dietStyle": "string",
                 "cuisine": "string",
-                "timeToPrepare": "int",
+                "timeToCook": "int",
+                "totalTime": "int",
                 "ingredients": "IngredientsSet"
             }
         },
@@ -41,7 +42,8 @@
                 "author": "User",
                 "dietStyle": "DietStyle",
                 "cuisine": "Cuisine",
-                "timeToPrepare": "int",
+                "timeToCook": "int",
+                "totalTime": "int",
                 "ingredients": "IngredientsSet"
             },
             "string_value": "id"

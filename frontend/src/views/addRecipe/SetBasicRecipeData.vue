@@ -30,8 +30,15 @@
 
         <div class="col-12">
             <div class="form-group">
-                <label for="time_to_prepare">geschätzte Arbeitszeit (Minuten)</label>
-                <input v-model="timeToPrepare" id="time_to_prepare" class="form-control">
+                <label for="time_to_prepare">geschätzte Arbeitszeit in Minuten</label>
+                <input v-model="timeToCook" id="time_to_prepare" class="form-control">
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="form-group">
+                <label for="time_to_prepare">Gesamteit in Minuten (inkl. Wartezeiten)</label>
+                <input v-model="totalTime" id="total_time" class="form-control">
             </div>
         </div>
 
@@ -86,14 +93,31 @@ export default class SetBasicRecipeData extends Vue {
         this.save(recipe);
     }
 
-    get timeToPrepare(): number {
-        return this.currentRecipe.timeToPrepare;
+    get timeToCook(): number {
+        if(isNaN(this.currentRecipe.timeToCook)){
+            return 0;
+        }
+        return this.currentRecipe.timeToCook;
     }
 
-    set timeToPrepare(time: number) {
+    set timeToCook(time: number) {
         const recipe = this.currentRecipe;
         //Is necessary, because the form returns a string for whatever reason
-        recipe.timeToPrepare = Number.parseInt(time.toString());
+        recipe.timeToCook = Number.parseInt(time.toString());
+        this.save(recipe);
+    }
+
+    get totalTime(): number{
+        if (isNaN(this.currentRecipe.totalTime)){
+            return 0;
+        }
+        return this.currentRecipe.totalTime;
+    }
+
+    set totalTime(time: number){
+        const recipe = this.currentRecipe;
+        //Is necessary, because the form returns a string for whatever reason
+        recipe.totalTime = Number.parseInt(time.toString());
         this.save(recipe);
     }
 
@@ -120,7 +144,7 @@ export default class SetBasicRecipeData extends Vue {
     }
 
     get buttonDisabled() {
-        return this.title === "" || this.timeToPrepare === 0
+        return this.title === "" || this.timeToCook === 0
     }
 
     get getButtonDisabledClass() {

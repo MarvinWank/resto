@@ -26,7 +26,8 @@ class AddRecipeTestApiActionTest extends ApiActionTestCase
                 "title" => "Test Recipe",
                 "dietStyle" => "alles",
                 "cuisine" => "asiatisch",
-                "timeToPrepare" => 60,
+                "timeToCook" => 60,
+                "totalTime" => 90,
                 "ingredients" => [
                     ["name" => "Milch", "amount" => 200, "unit" => "g", "kcal" => 400],
                     ["name" => "Mehl", "amount" => 0.2, "unit" => "kg", "kcal" => 400],
@@ -41,7 +42,8 @@ class AddRecipeTestApiActionTest extends ApiActionTestCase
         $this->assertEquals("Test Recipe", $response['recipe']['title']);
         $this->assertEquals("ALLES", $response['recipe']['dietStyle']);
         $this->assertEquals("ASIATISCH", $response['recipe']['cuisine']);
-        $this->assertEquals(60, $response['recipe']['timeToPrepare']);
+        $this->assertEquals(60, $response['recipe']['timeToCook']);
+        $this->assertEquals(90, $response['recipe']['totalTime']);
         $this->assertEquals(["name" => "Milch", "amount" => 200, "unit" => "g", "kcal" => 400], $response['recipe']['ingredients'][0]);
         $this->assertEquals(["name" => "Mehl", "amount" => 0.2, "unit" => "kg", "kcal" => 400], $response['recipe']['ingredients'][1]);
     }

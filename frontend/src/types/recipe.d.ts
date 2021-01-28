@@ -2,7 +2,8 @@ export interface Recipe {
     title: string,
     dietStyle: dietStyle,
     cuisine: Cuisine,
-    timeToPrepare: int,
+    timeToCook: number,
+    totalTime: number,
     ingredients: Array<Ingredient>,
     description: string,
 }
@@ -16,13 +17,6 @@ export interface Ingredient {
     amount: number,
     unit: SI_UNIT,
     kcal: number | null
-}
-
-export interface basicDataPayload {
-    title: string,
-    dietStyle: dietStyle,
-    cuisine: Cuisine,
-    timeToPrepare: number
 }
 
 type SI_UNIT = "g" | "kg" | "ml" | "l";
