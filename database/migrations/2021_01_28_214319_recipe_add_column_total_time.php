@@ -14,7 +14,8 @@ class RecipeAddColumnTotalTime extends Migration
     public function up()
     {
         Schema::table('recipes', function (Blueprint $table) {
-            $table->renameColumn('time_to_prepare', 'time_to_prepare');
+            $table->renameColumn('diet_style', 'dietStyle');
+            $table->renameColumn('time_to_prepare', 'timeToPrepare');
             $table->integer("totalTime");
         });
     }
@@ -27,7 +28,8 @@ class RecipeAddColumnTotalTime extends Migration
     public function down()
     {
         Schema::table('recipes', function (Blueprint $table) {
-            $table->renameColumn('time_to_prepare', 'time_to_prepare');
+            $table->renameColumn('dietStlye', 'diet_style');
+            $table->renameColumn('timeToPrepare', 'time_to_prepare');
             $table->dropColumn("total_time");
         });
     }

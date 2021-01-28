@@ -59,4 +59,37 @@ class RecipeFactoryTest extends \FactoryTestCase
         $this->assertEquals(90, $recipe->totalTime());
         $this->assertEquals(["name" => "Butter", "amount" => 200.0, "unit" => "g", "kcal" => 100], $recipe->ingredients()->toArray()[0]);
     }
+
+    /**
+     * @test
+     */
+    public function it_tests_give_all_for_user()
+    {
+        $ingredients = IngredientsSet::fromArray([
+            new Ingredient("Butter", 200, SIUnit::g(), 100),
+            new Ingredient("Schmalz", 200, SIUnit::g(), 100),
+            new Ingredient("Milch", 200, SIUnit::g(), 100),
+            new Ingredient("Mehl", 200, SIUnit::g(), 100),
+        ]);
+        $this->recipeFactory->add_recipe(
+            $this->test_user,
+            "Test Rezept",
+            DietStyle::ALLES(),
+            Cuisine::DEUTSCH(),
+            60,
+            90,
+            $ingredients
+        );
+        $this->recipeFactory->add_recipe(
+            $this->test_user,
+            "Test Rezept 2",
+            DietStyle::VEGAN(),
+            Cuisine::ASIATISCH(),
+            60,
+            90,
+            $ingredients
+        );
+
+        $allRecipes = $this->recipeFactory->getAllRecipesForUser($this->test_user);
+    }
 }

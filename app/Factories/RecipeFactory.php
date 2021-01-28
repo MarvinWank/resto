@@ -6,6 +6,7 @@ namespace App\Factories;
 
 use App\Daos\RecipeDao;
 use App\Value\IngredientsSet;
+use App\Value\RecipeSet;
 use App\Value\User;
 use App\Value\Cuisine;
 use App\Value\DietStyle;
@@ -40,6 +41,15 @@ class RecipeFactory
         $id = $this->recipeDao->add($recipe);
 
         return $this->fromId($id);
+    }
+
+    public function getAllRecipesForUser(User $user): RecipeSet
+    {
+        $set = RecipeSet::fromArray([]);
+        $results = $this->recipeDao->getForUser($user);
+        foreach ($results->toArray() as $result){
+            $recipe = Recipe::fromArray($result);
+        }
     }
 
     public function fromId(int $id): Recipe

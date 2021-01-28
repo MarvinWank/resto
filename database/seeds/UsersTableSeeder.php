@@ -9,12 +9,21 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         DB::table('users')
-            ->insert
-            ([
-                "name" => "Test User",
-                "email" => 'test@test.de',
+            ->insert(
+                [
+                    [
+                        "name" => "Test User",
+                        "email" => 'test@test.de',
 //                "password" => password_hash("test", 1)
-                "password" => "test"
-            ]);
+                        "password" => "test"
+                    ],
+                    [
+                        "name" => "Marvin Wank",
+                        "email" => 'marvin.wank@test.de',
+//                "password" => password_hash("test", 1)
+                        "password" => "test"
+                    ]
+                ]
+            );
     }
 }

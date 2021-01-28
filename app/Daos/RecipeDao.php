@@ -13,10 +13,10 @@ class RecipeDao extends Model
     public const PROPERTY_ID = 'id';
     public const PROPERTY_AUTHOR_ID = 'author';
     public const PROPERTY_TITLE = 'title';
-    public const PROPERTY_DIET_STYLE = 'diet_style';
+    public const PROPERTY_DIET_STYLE = 'dietStyle';
     public const PROPERTY_CUISINE = 'cuisine';
-    public const PROPERTY_TIME_TO_COOK = 'time_to_prepare';
-    public const PROPERTY_TOTAL_TIME = 'total_time';
+    public const PROPERTY_TIME_TO_COOK = 'timeToPrepare';
+    public const PROPERTY_TOTAL_TIME = 'totalTime';
     public const PROPERTY_KCAL = 'kcal';
     public const PROPERTY_INGREDIENTS = 'ingredients';
 
@@ -41,5 +41,12 @@ class RecipeDao extends Model
         $this->newQuery()
             ->where(self::PROPERTY_AUTHOR_ID, "=", $user->id())
             ->delete();
+    }
+
+    public function getForUser(User $user)
+    {
+        return $this->newQuery()
+            ->where(self::PROPERTY_AUTHOR_ID, '=', $user->id())
+            ->get();
     }
 }

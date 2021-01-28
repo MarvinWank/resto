@@ -82,6 +82,12 @@
                 "ml": "millilitre",
                 "l": "litre"
             }
+        },
+        {
+            "type": "set",
+            "name": "RecipeSet",
+            "itemType": "Recipe",
+            "mutable": true
         }
     ]
 }
