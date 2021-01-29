@@ -1,11 +1,12 @@
 <?php
 
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Recipe;
 
 
 use App\Factories\RecipeFactory;
 use App\Factories\UserFactory;
+use App\Http\Controllers\Controller;
 use App\Models\State;
 use App\Value\AddRecipeRequestDto;
 use App\Value\Cuisine;

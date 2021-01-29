@@ -6,6 +6,7 @@ namespace App\Daos;
 
 use App\Value\Recipe;
 use App\Value\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class RecipeDao extends Model
@@ -43,10 +44,20 @@ class RecipeDao extends Model
             ->delete();
     }
 
-    public function getForUser(User $user)
+    public function getForUser(User $user): Collection
     {
         return $this->newQuery()
             ->where(self::PROPERTY_AUTHOR_ID, '=', $user->id())
             ->get();
+    }
+
+    public function getTopRecipesForUser(User $user, int $limit = -1): Collection
+    {
+        $query = $this->newQuery()->where(self::PROPERTY_AUTHOR_ID, "=", $user->id());
+        if ($limit !== -1){
+            $query->limit($limit);
+        }
+
+        return $query->get();
     }
 }

@@ -11,6 +11,7 @@ use App\Value\User;
 use App\Value\Cuisine;
 use App\Value\DietStyle;
 use App\Value\Recipe;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class RecipeFactory
@@ -45,9 +46,20 @@ class RecipeFactory
 
     public function getAllRecipesForUser(User $user): RecipeSet
     {
-        $set = RecipeSet::fromArray([]);
         $results = $this->recipeDao->getForUser($user);
-        foreach ($results->toArray() as $result) {
+        return $this->collectionToSet($results);
+    }
+
+    public function getTopRecipesForUser(User $user, int $limit = -1): RecipeSet
+    {
+        $results = $this->recipeDao->getTopRecipesForUser($user, $limit);
+        return  $this->collectionToSet($results);
+    }
+
+    private function collectionToSet(Collection $collection): RecipeSet
+    {
+        $set = RecipeSet::fromArray([]);
+        foreach ($collection->toArray() as $result) {
             $result[RecipeDao::PROPERTY_AUTHOR_ID] = $this->userFactory->from_id($result[RecipeDao::PROPERTY_AUTHOR_ID]);
             $ingredients = json_decode($result[RecipeDao::PROPERTY_INGREDIENTS], true);
             $ingredients = IngredientsSet::fromArray($ingredients);
@@ -55,7 +67,6 @@ class RecipeFactory
             $recipe = Recipe::fromArray($result);
             $set = $set->add($recipe);
         }
-
         return $set;
     }
 

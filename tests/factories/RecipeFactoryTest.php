@@ -100,4 +100,50 @@ class RecipeFactoryTest extends \FactoryTestCase
         $this->assertEquals("Test Rezept", $recipe1['title']);
         $this->assertEquals("Test Rezept 2", $recipe2['title']);
     }
+
+    /**
+     * @test
+     */
+    public function it_tests_give_top_recipes_for_user()
+    {
+        $ingredients = IngredientsSet::fromArray([
+            new Ingredient("Butter", 200, SIUnit::g(), 100),
+            new Ingredient("Schmalz", 200, SIUnit::g(), 100),
+            new Ingredient("Milch", 200, SIUnit::g(), 100),
+            new Ingredient("Mehl", 200, SIUnit::g(), 100),
+        ]);
+        $this->recipeFactory->add_recipe(
+            $this->test_user,
+            "Test Rezept",
+            DietStyle::ALLES(),
+            Cuisine::DEUTSCH(),
+            60,
+            90,
+            $ingredients
+        );
+        $this->recipeFactory->add_recipe(
+            $this->test_user,
+            "Test Rezept 2",
+            DietStyle::VEGAN(),
+            Cuisine::ASIATISCH(),
+            60,
+            90,
+            $ingredients
+        );
+        $this->recipeFactory->add_recipe(
+            $this->test_user,
+            "Test Rezept 2",
+            DietStyle::VEGAN(),
+            Cuisine::ASIATISCH(),
+            60,
+            90,
+            $ingredients
+        );
+
+        $recipes = $this->recipeFactory->getTopRecipesForUser($this->test_user, 2);
+        $this->assertEquals(2, $recipes->count());
+
+        $allRecipes = $this->recipeFactory->getAllRecipesForUser($this->test_user);
+        $this->assertEquals(3, $allRecipes->count());
+    }
 }
