@@ -10,6 +10,11 @@ abstract class TestCase extends BaseTestCase
 
     protected $test_user;
 
+    public function setUp(): void
+    {
+        parent::setUp();
+    }
+
     /**
      * Creates the application.
      *

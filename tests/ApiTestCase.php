@@ -8,6 +8,11 @@ class ApiTestCase extends TestCase
     protected $client;
     protected string $apiKey;
 
+    public function setUp(): void
+    {
+        parent::setUp();
+    }
+
     public function __construct()
     {
         parent::__construct();
