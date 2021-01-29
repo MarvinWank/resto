@@ -4,7 +4,7 @@
 namespace api;
 
 
-class LoginApiActionTest extends \ApiActionTestCase
+class LoginApiTest extends \ApiTestCase
 {
     /**
      * @test

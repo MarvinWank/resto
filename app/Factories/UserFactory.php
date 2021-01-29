@@ -22,7 +22,7 @@ class UserFactory
         $this->state = $state;
     }
 
-    public function current_user(): User
+    public function currentUser(): User
     {
         return  $this->from_id($this->state->getUserID());
     }

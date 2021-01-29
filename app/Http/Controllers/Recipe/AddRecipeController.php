@@ -15,13 +15,11 @@ use Illuminate\Http\Request;
 
 class AddRecipeController extends Controller
 {
-    public function add(Request $request, State $state, RecipeFactory $recipeFactory, UserFactory $userFactory)
+    public function add(Request $request, RecipeFactory $recipeFactory, UserFactory $userFactory)
     {
         $data = $request->json()->all();
         $data = AddRecipeRequestDto::fromArray($data['recipe']);
-
-        $user = $userFactory->current_user();
-
+        $user = $userFactory->currentUser();
 
         $recipe = $recipeFactory->add_recipe(
             $user,

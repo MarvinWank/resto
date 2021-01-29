@@ -15,14 +15,8 @@
 
 
 /** @var \Laravel\Lumen\Routing\Router $router */
-//$router->get('/', function () use ($router) {
-//    return $router->app->version();
-//});
-
-
 $router->post('/login', 'LoginController@login');
-$router->post('/recipes/add', 'Recipe\AddRecipeController@add');
 
-//$router->post('/login', function (){
-//    return 'test';
-//});
+$router->post('/recipes/add', 'Recipe\AddRecipeController@add');
+$router->get('/recipes/all', 'Recipe\GetRecipesController@getAll');
+$router->get('/recipes/top', 'Recipe\GetRecipesController@getTop');

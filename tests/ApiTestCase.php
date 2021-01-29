@@ -3,7 +3,7 @@
 
 use GuzzleHttp\Client;
 
-class ApiActionTestCase extends TestCase
+class ApiTestCase extends TestCase
 {
     protected $client;
     protected string $apiKey;
@@ -28,11 +28,19 @@ class ApiActionTestCase extends TestCase
         $this->apiKey = $response['apiKey'];
     }
 
-    public function apiCall(string $url, array $json_body)
+    public function apiPost(string $url, array $json_body)
     {
         $json_body['apiKey'] = $this->apiKey;
         $body = ["json" => $json_body];
         return $this->client->post($url, $body);
+    }
+
+    public function apiGet(string $url)
+    {
+        $json_body = [];
+        $json_body['apiKey'] = $this->apiKey;
+        $body = ["json" => $json_body];
+        return $this->client->get($url, $body);
     }
 
     private function get_base_url(): string

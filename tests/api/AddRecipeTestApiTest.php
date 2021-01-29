@@ -4,16 +4,26 @@
 namespace api;
 
 
-use ApiActionTestCase;
+use ApiTestCase;
+use App\Daos\RecipeDao;
+use App\Factories\RecipeFactory;
 use App\Value\Ingredient;
 
-class AddRecipeTestApiActionTest extends ApiActionTestCase
+class AddRecipeTestApiTest extends ApiTestCase
 {
     public function setUp(): void
     {
         parent::setUp();
 
         $this->testLogin();
+    }
+
+    public function tearDown(): void
+    {
+        parent::tearDown();
+        /** @var RecipeDao $recipeDao */
+        $recipeDao = app(RecipeDao::class);
+        $recipeDao->deleteForUser($this->test_user);
     }
 
     /**
@@ -34,7 +44,7 @@ class AddRecipeTestApiActionTest extends ApiActionTestCase
                 ]
             ]
         ];
-        $response = $this->apiCall("/recipes/add", $body);
+        $response = $this->apiPost("/recipes/add", $body);
         $response = $response->getBody()->getContents();
         $response = json_decode($response, true);
 
