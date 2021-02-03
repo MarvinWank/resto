@@ -1,6 +1,13 @@
 <template>
     <div class="row">
-        <!--        Liste von Rezepten-->
+
+        <div class="col-12">
+            <div v-for="(recipe, id) in topRecipes" :key="id">
+                <RecipeCard
+                    :recipe="recipe"
+                />
+            </div>
+        </div>
 
         <router-link class="col-12 add-recipe" to="recipe/add">
             <div class="mt-4">Rezept hinzufügen +</div>
@@ -13,24 +20,20 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import {Recipe} from "@/types/recipe";
-
-@Component
+import RecipeCard from "@/views/home/items/RecipeCard.vue";
+@Component({
+    components: {RecipeCard}
+})
 export default class RecipeOverview extends Vue{
+
     get topRecipes(): Array<Recipe>{
         return this.$store.getters.topRecipes;
     }
+
 }
 </script>
 
 <style scoped lang="scss">
 
-.add-recipe {
-    border: 2px dashed #cbcbcb;
-    text-align: center;
-    height: 5rem;
-    color: $grey_lighter;
-
-    cursor: pointer;
-}
 
 </style>
