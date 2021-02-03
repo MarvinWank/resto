@@ -23,7 +23,7 @@
 <script lang="ts">
 
 import api from "../api/api";
-import { Component, Vue } from 'vue-property-decorator'
+import {Component, Vue} from 'vue-property-decorator'
 
 @Component
 export default class Login extends Vue {
@@ -53,6 +53,7 @@ export default class Login extends Vue {
 
         await this.$store.dispatch('authenticate', {
                 "user": apiResponse.user,
+                "topRecipes": apiResponse.topRecipes,
                 "apiKey": apiResponse.apiKey
             }
         )

@@ -13,6 +13,7 @@ const state: restoState = {
     apiKey: "",
     isLoggedin: false,
     user: undefined,
+    topRecipes: [],
 
     recipeCurentlyBeingAdded: {
         cuisine: "deutsch",
@@ -29,6 +30,7 @@ const mutations: MutationTree<restoState> = {
     setDataInitial(state: restoState, daten: setInitialDataPayload) {
         state.apiKey = daten.apiKey;
         state.user = daten.user;
+        state.topRecipes = daten.topRecipes;
         state.isLoggedin = true;
     },
     updateRecipe(state: restoState, recipe: Recipe) {
@@ -73,6 +75,9 @@ const getters: GetterTree<restoState, any> = {
 
     currentRecipe(state: restoState): Recipe {
         return state.recipeCurentlyBeingAdded;
+    },
+    topRecipes(state: restoState): Array<Recipe>{
+        return state.topRecipes;
     }
 }
 

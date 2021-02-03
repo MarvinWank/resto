@@ -6,7 +6,6 @@ use App\Factories\RecipeFactory;
 use App\Factories\UserFactory;
 use App\Models\State;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class LoginController extends Controller
 {

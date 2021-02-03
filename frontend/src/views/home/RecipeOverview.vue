@@ -12,10 +12,13 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
+import {Recipe} from "@/types/recipe";
 
 @Component
 export default class RecipeOverview extends Vue{
-
+    get topRecipes(): Array<Recipe>{
+        return this.$store.getters.topRecipes;
+    }
 }
 </script>
 
