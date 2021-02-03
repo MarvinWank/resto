@@ -50,7 +50,7 @@ class RecipeFactory
         return $this->collectionToSet($results);
     }
 
-    public function getTopRecipesForUser(User $user, int $limit = -1): RecipeSet
+    public function getTopRecipesForUser(User $user, int $limit = 3): RecipeSet
     {
         $results = $this->recipeDao->getTopRecipesForUser($user, $limit);
         return  $this->collectionToSet($results);

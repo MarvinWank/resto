@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Factories\RecipeFactory;
 use App\Factories\UserFactory;
 use App\Models\State;
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ class LoginController extends Controller
         $this->userFactory = $userFactory;
     }
 
-    public function login(Request $request, State $session)
+    public function login(Request $request, State $session, RecipeFactory $recipeFactory)
     {
         $data = $request->json();
         $email = $data->get('email');
@@ -34,10 +35,13 @@ class LoginController extends Controller
             return response()->json(["status" => "fehler"]);
         }
 
+        $recipes = $recipeFactory->getTopRecipesForUser($user, 5);
+
         $session->setUserID($user->id());
         return response()->json([
             "status" => "ok",
             "user" => $user->toArray(),
+            "topRecipes" => $recipes->toArray(),
             "apiKey" => $session->getStateId()
         ]);
     }
