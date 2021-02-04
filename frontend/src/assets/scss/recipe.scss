@@ -5,9 +5,11 @@
     margin-bottom: 1rem;
 
     .inner{
-
         .title {
             padding-top: 0.5rem;
+        }
+        .content{
+            color: $grey_darker;
         }
     }
 

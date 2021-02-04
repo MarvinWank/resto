@@ -3,7 +3,7 @@
         <RestoHeader />
         <div class="col-12 mt-3">
             <div class="row mb-3">
-                <div class="text-center">Rezeptvorschläge</div>
+                <div class="text-center">Rezepte für heute</div>
             </div>
             <RecipeOverview/>
         </div>
