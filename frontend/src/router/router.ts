@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import Home from "../views/home/Home.vue";
 import Login from "../views/Login.vue";
 import AddRecipe from "../views/addRecipe/AddRecipe.vue";
+import ViewRecipe from "@/views/viewRecipe/ViewRecipe.vue";
 
 Vue.use(VueRouter)
 
@@ -24,6 +25,11 @@ const routes = [
         path: '/recipe/add',
         name: 'AddRecipe',
         component: AddRecipe
+    },
+    {
+        path: "/recipe/:id",
+        name: "ViewRecipe",
+        component: ViewRecipe
     }
 
 ]

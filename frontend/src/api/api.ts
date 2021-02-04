@@ -40,6 +40,11 @@ class Api {
         const data = await this.post('/recipes/add', {recipe: recipe})
         return data;
     }
+
+    async getRecipeById(id: number) {
+        const data = await this.post('/recipes/get_by_id', {id: id})
+        return data;
+    }
 }
 
 export default new Api();

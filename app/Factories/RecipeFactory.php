@@ -56,6 +56,16 @@ class RecipeFactory
         return  $this->collectionToSet($results);
     }
 
+    public function getRecipeById(int $id): ?Recipe
+    {
+        $recipe = $this->recipeDao->newQuery()->find($id);
+        if ($recipe === null){
+            return null;
+        }
+
+        return Recipe::fromArray($recipe);
+    }
+
     private function collectionToSet(Collection $collection): RecipeSet
     {
         $set = RecipeSet::fromArray([]);
