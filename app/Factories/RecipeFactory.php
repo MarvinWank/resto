@@ -56,14 +56,21 @@ class RecipeFactory
         return  $this->collectionToSet($results);
     }
 
-    public function getRecipeById(int $id): ?Recipe
-    {
-        $recipe = $this->recipeDao->newQuery()->find($id);
-        if ($recipe === null){
-            return null;
-        }
 
-        return Recipe::fromArray($recipe);
+    public function fromId(int $id): Recipe
+    {
+        /** @var Model $dao_recipe */
+        $dao_recipe = $this->recipeDao->newQuery()->find($id);
+        return new Recipe(
+            $id,
+            $dao_recipe->getAttribute(RecipeDao::PROPERTY_TITLE),
+            $this->userFactory->from_id($dao_recipe->getAttribute(RecipeDao::PROPERTY_AUTHOR_ID)),
+            DietStyle::fromName($dao_recipe->getAttribute(RecipeDao::PROPERTY_DIET_STYLE)),
+            Cuisine::fromName($dao_recipe->getAttribute(RecipeDao::PROPERTY_CUISINE)),
+            $dao_recipe->getAttribute(RecipeDao::PROPERTY_TIME_TO_COOK),
+            $dao_recipe->getAttribute(RecipeDao::PROPERTY_TOTAL_TIME),
+            IngredientsSet::fromArray(\json_decode($dao_recipe->getAttribute(RecipeDao::PROPERTY_INGREDIENTS), true))
+        );
     }
 
     private function collectionToSet(Collection $collection): RecipeSet
@@ -78,21 +85,5 @@ class RecipeFactory
             $set = $set->add($recipe);
         }
         return $set;
-    }
-
-    public function fromId(int $id): Recipe
-    {
-        /** @var Model $dao_recipe */
-        $dao_recipe = $this->recipeDao->find($id);
-        return new Recipe(
-            $id,
-            $dao_recipe->getAttribute(RecipeDao::PROPERTY_TITLE),
-            $this->userFactory->from_id($dao_recipe->getAttribute(RecipeDao::PROPERTY_AUTHOR_ID)),
-            DietStyle::fromName($dao_recipe->getAttribute(RecipeDao::PROPERTY_DIET_STYLE)),
-            Cuisine::fromName($dao_recipe->getAttribute(RecipeDao::PROPERTY_CUISINE)),
-            $dao_recipe->getAttribute(RecipeDao::PROPERTY_TIME_TO_COOK),
-            $dao_recipe->getAttribute(RecipeDao::PROPERTY_TOTAL_TIME),
-            IngredientsSet::fromArray(\json_decode($dao_recipe->getAttribute(RecipeDao::PROPERTY_INGREDIENTS), true))
-        );
     }
 }

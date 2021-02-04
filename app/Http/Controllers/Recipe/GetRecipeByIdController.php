@@ -21,7 +21,7 @@ class GetRecipeByIdController extends Controller
                 "message" => "no id was given"
             ]);
         }
-        $recipe = $recipeFactory->getRecipeById($id);
+        $recipe = $recipeFactory->fromId($id);
 
         return request()->json([
             "status" => "ok",

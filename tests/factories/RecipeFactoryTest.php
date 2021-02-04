@@ -146,4 +146,29 @@ class RecipeFactoryTest extends \FactoryTestCase
         $allRecipes = $this->recipeFactory->getAllRecipesForUser($this->test_user);
         $this->assertEquals(3, $allRecipes->count());
     }
+
+    /**
+     * @test
+     */
+    public function it_tests_sucessfully_get_recipe_by_id()
+    {
+        $ingredients = IngredientsSet::fromArray([
+            new Ingredient("Butter", 200, SIUnit::g(), 100),
+            new Ingredient("Schmalz", 200, SIUnit::g(), 100),
+            new Ingredient("Milch", 200, SIUnit::g(), 100),
+            new Ingredient("Mehl", 200, SIUnit::g(), 100),
+        ]);
+        $recipe = $this->recipeFactory->add_recipe(
+            $this->test_user,
+            "Test Rezept",
+            DietStyle::ALLES(),
+            Cuisine::DEUTSCH(),
+            60,
+            90,
+            $ingredients
+        );
+
+        $recipeFromId = $this->recipeFactory->fromId($recipe->id());
+        $this->assertEquals($recipe, $recipeFromId);
+    }
 }
