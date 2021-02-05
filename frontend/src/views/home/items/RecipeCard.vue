@@ -1,5 +1,5 @@
 <template>
-    <div class="row recipe-card" >
+    <div class="row recipe-card" @click="showRecipe">
         <div class="col-12 inner">
             <div class="title">{{recipe.title}}</div>
             <div class="row justify-content-between pt-2 content">
@@ -26,6 +26,10 @@ import {Recipe} from "@/types/recipe";
 @Component
 export default class RecipeCard extends Vue {
     @Prop() private recipe: Recipe | undefined;
+
+    showRecipe() {
+        this.$router.push("/recipe/view/" + this.recipe?.id)
+    }
 }
 </script>
 

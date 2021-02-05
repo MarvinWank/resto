@@ -94,4 +94,9 @@ class GetRecipeApiTest extends ApiTestCase
         $this->assertEquals("Test Recipe 2", $response['recipes'][1]['title']);
         $this->assertEquals("Test Recipe 3", $response['recipes'][2]['title']);
     }
+
+    public function it_tests_get_by_recipe_by_id()
+    {
+
+    }
 }

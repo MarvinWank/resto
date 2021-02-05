@@ -18,6 +18,6 @@
 $router->post('/login', 'LoginController@login');
 
 $router->post('/recipes/add', 'Recipe\AddRecipeController@add');
-$router->get('/recipes/all', 'Recipe\GetRecipesController@getAll');
-$router->get('/recipes/top', 'Recipe\GetRecipesController@getTop');
-$router->get('/recipes/get_by_id', 'Recipe\GetRecipeByIdController@get');
+$router->post('/recipes/all', 'Recipe\GetRecipesController@getAll');
+$router->post('/recipes/top', 'Recipe\GetRecipesController@getTop');
+$router->post('/recipes/get_by_id', 'Recipe\GetRecipeByIdController@get');

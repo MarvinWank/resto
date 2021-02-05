@@ -1,4 +1,5 @@
 export interface Recipe {
+    id: number,
     title: string,
     dietStyle: dietStyle,
     cuisine: Cuisine,

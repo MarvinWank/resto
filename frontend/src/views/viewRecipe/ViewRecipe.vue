@@ -20,6 +20,7 @@ export default class ViewRecipe extends Vue{
 
     async mounted(){
         this.recipe = await api.getRecipeById(Number(this.$route.params.id));
+        console.log(this.recipe);
     }
 
 }

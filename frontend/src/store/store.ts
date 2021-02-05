@@ -16,6 +16,7 @@ const state: restoState = {
     topRecipes: [],
 
     recipeCurentlyBeingAdded: {
+        id: -1,
         cuisine: "deutsch",
         dietStyle: "alles",
         ingredients: [],
@@ -44,6 +45,7 @@ const mutations: MutationTree<restoState> = {
     },
     resetCurrentRecipe(state: restoState){
         state.recipeCurentlyBeingAdded = {
+            id: -1,
             cuisine: "deutsch",
             dietStyle: "alles",
             ingredients: [],
