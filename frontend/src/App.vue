@@ -11,9 +11,6 @@ import Vue from "vue";
 
 @Component
 export default class App extends Vue{
-    created(){
-        console.log("foo");
-    }
 }
 
 </script>
