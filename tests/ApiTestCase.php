@@ -33,7 +33,7 @@ class ApiTestCase extends TestCase
         $this->apiKey = $response['apiKey'];
     }
 
-    public function apiPost(string $url, array $json_body)
+    public function apiPost(string $url, array $json_body = [])
     {
         $json_body['apiKey'] = $this->apiKey;
         $body = ["json" => $json_body];

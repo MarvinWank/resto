@@ -6,6 +6,7 @@ namespace api;
 
 use ApiTestCase;
 use App\Daos\RecipeDao;
+use App\Value\Recipe;
 
 class GetRecipeApiTest extends ApiTestCase
 {
@@ -48,7 +49,7 @@ class GetRecipeApiTest extends ApiTestCase
         $body['recipe']['title'] = "Test Recipe 4";
         $this->apiPost("/recipes/add", $body);
 
-        $result = $this->apiGet("/recipes/all");
+        $result = $this->apiPost("/recipes/all");
         $response = $result->getBody()->getContents();
         $response = json_decode($response, true);
 
@@ -85,7 +86,7 @@ class GetRecipeApiTest extends ApiTestCase
         $body['recipe']['title'] = "Test Recipe 4";
         $this->apiPost("/recipes/add", $body);
 
-        $result = $this->apiGet("/recipes/top");
+        $result = $this->apiPost("/recipes/top");
         $response = $result->getBody()->getContents();
         $response = json_decode($response, true);
 
@@ -95,8 +96,34 @@ class GetRecipeApiTest extends ApiTestCase
         $this->assertEquals("Test Recipe 3", $response['recipes'][2]['title']);
     }
 
-    public function it_tests_get_by_recipe_by_id()
+    /**
+     * @test
+     */
+    public function it_tests_get_recipe_by_id()
     {
+        $body = [
+            "recipe" => [
+                "title" => "Test Recipe",
+                "dietStyle" => "alles",
+                "cuisine" => "asiatisch",
+                "timeToCook" => 60,
+                "totalTime" => 90,
+                "ingredients" => [
+                    ["name" => "Milch", "amount" => 200, "unit" => "g", "kcal" => 400],
+                    ["name" => "Mehl", "amount" => 0.2, "unit" => "kg", "kcal" => 400],
+                ]
+            ]
+        ];
+        $result = $this->apiPost("/recipes/add", $body);
+        $response = $result->getBody()->getContents();
+        $response = json_decode($response, true);
+        $response = Recipe::fromArray($response['recipe']);
 
+        $resultApi = $this->apiPost("/recipes/get_by_id", ["id" => $response->id() ]);
+        $resultApi = $resultApi->getBody()->getContents();
+        $resultApi = json_decode($resultApi, true);
+        $resultApi = Recipe::fromArray($resultApi['recipe']);
+
+        $this->assertEquals($response, $resultApi);
     }
 }
