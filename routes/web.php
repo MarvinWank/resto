@@ -14,10 +14,15 @@
  */
 
 
-/** @var \Laravel\Lumen\Routing\Router $router */
-$router->post('/login', 'LoginController@login');
 
-$router->post('/recipes/add', 'Recipe\AddRecipeController@add');
-$router->post('/recipes/all', 'Recipe\GetRecipesController@getAll');
-$router->post('/recipes/top', 'Recipe\GetRecipesController@getTop');
-$router->post('/recipes/get_by_id', 'Recipe\GetRecipeByIdController@get');
+
+/** @var \Laravel\Lumen\Routing\Router $router */
+$router->group(['prefix' => 'api'], function () use ($router) {
+    $router->post('/login', 'LoginController@login');
+
+    $router->post('/recipes/add', 'Recipe\AddRecipeController@add');
+    $router->post('/recipes/all', 'Recipe\GetRecipesController@getAll');
+    $router->post('/recipes/top', 'Recipe\GetRecipesController@getTop');
+    $router->post('/recipes/get_by_id', 'Recipe\GetRecipeByIdController@get');
+});
+

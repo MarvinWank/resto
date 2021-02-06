@@ -43,7 +43,7 @@ class LoginApiTest extends \ApiTestCase
             'email' => $this->test_user->email(),
             'password' => "test"
         ]];
-        $response = $this->client->post('/login', $body);
+        $response = $this->client->post('/api/login', $body);
         $response = json_decode($response->getBody()->getContents(), true);
         $this->assertIsArray($response);
         $this->assertEquals("ok", $response['status']);
