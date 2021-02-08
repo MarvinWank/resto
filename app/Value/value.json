@@ -82,7 +82,8 @@
                 "g": "gramm",
                 "kg": "kilogramm",
                 "ml": "millilitre",
-                "l": "litre"
+                "l": "litre",
+                "Stk": "pieces"
             }
         },
         {

@@ -17,12 +17,14 @@ final class SIUnit implements Enum
         'kg' => 'kilogramm',
         'ml' => 'millilitre',
         'l' => 'litre',
+        'Stk' => 'pieces',
     ];
 
     public const g = 'gramm';               
     public const kg = 'kilogramm';               
     public const ml = 'millilitre';               
-    public const l = 'litre';                       
+    public const l = 'litre';               
+    public const Stk = 'pieces';                       
     private string $name;
     private string $value;
         
@@ -50,6 +52,11 @@ final class SIUnit implements Enum
     public static function l(): self
     {
         return new self('l');
+    }
+    
+    public static function Stk(): self
+    {
+        return new self('Stk');
     }
     
     public static function fromValue(string $value): self
