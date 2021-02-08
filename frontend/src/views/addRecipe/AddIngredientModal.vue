@@ -1,5 +1,5 @@
 <template>
-    <div class="modal-body">
+    <div class="modal-body" @keyup.enter="addIngredient">
         <h3 class="text-center">Neue Zutat hinzufügen</h3>
 
         <div class="row mt-5">
@@ -44,7 +44,7 @@ import {Ingredient, SI_UNIT} from "@/types/recipe";
 @Component
 export default class AddIngredientModal extends Vue implements Ingredient {
 
-    units = ["g", "kg", "ml", "l"];
+    units = ["g", "kg", "ml", "l", "Stk"];
     name =  ""
     amount = 0
     unit: SI_UNIT = "g";
