@@ -34,11 +34,12 @@ class RecipeFactory
         Cuisine $cuisine,
         int $timeToCook,
         int $totalTime,
-        IngredientsSet $ingredients
+        IngredientsSet $ingredients,
+        string $description
 
     ): Recipe
     {
-        $recipe = new Recipe(-1, $title, $author, $diet_style, $cuisine, $timeToCook, $totalTime, $ingredients);
+        $recipe = new Recipe(-1, $title, $author, $diet_style, $cuisine, $timeToCook, $totalTime, $ingredients, $description);
         $id = $this->recipeDao->add($recipe);
 
         return $this->fromId($id);
@@ -59,17 +60,18 @@ class RecipeFactory
 
     public function fromId(int $id): Recipe
     {
-        /** @var Model $dao_recipe */
-        $dao_recipe = $this->recipeDao->newQuery()->find($id);
+        /** @var Model $daoRecipe */
+        $daoRecipe = $this->recipeDao->newQuery()->find($id);
         return new Recipe(
             $id,
-            $dao_recipe->getAttribute(RecipeDao::PROPERTY_TITLE),
-            $this->userFactory->from_id($dao_recipe->getAttribute(RecipeDao::PROPERTY_AUTHOR_ID)),
-            DietStyle::fromName($dao_recipe->getAttribute(RecipeDao::PROPERTY_DIET_STYLE)),
-            Cuisine::fromName($dao_recipe->getAttribute(RecipeDao::PROPERTY_CUISINE)),
-            $dao_recipe->getAttribute(RecipeDao::PROPERTY_TIME_TO_COOK),
-            $dao_recipe->getAttribute(RecipeDao::PROPERTY_TOTAL_TIME),
-            IngredientsSet::fromArray(\json_decode($dao_recipe->getAttribute(RecipeDao::PROPERTY_INGREDIENTS), true))
+            $daoRecipe->getAttribute(RecipeDao::PROPERTY_TITLE),
+            $this->userFactory->from_id($daoRecipe->getAttribute(RecipeDao::PROPERTY_AUTHOR_ID)),
+            DietStyle::fromName($daoRecipe->getAttribute(RecipeDao::PROPERTY_DIET_STYLE)),
+            Cuisine::fromName($daoRecipe->getAttribute(RecipeDao::PROPERTY_CUISINE)),
+            $daoRecipe->getAttribute(RecipeDao::PROPERTY_TIME_TO_COOK),
+            $daoRecipe->getAttribute(RecipeDao::PROPERTY_TOTAL_TIME),
+            IngredientsSet::fromArray(\json_decode($daoRecipe->getAttribute(RecipeDao::PROPERTY_INGREDIENTS), true)),
+            $daoRecipe->getAttribute(RecipeDao::PROPERTY_DESCRIPTION)
         );
     }
 

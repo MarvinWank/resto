@@ -49,7 +49,8 @@ class RecipeFactoryTest extends \FactoryTestCase
             Cuisine::DEUTSCH(),
             60,
             90,
-            $ingredients
+            $ingredients,
+            "Your add here"
         );
 
         $this->assertEquals($this->test_user->id(), $recipe->author()->id());
@@ -59,6 +60,7 @@ class RecipeFactoryTest extends \FactoryTestCase
         $this->assertEquals(60, $recipe->timeToCook());
         $this->assertEquals(90, $recipe->totalTime());
         $this->assertEquals(["name" => "Butter", "amount" => 200.0, "unit" => "g", "kcal" => 100], $recipe->ingredients()->toArray()[0]);
+        $this->assertEquals("Your add here", $recipe->description());
     }
 
     /**
@@ -79,7 +81,8 @@ class RecipeFactoryTest extends \FactoryTestCase
             Cuisine::DEUTSCH(),
             60,
             90,
-            $ingredients
+            $ingredients,
+            "Your add here"
         );
         $this->recipeFactory->add_recipe(
             $this->test_user,
@@ -88,7 +91,8 @@ class RecipeFactoryTest extends \FactoryTestCase
             Cuisine::ASIATISCH(),
             60,
             90,
-            $ingredients
+            $ingredients,
+            "Your add here"
         );
 
         $allRecipes = $this->recipeFactory->getAllRecipesForUser($this->test_user);
@@ -119,7 +123,8 @@ class RecipeFactoryTest extends \FactoryTestCase
             Cuisine::DEUTSCH(),
             60,
             90,
-            $ingredients
+            $ingredients,
+            "Your add here"
         );
         $this->recipeFactory->add_recipe(
             $this->test_user,
@@ -128,7 +133,8 @@ class RecipeFactoryTest extends \FactoryTestCase
             Cuisine::ASIATISCH(),
             60,
             90,
-            $ingredients
+            $ingredients,
+            "Your add here"
         );
         $this->recipeFactory->add_recipe(
             $this->test_user,
@@ -137,7 +143,8 @@ class RecipeFactoryTest extends \FactoryTestCase
             Cuisine::ASIATISCH(),
             60,
             90,
-            $ingredients
+            $ingredients,
+            "Your add here"
         );
 
         $recipes = $this->recipeFactory->getTopRecipesForUser($this->test_user, 2);
@@ -165,7 +172,8 @@ class RecipeFactoryTest extends \FactoryTestCase
             Cuisine::DEUTSCH(),
             60,
             90,
-            $ingredients
+            $ingredients,
+            "Your add here"
         );
 
         $recipeFromId = $this->recipeFactory->fromId($recipe->id());

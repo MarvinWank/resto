@@ -18,6 +18,7 @@ final class AddRecipeRequestDto implements ValueObject
     private int $timeToCook;
     private int $totalTime;
     private IngredientsSet $ingredients;
+    private string $description;
 
     public function __construct (
         string $title,
@@ -25,7 +26,8 @@ final class AddRecipeRequestDto implements ValueObject
         string $cuisine,
         int $timeToCook,
         int $totalTime,
-        IngredientsSet $ingredients
+        IngredientsSet $ingredients,
+        string $description
     ) {
         $this->title = $title;
         $this->dietStyle = $dietStyle;
@@ -33,6 +35,7 @@ final class AddRecipeRequestDto implements ValueObject
         $this->timeToCook = $timeToCook;
         $this->totalTime = $totalTime;
         $this->ingredients = $ingredients;
+        $this->description = $description;
     }
     
     public function title(): string 
@@ -65,6 +68,11 @@ final class AddRecipeRequestDto implements ValueObject
         return $this->ingredients;
     }
     
+    public function description(): string 
+    {
+        return $this->description;
+    }
+    
     public function with_title(string $title): self 
     {
         return new self(
@@ -73,7 +81,8 @@ final class AddRecipeRequestDto implements ValueObject
             $this->cuisine,
             $this->timeToCook,
             $this->totalTime,
-            $this->ingredients
+            $this->ingredients,
+            $this->description
         );
     }
     
@@ -85,7 +94,8 @@ final class AddRecipeRequestDto implements ValueObject
             $this->cuisine,
             $this->timeToCook,
             $this->totalTime,
-            $this->ingredients
+            $this->ingredients,
+            $this->description
         );
     }
     
@@ -97,7 +107,8 @@ final class AddRecipeRequestDto implements ValueObject
             $cuisine,
             $this->timeToCook,
             $this->totalTime,
-            $this->ingredients
+            $this->ingredients,
+            $this->description
         );
     }
     
@@ -109,7 +120,8 @@ final class AddRecipeRequestDto implements ValueObject
             $this->cuisine,
             $timeToCook,
             $this->totalTime,
-            $this->ingredients
+            $this->ingredients,
+            $this->description
         );
     }
     
@@ -121,7 +133,8 @@ final class AddRecipeRequestDto implements ValueObject
             $this->cuisine,
             $this->timeToCook,
             $totalTime,
-            $this->ingredients
+            $this->ingredients,
+            $this->description
         );
     }
     
@@ -133,7 +146,21 @@ final class AddRecipeRequestDto implements ValueObject
             $this->cuisine,
             $this->timeToCook,
             $this->totalTime,
-            $ingredients
+            $ingredients,
+            $this->description
+        );
+    }
+    
+    public function with_description(string $description): self 
+    {
+        return new self(
+            $this->title,
+            $this->dietStyle,
+            $this->cuisine,
+            $this->timeToCook,
+            $this->totalTime,
+            $this->ingredients,
+            $description
         );
     }
     
@@ -146,6 +173,7 @@ final class AddRecipeRequestDto implements ValueObject
             'timeToCook' => $this->timeToCook,
             'totalTime' => $this->totalTime,
             'ingredients' =>  $this->valueToArray($this->ingredients),
+            'description' => $this->description,
         ];
     }
     
@@ -183,13 +211,18 @@ final class AddRecipeRequestDto implements ValueObject
             $array['ingredients'] = IngredientsSet::fromArray($array['ingredients']);
         }
 
+        if (!array_key_exists('description', $array)) {
+            throw new UnexpectedValueException('Array key description does not exist');
+        }
+        
         return new self(
             $array['title'],
             $array['dietStyle'],
             $array['cuisine'],
             $array['timeToCook'],
             $array['totalTime'],
-            $array['ingredients']
+            $array['ingredients'],
+            $array['description']
         );
     }
         

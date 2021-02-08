@@ -30,7 +30,8 @@
                 "cuisine": "string",
                 "timeToCook": "int",
                 "totalTime": "int",
-                "ingredients": "IngredientsSet"
+                "ingredients": "IngredientsSet",
+                "description": "string"
             }
         },
         {

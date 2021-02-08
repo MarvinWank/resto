@@ -20,6 +20,7 @@ class RecipeDao extends Model
     public const PROPERTY_TOTAL_TIME = 'totalTime';
     public const PROPERTY_KCAL = 'kcal';
     public const PROPERTY_INGREDIENTS = 'ingredients';
+    public const PROPERTY_DESCRIPTION = 'description';
 
     protected $table = 'recipes';
     protected $primaryKey = 'id';
@@ -33,7 +34,8 @@ class RecipeDao extends Model
             self::PROPERTY_CUISINE => $recipe->cuisine()->name(),
             self::PROPERTY_TIME_TO_COOK => $recipe->timeToCook(),
             self::PROPERTY_TOTAL_TIME => $recipe->totalTime(),
-            self::PROPERTY_INGREDIENTS => json_encode($recipe->ingredients()->toArray())
+            self::PROPERTY_INGREDIENTS => json_encode($recipe->ingredients()->toArray()),
+            self::PROPERTY_DESCRIPTION => $recipe->description()
         ]);
     }
 

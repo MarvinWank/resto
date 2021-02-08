@@ -28,7 +28,8 @@ class AddRecipeController extends Controller
             Cuisine::fromValue($data->cuisine()),
             $data->timeToCook(),
             $data->totalTime(),
-            $data->ingredients()
+            $data->ingredients(),
+            $data->description()
         );
 
 

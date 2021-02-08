@@ -38,7 +38,8 @@ class GetRecipeApiTest extends ApiTestCase
                 "ingredients" => [
                     ["name" => "Milch", "amount" => 200, "unit" => "g", "kcal" => 400],
                     ["name" => "Mehl", "amount" => 0.2, "unit" => "kg", "kcal" => 400],
-                ]
+                ],
+                "description" => "Your add here"
             ]
         ];
         $this->apiPost("/recipes/add", $body);
@@ -75,7 +76,8 @@ class GetRecipeApiTest extends ApiTestCase
                 "ingredients" => [
                     ["name" => "Milch", "amount" => 200, "unit" => "g", "kcal" => 400],
                     ["name" => "Mehl", "amount" => 0.2, "unit" => "kg", "kcal" => 400],
-                ]
+                ],
+                "description" => "Your add here"
             ]
         ];
         $this->apiPost("/recipes/add", $body);
@@ -111,7 +113,8 @@ class GetRecipeApiTest extends ApiTestCase
                 "ingredients" => [
                     ["name" => "Milch", "amount" => 200, "unit" => "g", "kcal" => 400],
                     ["name" => "Mehl", "amount" => 0.2, "unit" => "kg", "kcal" => 400],
-                ]
+                ],
+                "description" => "Your add here"
             ]
         ];
         $result = $this->apiPost("/recipes/add", $body);

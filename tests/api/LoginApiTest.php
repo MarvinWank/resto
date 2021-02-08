@@ -70,7 +70,8 @@ class LoginApiTest extends \ApiTestCase
             Cuisine::DEUTSCH(),
             60,
             90,
-            $ingredients
+            $ingredients,
+            "Your add here"
         );
 
         $body = ["json" => [
