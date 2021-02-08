@@ -10,7 +10,10 @@
             </div>
         </div>
 
-        <p>
+        <div class="h3 mt-4">
+            Beschreibung
+        </div>
+        <p class="">
             {{recipe.description}}
         </p>
 
