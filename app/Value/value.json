@@ -44,7 +44,8 @@
                 "cuisine": "Cuisine",
                 "timeToCook": "int",
                 "totalTime": "int",
-                "ingredients": "IngredientsSet"
+                "ingredients": "IngredientsSet",
+                "description": "string"
             },
             "string_value": "id"
         },

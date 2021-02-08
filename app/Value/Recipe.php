@@ -20,6 +20,7 @@ final class Recipe implements ValueObject
     private int $timeToCook;
     private int $totalTime;
     private IngredientsSet $ingredients;
+    private string $description;
 
     public function __construct (
         int $id,
@@ -29,7 +30,8 @@ final class Recipe implements ValueObject
         Cuisine $cuisine,
         int $timeToCook,
         int $totalTime,
-        IngredientsSet $ingredients
+        IngredientsSet $ingredients,
+        string $description
     ) {
         $this->id = $id;
         $this->title = $title;
@@ -39,6 +41,7 @@ final class Recipe implements ValueObject
         $this->timeToCook = $timeToCook;
         $this->totalTime = $totalTime;
         $this->ingredients = $ingredients;
+        $this->description = $description;
     }
     
     public function id(): int 
@@ -81,6 +84,11 @@ final class Recipe implements ValueObject
         return $this->ingredients;
     }
     
+    public function description(): string 
+    {
+        return $this->description;
+    }
+    
     public function with_id(int $id): self 
     {
         return new self(
@@ -91,7 +99,8 @@ final class Recipe implements ValueObject
             $this->cuisine,
             $this->timeToCook,
             $this->totalTime,
-            $this->ingredients
+            $this->ingredients,
+            $this->description
         );
     }
     
@@ -105,7 +114,8 @@ final class Recipe implements ValueObject
             $this->cuisine,
             $this->timeToCook,
             $this->totalTime,
-            $this->ingredients
+            $this->ingredients,
+            $this->description
         );
     }
     
@@ -119,7 +129,8 @@ final class Recipe implements ValueObject
             $this->cuisine,
             $this->timeToCook,
             $this->totalTime,
-            $this->ingredients
+            $this->ingredients,
+            $this->description
         );
     }
     
@@ -133,7 +144,8 @@ final class Recipe implements ValueObject
             $this->cuisine,
             $this->timeToCook,
             $this->totalTime,
-            $this->ingredients
+            $this->ingredients,
+            $this->description
         );
     }
     
@@ -147,7 +159,8 @@ final class Recipe implements ValueObject
             $cuisine,
             $this->timeToCook,
             $this->totalTime,
-            $this->ingredients
+            $this->ingredients,
+            $this->description
         );
     }
     
@@ -161,7 +174,8 @@ final class Recipe implements ValueObject
             $this->cuisine,
             $timeToCook,
             $this->totalTime,
-            $this->ingredients
+            $this->ingredients,
+            $this->description
         );
     }
     
@@ -175,7 +189,8 @@ final class Recipe implements ValueObject
             $this->cuisine,
             $this->timeToCook,
             $totalTime,
-            $this->ingredients
+            $this->ingredients,
+            $this->description
         );
     }
     
@@ -189,7 +204,23 @@ final class Recipe implements ValueObject
             $this->cuisine,
             $this->timeToCook,
             $this->totalTime,
-            $ingredients
+            $ingredients,
+            $this->description
+        );
+    }
+    
+    public function with_description(string $description): self 
+    {
+        return new self(
+            $this->id,
+            $this->title,
+            $this->author,
+            $this->dietStyle,
+            $this->cuisine,
+            $this->timeToCook,
+            $this->totalTime,
+            $this->ingredients,
+            $description
         );
     }
     
@@ -204,6 +235,7 @@ final class Recipe implements ValueObject
             'timeToCook' => $this->timeToCook,
             'totalTime' => $this->totalTime,
             'ingredients' =>  $this->valueToArray($this->ingredients),
+            'description' => $this->description,
         ];
     }
     
@@ -273,6 +305,10 @@ final class Recipe implements ValueObject
             $array['ingredients'] = IngredientsSet::fromArray($array['ingredients']);
         }
 
+        if (!array_key_exists('description', $array)) {
+            throw new UnexpectedValueException('Array key description does not exist');
+        }
+        
         return new self(
             $array['id'],
             $array['title'],
@@ -281,7 +317,8 @@ final class Recipe implements ValueObject
             $array['cuisine'],
             $array['timeToCook'],
             $array['totalTime'],
-            $array['ingredients']
+            $array['ingredients'],
+            $array['description']
         );
     }
         

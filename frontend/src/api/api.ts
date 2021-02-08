@@ -8,7 +8,7 @@ class Api {
 
     constructor() {
         if (process.env.NODE_ENV === "development") {
-            this.host = "http://resto.local";
+            this.host = "http://resto.local/api";
         }
 
     }

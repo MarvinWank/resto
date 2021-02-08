@@ -1,11 +1,19 @@
 <template>
     <div class="container-fluid">
         <RestoHeader/>
-        <div class="col-12 mt-3">
 
-            <div class="h2 text-center">{{recipe.title}}</div>
+        <div class="h3 mt-4">{{ recipe.title }}</div>
 
+        <div class="row">
+            <div v-for="(ingredient, key) in recipe.ingredients" :key="key" class="col-12">
+                -  {{ingredient.amount}}{{ingredient.unit}} {{ingredient.name}}
+            </div>
         </div>
+
+        <p>
+            {{recipe.description}}
+        </p>
+
     </div>
 
 </template>
@@ -36,14 +44,14 @@ export default class ViewRecipe extends Vue {
         description: ""
     };
 
-     created() {
+    created() {
         api.getRecipeById(Number(this.$route.params.id)).then(response => {
             this.myRecipe = response.recipe
         });
     }
 
-    get recipe(){
-         return this.myRecipe;
+    get recipe() {
+        return this.myRecipe;
     }
 
 
