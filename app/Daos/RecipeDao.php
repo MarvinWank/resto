@@ -62,4 +62,11 @@ class RecipeDao extends Model
 
         return $query->get();
     }
+
+    public function updateRecipe(Recipe $recipe, int $id)
+    {
+        $this->newQuery()
+            ->where(self::PROPERTY_ID, "=", $id)
+            ->update($recipe->toArray());
+    }
 }

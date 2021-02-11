@@ -57,7 +57,7 @@ class RecipeFactory
     public function getTopRecipesForUser(User $user, int $limit = 3): RecipeSet
     {
         $results = $this->recipeDao->getTopRecipesForUser($user, $limit);
-        return  $this->collectionToSet($results);
+        return $this->collectionToSet($results);
     }
 
     public function fromId(int $id): Recipe
@@ -65,7 +65,7 @@ class RecipeFactory
         /** @var Model $daoRecipe */
         try {
             $daoRecipe = $this->recipeDao->newQuery()->findOrFail($id);
-        }catch (ModelNotFoundException $exception){
+        } catch (ModelNotFoundException $exception) {
             throw RecipeNotFoundException::recipeNotFound($id);
         }
 
@@ -88,6 +88,22 @@ class RecipeFactory
     public function delete(int $id)
     {
         RecipeDao::query()->find($id)->delete();
+    }
+
+    /**
+     * @throws RecipeNotFoundException
+     */
+    public function update(Recipe $updatedRecipe, int $id): Recipe
+    {
+        try {
+            $this->recipeDao->newQuery()->findOrFail($updatedRecipe->id());
+        } catch (ModelNotFoundException $exception) {
+            throw RecipeNotFoundException::recipeNotFound($updatedRecipe->id());
+        }
+
+        $this->recipeDao->updateRecipe($updatedRecipe, $id);
+
+        return $this->fromId($id);
     }
 
     private function collectionToSet(Collection $collection): RecipeSet
