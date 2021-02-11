@@ -5,6 +5,7 @@ namespace factories;
 
 
 use App\Daos\RecipeDao;
+use App\Exceptions\RecipeNotFoundException;
 use App\Factories\RecipeFactory;
 use App\Value\Cuisine;
 use App\Value\DietStyle;
@@ -42,7 +43,7 @@ class RecipeFactoryTest extends \FactoryTestCase
             new Ingredient("Milch", 200, SIUnit::g(), 100),
             new Ingredient("Mehl", 200, SIUnit::g(), 100),
         ]);
-        $recipe = $this->recipeFactory->add_recipe(
+        $recipe = $this->recipeFactory->addRecipe(
             $this->test_user,
             "Test Rezept",
             DietStyle::ALLES(),
@@ -74,7 +75,7 @@ class RecipeFactoryTest extends \FactoryTestCase
             new Ingredient("Milch", 200, SIUnit::g(), 100),
             new Ingredient("Mehl", 200, SIUnit::g(), 100),
         ]);
-        $this->recipeFactory->add_recipe(
+        $this->recipeFactory->addRecipe(
             $this->test_user,
             "Test Rezept",
             DietStyle::ALLES(),
@@ -84,7 +85,7 @@ class RecipeFactoryTest extends \FactoryTestCase
             $ingredients,
             "Your add here"
         );
-        $this->recipeFactory->add_recipe(
+        $this->recipeFactory->addRecipe(
             $this->test_user,
             "Test Rezept 2",
             DietStyle::VEGAN(),
@@ -116,7 +117,7 @@ class RecipeFactoryTest extends \FactoryTestCase
             new Ingredient("Milch", 200, SIUnit::g(), 100),
             new Ingredient("Mehl", 200, SIUnit::g(), 100),
         ]);
-        $this->recipeFactory->add_recipe(
+        $this->recipeFactory->addRecipe(
             $this->test_user,
             "Test Rezept",
             DietStyle::ALLES(),
@@ -126,7 +127,7 @@ class RecipeFactoryTest extends \FactoryTestCase
             $ingredients,
             "Your add here"
         );
-        $this->recipeFactory->add_recipe(
+        $this->recipeFactory->addRecipe(
             $this->test_user,
             "Test Rezept 2",
             DietStyle::VEGAN(),
@@ -136,7 +137,7 @@ class RecipeFactoryTest extends \FactoryTestCase
             $ingredients,
             "Your add here"
         );
-        $this->recipeFactory->add_recipe(
+        $this->recipeFactory->addRecipe(
             $this->test_user,
             "Test Rezept 2",
             DietStyle::VEGAN(),
@@ -157,7 +158,7 @@ class RecipeFactoryTest extends \FactoryTestCase
     /**
      * @test
      */
-    public function it_tests_sucessfully_get_recipe_by_id()
+    public function it_tests_sucessfully_get_recipe_by_id(): Recipe
     {
         $ingredients = IngredientsSet::fromArray([
             new Ingredient("Butter", 200, SIUnit::g(), 100),
@@ -165,7 +166,7 @@ class RecipeFactoryTest extends \FactoryTestCase
             new Ingredient("Milch", 200, SIUnit::g(), 100),
             new Ingredient("Mehl", 200, SIUnit::g(), 100),
         ]);
-        $recipe = $this->recipeFactory->add_recipe(
+        $recipe = $this->recipeFactory->addRecipe(
             $this->test_user,
             "Test Rezept",
             DietStyle::ALLES(),
@@ -178,5 +179,19 @@ class RecipeFactoryTest extends \FactoryTestCase
 
         $recipeFromId = $this->recipeFactory->fromId($recipe->id());
         $this->assertEquals($recipe, $recipeFromId);
+
+        return $recipe;
+    }
+
+    /**
+     * @test
+     */
+    public function it_tests_delete_recipe()
+    {
+        $recipe = $this->it_tests_sucessfully_get_recipe_by_id();
+        $this->recipeFactory->delete($recipe->id());
+
+        $this->expectException(RecipeNotFoundException::class);
+        $this->recipeFactory->fromId($recipe->id());
     }
 }

@@ -5,14 +5,17 @@ namespace App\Factories;
 
 
 use App\Daos\RecipeDao;
+use App\Exceptions\RecipeNotFoundException;
 use App\Value\IngredientsSet;
 use App\Value\RecipeSet;
 use App\Value\User;
 use App\Value\Cuisine;
 use App\Value\DietStyle;
 use App\Value\Recipe;
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class RecipeFactory
 {
@@ -26,7 +29,7 @@ class RecipeFactory
         $this->userFactory = $userFactory;
     }
 
-    public function add_recipe
+    public function addRecipe
     (
         User $author,
         string $title,
@@ -57,11 +60,15 @@ class RecipeFactory
         return  $this->collectionToSet($results);
     }
 
-
     public function fromId(int $id): Recipe
     {
         /** @var Model $daoRecipe */
-        $daoRecipe = $this->recipeDao->newQuery()->find($id);
+        try {
+            $daoRecipe = $this->recipeDao->newQuery()->findOrFail($id);
+        }catch (ModelNotFoundException $exception){
+            throw RecipeNotFoundException::recipeNotFound($id);
+        }
+
         return new Recipe(
             $id,
             $daoRecipe->getAttribute(RecipeDao::PROPERTY_TITLE),
@@ -73,6 +80,14 @@ class RecipeFactory
             IngredientsSet::fromArray(\json_decode($daoRecipe->getAttribute(RecipeDao::PROPERTY_INGREDIENTS), true)),
             $daoRecipe->getAttribute(RecipeDao::PROPERTY_DESCRIPTION)
         );
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function delete(int $id)
+    {
+        RecipeDao::query()->find($id)->delete();
     }
 
     private function collectionToSet(Collection $collection): RecipeSet

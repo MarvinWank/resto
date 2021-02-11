@@ -63,7 +63,7 @@ class LoginApiTest extends \ApiTestCase
             new Ingredient("Milch", 200, SIUnit::g(), 100),
             new Ingredient("Mehl", 200, SIUnit::g(), 100),
         ]);
-        $recipe = $this->recipeFactory->add_recipe(
+        $recipe = $this->recipeFactory->addRecipe(
             $this->test_user,
             "Test Rezept",
             DietStyle::ALLES(),

@@ -21,7 +21,7 @@ class AddRecipeController extends Controller
         $data = AddRecipeRequestDto::fromArray($data['recipe']);
         $user = $userFactory->currentUser();
 
-        $recipe = $recipeFactory->add_recipe(
+        $recipe = $recipeFactory->addRecipe(
             $user,
             $data->title(),
             DietStyle::fromValue($data->dietStyle()),
