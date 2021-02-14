@@ -194,4 +194,29 @@ class RecipeFactoryTest extends \FactoryTestCase
         $this->expectException(RecipeNotFoundException::class);
         $this->recipeFactory->fromId($recipe->id());
     }
+
+    /**
+     * @throws RecipeNotFoundException
+     * @test
+     */
+    public function it_tests_update_recipe()
+    {
+        $recipe = $this->it_tests_sucessfully_get_recipe_by_id();
+        $alteredTestUser = $this->test_user->with_name("Altered User");
+        $alteredIngredients = IngredientsSet::fromArray([  new Ingredient("Schmalz", 200, SIUnit::g(), 100)]);
+
+        $updatedRecipe = $recipe
+            ->with_title("New title")
+            ->with_author($alteredTestUser)
+            ->with_cuisine(Cuisine::INDISCH())
+            ->with_description("qwertzuiop")
+            ->with_dietStyle(DietStyle::VEGAN())
+            ->with_ingredients($alteredIngredients)
+            ->with_timeToCook(2)
+            ->with_totalTime(3);
+        $resultRecipe = $this->recipeFactory->update($updatedRecipe, $recipe->id());
+
+
+        $this->assertEquals($updatedRecipe->toArray(), $resultRecipe->toArray());
+    }
 }
