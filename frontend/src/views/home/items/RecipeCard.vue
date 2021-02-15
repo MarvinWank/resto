@@ -1,15 +1,22 @@
 <template>
-    <div class="row recipe-card" @click="showRecipe">
+    <div class="row recipe-card">
         <div class="col-12 inner">
-            <div class="title">{{recipe.title}}</div>
+            <div class="title" @click="showRecipe">{{ recipe.title }}</div>
             <div class="row justify-content-between pt-2 content">
-                <div class="col-6">
-                    <i class="las la-stopwatch"></i> {{recipe.totalTime}} min
+                <div class="col-6" @click="showRecipe">
+                    <i class="las la-stopwatch"></i> {{ recipe.totalTime }} min
                 </div>
 
                 <!--                        <div class="col-6">-->
                 <!--                            {{totalCalories(recipe)}} kcal-->
                 <!--                        </div>-->
+
+                <div class="col-6 justify-content-end d-flex align-items-center">
+                    <i class="las la-lg la-pencil-alt mr-2"
+                       @click="editRecipe"
+                    ></i>
+                    <i class="las la-lg la-trash-alt"></i>
+                </div>
 
             </div>
         </div>
@@ -29,6 +36,10 @@ export default class RecipeCard extends Vue {
 
     showRecipe() {
         this.$router.push("/recipe/view/" + this.recipe?.id)
+    }
+
+    editRecipe(){
+        this.$router.push("/recipe/edit/" + this.recipe?.id)
     }
 }
 </script>

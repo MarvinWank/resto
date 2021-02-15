@@ -30,6 +30,10 @@ const routes = [
         path: "/recipe/view/:id",
         name: "ViewRecipe",
         component: ViewRecipe
+    },
+    {
+        path: "recipe/add/:id",
+        name: "EditRecipe",
     }
 
 ]
