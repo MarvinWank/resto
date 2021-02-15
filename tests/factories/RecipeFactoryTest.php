@@ -202,12 +202,10 @@ class RecipeFactoryTest extends \FactoryTestCase
     public function it_tests_update_recipe()
     {
         $recipe = $this->it_tests_sucessfully_get_recipe_by_id();
-        $alteredTestUser = $this->test_user->with_name("Altered User");
         $alteredIngredients = IngredientsSet::fromArray([  new Ingredient("Schmalz", 200, SIUnit::g(), 100)]);
 
         $updatedRecipe = $recipe
             ->with_title("New title")
-            ->with_author($alteredTestUser)
             ->with_cuisine(Cuisine::INDISCH())
             ->with_description("qwertzuiop")
             ->with_dietStyle(DietStyle::VEGAN())

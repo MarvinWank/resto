@@ -95,13 +95,7 @@ class RecipeFactory
      */
     public function update(Recipe $updatedRecipe, int $id): Recipe
     {
-        try {
-            $this->recipeDao->newQuery()->findOrFail($updatedRecipe->id());
-        } catch (ModelNotFoundException $exception) {
-            throw RecipeNotFoundException::recipeNotFound($updatedRecipe->id());
-        }
-
-        $this->recipeDao->updateRecipe($updatedRecipe, $id);
+        $this->recipeDao->updateRecipe($updatedRecipe);
 
         return $this->fromId($id);
     }

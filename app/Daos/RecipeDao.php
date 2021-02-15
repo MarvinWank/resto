@@ -4,10 +4,12 @@
 namespace App\Daos;
 
 
+use App\Exceptions\RecipeNotFoundException;
 use App\Value\Recipe;
 use App\Value\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class RecipeDao extends Model
 {
@@ -63,10 +65,23 @@ class RecipeDao extends Model
         return $query->get();
     }
 
-    public function updateRecipe(Recipe $recipe, int $id)
+    public function updateRecipe(Recipe $recipe)
     {
-        $this->newQuery()
-            ->where(self::PROPERTY_ID, "=", $id)
-            ->update($recipe->toArray());
+        try {
+            $currentRecipe = $this->newQuery()->findOrFail($recipe->id());
+        } catch (ModelNotFoundException $exception) {
+            throw RecipeNotFoundException::recipeNotFound($recipe->id());
+        }
+
+        $currentRecipe->setAttribute(self::PROPERTY_AUTHOR_ID, $recipe->author()->id());
+        $currentRecipe->setAttribute(self::PROPERTY_TITLE, $recipe->title());
+        $currentRecipe->setAttribute(self::PROPERTY_DIET_STYLE, $recipe->dietStyle()->toString());
+        $currentRecipe->setAttribute(self::PROPERTY_CUISINE, $recipe->cuisine()->toString());
+        $currentRecipe->setAttribute(self::PROPERTY_TIME_TO_COOK, $recipe->timeToCook());
+        $currentRecipe->setAttribute(self::PROPERTY_TOTAL_TIME, $recipe->totalTime());
+        $currentRecipe->setAttribute(self::PROPERTY_INGREDIENTS, $recipe->ingredients()->toArray());
+        $currentRecipe->setAttribute(self::PROPERTY_DESCRIPTION, $recipe->description());
+
+        $currentRecipe->save();
     }
 }
