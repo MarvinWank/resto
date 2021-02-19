@@ -23,3 +23,19 @@
 
     cursor: pointer;
 }
+
+.add-ingredient {
+    border: 2px dashed #cbcbcb;
+    text-align: center;
+    height: 4rem;
+    color: $grey_lighter;
+
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
+
+.ingredient-card {
+    border-bottom: 2px solid #e3e3e3;
+    height: 3rem;
+    cursor: pointer;
+}

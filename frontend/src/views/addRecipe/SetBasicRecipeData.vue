@@ -42,7 +42,7 @@
             </div>
         </div>
 
-        <div class="col-12">
+        <div v-if="mode === 'add'" class="col-12">
             <div :disabled="buttonDisabled"
                  class="mt-3 btn btn-primary float-right"
                  :class="getButtonDisabledClass"
@@ -60,21 +60,24 @@
 import Component from "vue-class-component";
 import {Cuisine, dietStyle, Recipe} from "@/types/recipe";
 import Vue from "vue";
+import {Prop} from "vue-property-decorator";
 
 @Component
 export default class SetBasicRecipeData extends Vue {
 
+    @Prop({default: "add"}) mode: string;
+
     cuisines = [
-        {value: "deutsch", label: "deutsch"},
-        {value: "mediteran", label: "mediteran"},
-        {value: "asiatisch", label: "asiatisch"},
-        {value: "amerikanisch", label: "amerikanisch"},
-        {value: "indisch", label: "indisch"},
+        {value: "DEUTSCH", label: "deutsch"},
+        {value: "MEDITERAN", label: "mediteran"},
+        {value: "ASIATISCH", label: "asiatisch"},
+        {value: "AMERIKANISCH", label: "amerikanisch"},
+        {value: "INDISCH", label: "indisch"},
     ];
     dietStyles = [
-        {value: "alles", label: "alles"},
-        {value: "vegetarisch", label: "vegetarisch"},
-        {value: "vegan", label: "vegan"},
+        {value: "ALLES", label: "alles"},
+        {value: "VEGETARISCH", label: "vegetarisch"},
+        {value: "VEGAN", label: "vegan"},
     ];
 
 
