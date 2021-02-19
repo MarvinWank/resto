@@ -42,7 +42,7 @@ class Api {
     }
 
     async saveRecipe(recipe: Recipe){
-        return await this.post("/recipes/updateRecuoe", {recipe: recipe});
+        return await this.post("/recipes/update", {recipe: recipe});
     }
 
     async getRecipeById(id: number) {

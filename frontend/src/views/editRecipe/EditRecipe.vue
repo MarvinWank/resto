@@ -88,8 +88,7 @@ export default class EditRecipe extends Vue {
     }
 
     save(){
-        this.$store.commit("addRecipe");
-        this.$store.commit("resetCurrentRecipe");
+        this.$store.commit("saveRecipe");
     }
 }
 
