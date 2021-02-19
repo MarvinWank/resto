@@ -19,8 +19,8 @@ class CreateRecipes extends Migration
             $table->unsignedBigInteger('author');
             $table->foreign('author')->references('id')->on('users');
             $table->string('title');
-            $table->enum('diet_style', ['ALLES', 'VEGETARISCH', 'VEGAN']);
-            $table->enum('cuisine', ['DEUTSCH', 'MEDITERAN', 'ASIATISCH', 'AMERIKANISCH', 'INDISCH']);
+            $table->enum('diet_style', \App\Value\Cuisine::NAMES);
+            $table->enum('cuisine', \App\Value\Cuisine::NAMES);
             $table->integer('time_to_prepare');
             $table->json('ingredients');
             $table->timestamps();
