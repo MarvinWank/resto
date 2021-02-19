@@ -22,6 +22,7 @@ class Api {
             ...data,
             "apiKey": store.getters.apiKey
         }).then(res => res.data)
+        console.log(result);
 
         if (result.message === "apiKey ungueltig") {
             router.push('/login');

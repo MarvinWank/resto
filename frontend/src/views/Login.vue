@@ -46,7 +46,7 @@ export default class Login extends Vue {
         const apiResponse = await api.login(this.email, this.password);
         console.log(apiResponse);
 
-        if (apiResponse.status === "fehler") {
+        if (apiResponse.status !== "ok") {
             this.loginError = true;
             return
         }

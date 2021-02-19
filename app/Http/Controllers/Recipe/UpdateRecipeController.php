@@ -28,7 +28,7 @@ class UpdateRecipeController extends Controller
         }
 
         return response()->json([
-            "status" => "success",
+            "status" => "ok",
             "recipe" => $recipe->toArray()
         ]);
     }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Daos\StateDao;
+use App\Http\Middleware\CheckApiKeyMiddleware;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -76,15 +77,13 @@ $app->configure('cors');
 */
 
 $app->routeMiddleware([
-    'auth' => App\Http\Middleware\Authenticate::class,
+    'checkApiKey' =>  CheckApiKeyMiddleware::class
 ]);
 $app->middleware([
     \palanik\lumen\Middleware\LumenCors::class,
-    \App\Http\Middleware\SaveStateMiddleware::class
+    \App\Http\Middleware\SaveStateMiddleware::class,
 ]);
-//$app->middleware([
-//    Fruitcake\Cors\CorsServiceProvider::class
-//]);
+
 
 /*
 |--------------------------------------------------------------------------
