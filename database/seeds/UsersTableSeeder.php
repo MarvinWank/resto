@@ -12,12 +12,14 @@ class UsersTableSeeder extends Seeder
             ->insert(
                 [
                     [
+                        "id" => 1,
                         "name" => "Test User",
                         "email" => 'test@test.de',
 //                "password" => password_hash("test", 1)
                         "password" => "test"
                     ],
                     [
+                        "id" => 2,
                         "name" => "Marvin Wank",
                         "email" => 'marvin.wank@test.de',
 //                "password" => password_hash("test", 1)
