@@ -50,6 +50,7 @@ class LoginApiTest extends \ApiTestCase
         $this->assertEquals("Test User", $response['user']['name']);
         $this->assertEquals("test@test.de", $response['user']['email']);
         $this->assertArrayHasKey("apiKey", $response);
+        $this->assertNotEquals("", $response['apiKey']);
     }
 
     /**

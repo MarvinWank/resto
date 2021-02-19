@@ -20,7 +20,7 @@ class StateFactory
     public function retrieve(?string $id): State
     {
         //Erzeuge neue State
-        if ($id === null) {
+        if ($id === null || $id === "") {
             $id = Uuid::uuid();
             $this->dao = new StateDao;
             $this->dao->setAttribute(StateDao::PROPERTY_ID, $id);
