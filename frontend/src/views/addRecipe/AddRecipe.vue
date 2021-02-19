@@ -67,7 +67,7 @@ export default class AddRecipe extends Vue {
     }
 
     saveRecipe() {
-        this.$store.commit("saveRecipe");
+        this.$store.commit("addRecipe");
         this.recipeAddedTitle = this.currentRecipe.title;
         this.currentStep = 1;
         this.recipeAdded = true;

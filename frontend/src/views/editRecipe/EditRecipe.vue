@@ -33,6 +33,13 @@
 
                 </div>
             </div>
+
+
+            <div class="btn btn-primary btn-block mt-5 col-12"
+                @click="save"
+            >
+                Rezept speichern
+            </div>
         </div>
 
     </div>
@@ -78,6 +85,11 @@ export default class EditRecipe extends Vue {
 
     get recipe() {
         return this.myRecipe;
+    }
+
+    save(){
+        this.$store.commit("addRecipe");
+        this.$store.commit("resetCurrentRecipe");
     }
 }
 

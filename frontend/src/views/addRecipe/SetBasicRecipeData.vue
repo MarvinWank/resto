@@ -65,7 +65,7 @@ import {Prop} from "vue-property-decorator";
 @Component
 export default class SetBasicRecipeData extends Vue {
 
-    @Prop({default: "add"}) mode: string;
+    @Prop({default: "add"}) mode = "add";
 
     cuisines = [
         {value: "DEUTSCH", label: "deutsch"},

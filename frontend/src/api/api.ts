@@ -41,6 +41,10 @@ class Api {
         return data;
     }
 
+    async saveRecipe(recipe: Recipe){
+        return await this.post("/recipes/updateRecuoe", {recipe: recipe});
+    }
+
     async getRecipeById(id: number) {
         const data = await this.post('/recipes/get_by_id', {id: id})
         return data;
