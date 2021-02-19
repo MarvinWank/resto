@@ -9,16 +9,18 @@ namespace App\Value;
 
 
 use UnexpectedValueException;
+use BadMethodCallException;
 
-final class IngredientsSet implements Set
+final class IngredientsSet implements Set,\Countable,\ArrayAccess,\Iterator
 {        
     private array $items;
+    private int $position;
         
     private function __construct(array $items = [])
     {
+        $this->position = 0;
         $this->items = $items;
-    }
-    public static function fromArray(array $items) {
+    }    public static function fromArray(array $items) {
         foreach ($items as $key => $item) {
             $type = gettype($item);
             switch ($type) {
@@ -71,21 +73,57 @@ final class IngredientsSet implements Set
         $val = $other->toArray();
                 
         return ($ref === $val);
+    }    
+    
+    public function contains(Ingredient $item): bool {
+        return array_search($item, $this->items) !== false;
     }
     
     public function count(): int
     {
         return count($this->items);
     }
+    
+        public function offsetExists($offset) {
+        return isset($this->items[$offset]);
+    }
 
+    public function offsetGet($offset) {
+        return $this->items[$offset];
+    }
+
+    public function current() {
+        return $this->items[$this->position];
+    }
+
+    public function rewind() {
+        $this->position = 0;
+    }
+
+    public function key() {
+        return $this->position;
+    }
+
+    public function next() {
+        ++$this->position;
+    }
+
+    public function valid() {
+        return isset($this->items[$this->position]);
+    }
+    
     public function add(Ingredient $item): self {
         $values = $this->toArray();
         $values[] = $item;
         return self::fromArray($values);
     }
-    
-    public function contains(Ingredient $item): bool {
-        return array_search($item, $this->items) !== false;
+
+    public function offsetSet($offset, $value) {
+        throw new BadMethodCallException('ArrayAccess offsetSet is forbidden, use ->add()');
+    }
+
+    public function offsetUnset($offset) {
+        throw new BadMethodCallException('ArrayAccess offsetUnset is forbidden, use ->remove()');
     }
     
     public function remove(Ingredient $item): self {

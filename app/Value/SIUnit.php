@@ -12,6 +12,8 @@ use InvalidArgumentException;
 
 final class SIUnit implements Enum
 {
+    public const VALUES = ['gramm', 'kilogramm', 'millilitre', 'litre', 'pieces', ];               
+    public const NAMES = ['g', 'kg', 'ml', 'l', 'Stk', ];               
     public const OPTIONS = [ 
         'g' => 'gramm',
         'kg' => 'kilogramm',
