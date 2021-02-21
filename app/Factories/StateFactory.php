@@ -53,6 +53,11 @@ class StateFactory
 
     public function is_key_valid(string $key_to_check): bool
     {
-        return $this->dao->find($key_to_check) === null;
+        $key = $this->dao->find($key_to_check);
+        if ($key === null) {
+            return false;
+        }
+
+        return true;
     }
 }
