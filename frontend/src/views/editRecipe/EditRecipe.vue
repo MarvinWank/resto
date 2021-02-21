@@ -26,17 +26,28 @@
                         </div>
                         <div class="col-3 justify-content-end d-flex align-items-center">
                             <i class="las la-lg la-pencil-alt mr-2"
+                               @click="editIngredient(ingredient, key)"
                             ></i>
                             <i class="las la-lg la-trash-alt"></i>
                         </div>
                     </div>
-
                 </div>
             </div>
 
 
+            <v-easy-dialog v-model="showIngredientModal">
+                <EditIngredientModal
+                    :id="ingredientBeingEditedId"
+                    :name="currentIngredient.name"
+                    :amount="currentIngredient.amount"
+                    :unit="currentIngredient.unit"
+                    @addIngredient="saveIngredient"
+                />
+            </v-easy-dialog>
+
+
             <div class="btn btn-primary btn-block mt-5 col-12"
-                @click="save"
+                 @click="save"
             >
                 Rezept speichern
             </div>
@@ -50,14 +61,17 @@
 
 import Vue from "vue"
 import Component from "vue-class-component";
-import {Recipe} from "@/types/recipe";
+import {Ingredient, Recipe} from "@/types/recipe";
 import api from "@/api/api";
 import RestoHeader from "@/components/RestoHeader.vue";
 import {Watch} from "vue-property-decorator";
 import SetBasicRecipeData from "@/views/addRecipe/SetBasicRecipeData.vue";
+/* @ts-ignore */
+import VEasyDialog from 'v-easy-dialog'
+import EditIngredientModal from "@/views/editRecipe/EditIngredientModal.vue";
 
 @Component({
-    components: {SetBasicRecipeData, RestoHeader}
+    components: {EditIngredientModal, SetBasicRecipeData, RestoHeader, VEasyDialog}
 })
 export default class EditRecipe extends Vue {
 
@@ -71,6 +85,16 @@ export default class EditRecipe extends Vue {
         title: "",
         description: ""
     };
+
+    ingredientBeingEditedId = -1;
+    ingredientBeingEdited: Ingredient = {
+        name: "",
+        amount: 0,
+        unit: "g",
+        kcal: null
+    }
+
+    showIngredientModal = false;
 
     @Watch("myRecipe")
     updateRecipe() {
@@ -87,7 +111,38 @@ export default class EditRecipe extends Vue {
         return this.myRecipe;
     }
 
-    save(){
+    get currentIngredient(): Ingredient {
+        return this.ingredientBeingEdited;
+    }
+
+    editIngredient(ingredient: Ingredient, id: number) {
+        this.ingredientBeingEdited = ingredient;
+        this.ingredientBeingEditedId = id;
+        this.showIngredientModal = true;
+    }
+
+    saveIngredient(data: {ingredient: Ingredient; id: number}) {
+        console.log(data);
+        const ingredient: Ingredient = data.ingredient;
+        const id = data.id;
+
+        this.showIngredientModal = false;
+        //Is necessary, because the modal returns a string for whatever reason
+        ingredient.amount = Number.parseInt((ingredient.amount.toString()));
+        const recipe = this.myRecipe;
+        recipe.ingredients[id] = ingredient;
+        this.$store.commit("updateRecipe", recipe);
+        this.$store.commit("saveRecipe");
+
+        this.ingredientBeingEdited = {
+            name: "",
+            amount: 0,
+            unit: "g",
+            kcal: null
+        };
+    }
+
+    save() {
         this.$store.commit("saveRecipe");
     }
 }
