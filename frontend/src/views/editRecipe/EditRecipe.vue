@@ -45,6 +45,14 @@
                 />
             </v-easy-dialog>
 
+            <div class="col-12 mt-3">
+                <FormulateInput
+                    type="textarea"
+                    v-model="description"
+                    label="Beschreibung"
+                />
+            </div>
+
 
             <div class="btn btn-primary btn-block mt-5 col-12"
                  @click="save"
@@ -110,6 +118,19 @@ export default class EditRecipe extends Vue {
     get recipe() {
         return this.myRecipe;
     }
+
+    get description(): string{
+        return this.recipe.description
+    }
+
+    //TODO: This is ludicrously bad perfomancewise
+    set description(description: string){
+        const recipe = this.recipe;
+        recipe.description = description;
+
+        this.$store.commit("updateRecipe", recipe);
+    }
+
 
     get currentIngredient(): Ingredient {
         return this.ingredientBeingEdited;
