@@ -1,7 +1,7 @@
 <?php
 
 
-namespace api;
+namespace api\recipe;
 
 
 use ApiTestCase;
