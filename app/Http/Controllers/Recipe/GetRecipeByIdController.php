@@ -16,7 +16,7 @@ class GetRecipeByIdController extends Controller
     {
         $id = $request->json('id');
         if ($id == null) {
-            return request()->json([
+            return response()->json([
                 "status" => "error",
                 "message" => "no id was given"
             ]);

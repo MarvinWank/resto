@@ -60,6 +60,9 @@ class RecipeFactory
         return $this->collectionToSet($results);
     }
 
+    /**
+     * @throws RecipeNotFoundException
+     */
     public function fromId(int $id): Recipe
     {
         /** @var Model $daoRecipe */
