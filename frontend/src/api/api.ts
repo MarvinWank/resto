@@ -50,6 +50,10 @@ class Api {
         const data = await this.post('/recipes/get_by_id', {id: id})
         return data;
     }
+
+    async deleteRecipe(recipeId: number){
+        return await this.post("/recipes/delete", {id: recipeId});
+    }
 }
 
 export default new Api();
