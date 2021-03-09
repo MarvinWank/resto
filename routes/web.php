@@ -21,6 +21,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('/login', 'LoginController@login');
 
     $router->group(["middleware" => "checkApiKey"], function () use ($router) {
+        $router->post('/login_with_api_key', 'LoginController@login_with_api_key');
+
         $router->post('/recipes/add', 'Recipe\AddRecipeController@add');
         $router->post('/recipes/all', 'Recipe\GetRecipesController@getAll');
         $router->post('/recipes/top', 'Recipe\GetRecipesController@getTop');

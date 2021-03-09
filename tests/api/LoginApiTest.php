@@ -39,12 +39,8 @@ class LoginApiTest extends \ApiTestCase
      */
     public function test_login_with_correct_credentials_is_succesful()
     {
-        $body = ["json" => [
-            'email' => $this->test_user->email(),
-            'password' => "test"
-        ]];
-        $response = $this->client->post('/api/login', $body);
-        $response = json_decode($response->getBody()->getContents(), true);
+        $response = $this->login();
+
         $this->assertIsArray($response);
         $this->assertEquals("ok", $response['status']);
         $this->assertEquals("Test User", $response['user']['name']);
@@ -75,18 +71,40 @@ class LoginApiTest extends \ApiTestCase
             "Your add here"
         );
 
-        $body = ["json" => [
-            'email' => $this->test_user->email(),
-            'password' => "test"
-        ]];
-        $response = $this->client->post('/api/login', $body);
-        $response = json_decode($response->getBody()->getContents(), true);
 
+        $response = $this->login();
         $recipes = RecipeSet::fromArray($response['topRecipes']);
         $this->assertEquals(1, $recipes->count());
         /** @var Recipe $recipe */
         $recipe = $recipes->toArray()[0];
 
         $this->assertEquals("Test Rezept", $recipe['title']);
+    }
+
+    /**
+     * @test
+     */
+    public function it_tests_login_with_api_key()
+    {
+        $this->testLogin();
+
+        $result = $this->apiPost("/login_with_api_key", [
+            "apiKey" => $this->apiKey
+        ]);
+        $result = json_decode($result->getBody()->getContents(), true);
+
+        $this->assertEquals("ok", $result['status']);
+        $this->assertEquals($this->test_user->toArray(), $result['user']);
+        $this->assertEquals($this->apiKey, $result['apiKey']);
+    }
+
+    private function login(): array
+    {
+        $body = ["json" => [
+            'email' => $this->test_user->email(),
+            'password' => "test"
+        ]];
+        $response = $this->client->post('/api/login', $body);
+        return json_decode($response->getBody()->getContents(), true);
     }
 }
