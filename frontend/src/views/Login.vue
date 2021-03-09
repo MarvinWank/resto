@@ -24,6 +24,7 @@
 
 import api from "../api/api";
 import {Component, Vue} from 'vue-property-decorator'
+import {setCookie} from "@/CookieHandler";
 
 @Component
 export default class Login extends Vue {
@@ -50,7 +51,9 @@ export default class Login extends Vue {
             return
         }
 
-        await this.$store.dispatch('authenticate', {
+        setCookie(apiResponse.apiKey);
+
+        await this.$store.dispatch('setInitialData', {
                 "user": apiResponse.user,
                 "topRecipes": apiResponse.topRecipes,
                 "apiKey": apiResponse.apiKey

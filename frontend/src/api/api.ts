@@ -18,6 +18,7 @@ class Api {
     }
 
     async post(route: string, data: any) {
+        console.log(data);
         const result = await axios.post(this.host + route, {
             ...data,
             "apiKey": store.getters.apiKey
@@ -35,6 +36,19 @@ class Api {
     async login(email: string, password: string) {
         const data = await this.post('/login', {email: email, password: password})
         return data;
+    }
+
+    async loginWithApiKey(apiKey: string){
+        const result = await axios.post(this.host + "/login_with_api_key", {
+            "apiKey": apiKey
+        }).then(res => res.data)
+        console.log(result);
+
+        if (result.message === "apiKey ungueltig") {
+            router.push('/login');
+            return {};
+        }
+        return result;
     }
 
     async addRecipe(recipe: Recipe) {

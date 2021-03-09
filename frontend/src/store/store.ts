@@ -28,7 +28,7 @@ const state: restoState = {
 }
 
 const mutations: MutationTree<restoState> = {
-    setDataInitial(state: restoState, daten: setInitialDataPayload) {
+        setDataInitial(state: restoState, daten: setInitialDataPayload) {
         state.apiKey = daten.apiKey;
         state.user = daten.user;
         state.topRecipes = daten.topRecipes;
@@ -62,7 +62,7 @@ const mutations: MutationTree<restoState> = {
 }
 
 const actions: ActionTree<restoState, any> = {
-    authenticate(context, payload: setInitialDataPayload) {
+    setInitialData(context, payload: setInitialDataPayload) {
         context.commit("setDataInitial", payload)
         router.push("/")
     }
