@@ -8,7 +8,7 @@ abstract class TestCase extends BaseTestCase
     /** @var UserFactory $userFactory */
     private $userFactory;
 
-    protected $test_user;
+    protected $testUser;
 
     public function setUp(): void
     {
@@ -34,7 +34,7 @@ abstract class TestCase extends BaseTestCase
 
         $this->userFactory = app(UserFactory::class);
 
-        $this->test_user = $this->create_test_user();
+        $this->testUser = $this->create_test_user();
     }
 
     private function create_test_user(): \App\Value\User

@@ -30,7 +30,7 @@ class LoginApiTest extends \ApiTestCase
     {
         /** @var RecipeDao $recipeDao */
         $recipeDao = app(RecipeDao::class);
-        $recipeDao->deleteForUser($this->test_user);
+        $recipeDao->deleteForUser($this->testUser);
         parent::tearDown();
     }
 
@@ -61,7 +61,7 @@ class LoginApiTest extends \ApiTestCase
             new Ingredient("Mehl", 200, SIUnit::g(), 100),
         ]);
         $recipe = $this->recipeFactory->addRecipe(
-            $this->test_user,
+            $this->testUser,
             "Test Rezept",
             DietStyle::ALLES(),
             Cuisine::DEUTSCH(),
@@ -94,14 +94,14 @@ class LoginApiTest extends \ApiTestCase
         $result = json_decode($result->getBody()->getContents(), true);
 
         $this->assertEquals("ok", $result['status']);
-        $this->assertEquals($this->test_user->toArray(), $result['user']);
+        $this->assertEquals($this->testUser->toArray(), $result['user']);
         $this->assertEquals($this->apiKey, $result['apiKey']);
     }
 
     private function login(): array
     {
         $body = ["json" => [
-            'email' => $this->test_user->email(),
+            'email' => $this->testUser->email(),
             'password' => "test"
         ]];
         $response = $this->client->post('/api/login', $body);

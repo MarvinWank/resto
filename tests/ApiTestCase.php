@@ -23,7 +23,7 @@ class ApiTestCase extends TestCase
     public function testLogin()
     {
         $body = ["json" => [
-            'email' => $this->test_user->email(),
+            'email' => $this->testUser->email(),
             'password' => "test"
         ]];
         $response = $this->client->post('/api/login', $body)->getBody()->getContents();

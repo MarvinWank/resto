@@ -55,7 +55,7 @@ class DeleteRecipeApiTest extends ApiTestCase
             new Ingredient("Mehl", 200, SIUnit::g(), 100),
         ]);
         return $this->recipeFactory->addRecipe(
-            $this->test_user,
+            $this->testUser,
             "Test Rezept",
             DietStyle::ALLES(),
             Cuisine::DEUTSCH(),

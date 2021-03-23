@@ -22,7 +22,7 @@ class AddRecipeTestApiTest extends ApiTestCase
     {
         /** @var RecipeDao $recipeDao */
         $recipeDao = app(RecipeDao::class);
-        $recipeDao->deleteForUser($this->test_user);
+        $recipeDao->deleteForUser($this->testUser);
         parent::tearDown();
     }
 
