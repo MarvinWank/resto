@@ -28,7 +28,7 @@ class RecipeFactoryTest extends \FactoryTestCase
     {
         /** @var RecipeDao $recipeDao */
         $recipeDao = app(RecipeDao::class);
-        $recipeDao->deleteForUser($this->test_user);
+        $recipeDao->deleteForUser($this->testUser);
         parent::tearDown();
     }
 
@@ -44,7 +44,7 @@ class RecipeFactoryTest extends \FactoryTestCase
             new Ingredient("Mehl", 200, SIUnit::g(), 100),
         ]);
         $recipe = $this->recipeFactory->addRecipe(
-            $this->test_user,
+            $this->testUser,
             "Test Rezept",
             DietStyle::ALLES(),
             Cuisine::DEUTSCH(),
@@ -54,7 +54,7 @@ class RecipeFactoryTest extends \FactoryTestCase
             "Your add here"
         );
 
-        $this->assertEquals($this->test_user->id(), $recipe->author()->id());
+        $this->assertEquals($this->testUser->id(), $recipe->author()->id());
         $this->assertEquals("Test Rezept", $recipe->title());
         $this->assertTrue(DietStyle::ALLES()->equals($recipe->dietStyle()));
         $this->assertTrue(Cuisine::DEUTSCH()->equals($recipe->cuisine()));
@@ -71,7 +71,7 @@ class RecipeFactoryTest extends \FactoryTestCase
     {
         $this->generateRecipes();
 
-        $allRecipes = $this->recipeFactory->getAllRecipesForUser($this->test_user);
+        $allRecipes = $this->recipeFactory->getAllRecipesForUser($this->testUser);
         /** @var Recipe $recipe1 */
         $recipe1 = $allRecipes->toArray()[0];
         /** @var Recipe $recipe2 */
@@ -88,10 +88,10 @@ class RecipeFactoryTest extends \FactoryTestCase
     {
         $this->generateRecipes();
 
-        $recipes = $this->recipeFactory->getTopRecipesForUser($this->test_user, 2);
+        $recipes = $this->recipeFactory->getTopRecipesForUser($this->testUser, 2);
         $this->assertEquals(2, $recipes->count());
 
-        $allRecipes = $this->recipeFactory->getAllRecipesForUser($this->test_user);
+        $allRecipes = $this->recipeFactory->getAllRecipesForUser($this->testUser);
         $this->assertEquals(3, $allRecipes->count());
     }
 
@@ -146,7 +146,23 @@ class RecipeFactoryTest extends \FactoryTestCase
     /** @test */
     public function it_tests_give_recipes_for_sayt_search()
     {
+        $recipes = $this->generateRecipes();
 
+        $recipesfromDao = $this->recipeFactory->getRecipesForSaytSearch("Test", $this->testUser);
+
+        $this->assertCount(4, $recipesfromDao);
+        $this->assertEquals($recipes[0], $recipesfromDao[0]);
+        $this->assertEquals($recipes[1], $recipesfromDao[1]);
+        $this->assertEquals($recipes[2], $recipesfromDao[2]);
+        $this->assertEquals($recipes[3], $recipesfromDao[3]);
+    }
+
+    /** @test */
+    public function it_tests_give_no_recipes_for_invalid_sayt_search()
+    {
+        $this->generateRecipes();
+        $recipesfromDao = $this->recipeFactory->getRecipesForSaytSearch("Foo", $this->testUser);#
+        $this->assertEmpty($recipesfromDao);
     }
 
     private function generateRecipes(): array
@@ -160,7 +176,7 @@ class RecipeFactoryTest extends \FactoryTestCase
             new Ingredient("Mehl", 200, SIUnit::g(), 100),
         ]);
         $recipes[] = $this->recipeFactory->addRecipe(
-            $this->test_user,
+            $this->testUser,
             "Test Rezept",
             DietStyle::ALLES(),
             Cuisine::DEUTSCH(),
@@ -170,7 +186,7 @@ class RecipeFactoryTest extends \FactoryTestCase
             "Your add here"
         );
         $recipes[] = $this->recipeFactory->addRecipe(
-            $this->test_user,
+            $this->testUser,
             "Test Rezept 2",
             DietStyle::VEGAN(),
             Cuisine::ASIATISCH(),
@@ -180,8 +196,18 @@ class RecipeFactoryTest extends \FactoryTestCase
             "Your add here"
         );
         $recipes[] = $this->recipeFactory->addRecipe(
-            $this->test_user,
+            $this->testUser,
             "Test Rezept 2",
+            DietStyle::VEGAN(),
+            Cuisine::ASIATISCH(),
+            60,
+            90,
+            $ingredients,
+            "Your add here"
+        );
+        $recipes[] = $this->recipeFactory->addRecipe(
+            $this->testUser,
+            "Sayt Test Recipe",
             DietStyle::VEGAN(),
             Cuisine::ASIATISCH(),
             60,

@@ -7,6 +7,7 @@ namespace App\Daos;
 use App\Exceptions\RecipeNotFoundException;
 use App\Value\Recipe;
 use App\Value\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -56,8 +57,9 @@ class RecipeDao extends Model
 
     public function getTopRecipesForUser(User $user, int $limit = -1): Collection
     {
-        $query = $this->newQuery()->where(self::PROPERTY_AUTHOR_ID, "=", $user->id());
-        if ($limit !== -1){
+        $query = $this->newQuery();
+        $query = $this->onlyGetAllowedRecipesForUser($query, $user);
+        if ($limit !== -1) {
             $query->limit($limit);
         }
 
@@ -82,5 +84,22 @@ class RecipeDao extends Model
         $currentRecipe->setAttribute(self::PROPERTY_DESCRIPTION, $recipe->description());
 
         $currentRecipe->save();
+    }
+
+    public function getRecipesForSaytSearch(string $searchString, User $user): Collection
+    {
+        $query = $this->newQuery();
+        $query = $this->onlyGetAllowedRecipesForUser($query, $user);
+        return $query
+            ->where(self::PROPERTY_TITLE, 'LIKE', "%" . $searchString . "%")
+            ->limit(15)
+            ->get();
+    }
+
+    private function onlyGetAllowedRecipesForUser(Builder $query, User $user): Builder
+    {
+        //TODO this is incomplete
+        return $query
+            ->where(self::PROPERTY_AUTHOR_ID, "=", $user->id());
     }
 }

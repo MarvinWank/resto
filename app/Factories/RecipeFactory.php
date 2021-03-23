@@ -99,8 +99,13 @@ class RecipeFactory
     public function update(Recipe $updatedRecipe, int $id): Recipe
     {
         $this->recipeDao->updateRecipe($updatedRecipe);
-
         return $this->fromId($id);
+    }
+
+    public function getRecipesForSaytSearch(string $searchString, User $user): RecipeSet
+    {
+        $collection = $this->recipeDao->getRecipesForSaytSearch($searchString, $user);
+        return $this->collectionToSet($collection);
     }
 
     private function collectionToSet(Collection $collection): RecipeSet
