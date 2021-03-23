@@ -69,32 +69,7 @@ class RecipeFactoryTest extends \FactoryTestCase
      */
     public function it_tests_give_all_for_user()
     {
-        $ingredients = IngredientsSet::fromArray([
-            new Ingredient("Butter", 200, SIUnit::g(), 100),
-            new Ingredient("Schmalz", 200, SIUnit::g(), 100),
-            new Ingredient("Milch", 200, SIUnit::g(), 100),
-            new Ingredient("Mehl", 200, SIUnit::g(), 100),
-        ]);
-        $this->recipeFactory->addRecipe(
-            $this->test_user,
-            "Test Rezept",
-            DietStyle::ALLES(),
-            Cuisine::DEUTSCH(),
-            60,
-            90,
-            $ingredients,
-            "Your add here"
-        );
-        $this->recipeFactory->addRecipe(
-            $this->test_user,
-            "Test Rezept 2",
-            DietStyle::VEGAN(),
-            Cuisine::ASIATISCH(),
-            60,
-            90,
-            $ingredients,
-            "Your add here"
-        );
+        $this->generateRecipes();
 
         $allRecipes = $this->recipeFactory->getAllRecipesForUser($this->test_user);
         /** @var Recipe $recipe1 */
@@ -111,42 +86,7 @@ class RecipeFactoryTest extends \FactoryTestCase
      */
     public function it_tests_give_top_recipes_for_user()
     {
-        $ingredients = IngredientsSet::fromArray([
-            new Ingredient("Butter", 200, SIUnit::g(), 100),
-            new Ingredient("Schmalz", 200, SIUnit::g(), 100),
-            new Ingredient("Milch", 200, SIUnit::g(), 100),
-            new Ingredient("Mehl", 200, SIUnit::g(), 100),
-        ]);
-        $this->recipeFactory->addRecipe(
-            $this->test_user,
-            "Test Rezept",
-            DietStyle::ALLES(),
-            Cuisine::DEUTSCH(),
-            60,
-            90,
-            $ingredients,
-            "Your add here"
-        );
-        $this->recipeFactory->addRecipe(
-            $this->test_user,
-            "Test Rezept 2",
-            DietStyle::VEGAN(),
-            Cuisine::ASIATISCH(),
-            60,
-            90,
-            $ingredients,
-            "Your add here"
-        );
-        $this->recipeFactory->addRecipe(
-            $this->test_user,
-            "Test Rezept 2",
-            DietStyle::VEGAN(),
-            Cuisine::ASIATISCH(),
-            60,
-            90,
-            $ingredients,
-            "Your add here"
-        );
+        $this->generateRecipes();
 
         $recipes = $this->recipeFactory->getTopRecipesForUser($this->test_user, 2);
         $this->assertEquals(2, $recipes->count());
@@ -160,27 +100,12 @@ class RecipeFactoryTest extends \FactoryTestCase
      */
     public function it_tests_sucessfully_get_recipe_by_id(): Recipe
     {
-        $ingredients = IngredientsSet::fromArray([
-            new Ingredient("Butter", 200, SIUnit::g(), 100),
-            new Ingredient("Schmalz", 200, SIUnit::g(), 100),
-            new Ingredient("Milch", 200, SIUnit::g(), 100),
-            new Ingredient("Mehl", 200, SIUnit::g(), 100),
-        ]);
-        $recipe = $this->recipeFactory->addRecipe(
-            $this->test_user,
-            "Test Rezept",
-            DietStyle::ALLES(),
-            Cuisine::DEUTSCH(),
-            60,
-            90,
-            $ingredients,
-            "Your add here"
-        );
+        $recipes = $this->generateRecipes();
 
-        $recipeFromId = $this->recipeFactory->fromId($recipe->id());
-        $this->assertEquals($recipe, $recipeFromId);
+        $recipeFromId = $this->recipeFactory->fromId($recipes[0]->id());
+        $this->assertEquals($recipes[0], $recipeFromId);
 
-        return $recipe;
+        return $recipes[0];
     }
 
     /**
@@ -217,4 +142,55 @@ class RecipeFactoryTest extends \FactoryTestCase
 
         $this->assertEquals($updatedRecipe->toArray(), $resultRecipe->toArray());
     }
+
+    /** @test */
+    public function it_tests_give_recipes_for_sayt_search()
+    {
+
+    }
+
+    private function generateRecipes(): array
+    {
+        $recipes = [];
+
+        $ingredients = IngredientsSet::fromArray([
+            new Ingredient("Butter", 200, SIUnit::g(), 100),
+            new Ingredient("Schmalz", 200, SIUnit::g(), 100),
+            new Ingredient("Milch", 200, SIUnit::g(), 100),
+            new Ingredient("Mehl", 200, SIUnit::g(), 100),
+        ]);
+        $recipes[] = $this->recipeFactory->addRecipe(
+            $this->test_user,
+            "Test Rezept",
+            DietStyle::ALLES(),
+            Cuisine::DEUTSCH(),
+            60,
+            90,
+            $ingredients,
+            "Your add here"
+        );
+        $recipes[] = $this->recipeFactory->addRecipe(
+            $this->test_user,
+            "Test Rezept 2",
+            DietStyle::VEGAN(),
+            Cuisine::ASIATISCH(),
+            60,
+            90,
+            $ingredients,
+            "Your add here"
+        );
+        $recipes[] = $this->recipeFactory->addRecipe(
+            $this->test_user,
+            "Test Rezept 2",
+            DietStyle::VEGAN(),
+            Cuisine::ASIATISCH(),
+            60,
+            90,
+            $ingredients,
+            "Your add here"
+        );
+
+        return $recipes;
+    }
+
 }
