@@ -112,8 +112,7 @@ final class Ingredient implements ValueObject
         if (!array_key_exists('unit', $array)) {
             throw new UnexpectedValueException('Array key unit does not exist');
         }
-        
-        if (is_string($array['unit']) && is_a(SIUnit::class, Enum::class, true)) {
+                if (is_string($array['unit']) && is_a(SIUnit::class, Enum::class, true)) {
             $array['unit'] = SIUnit::fromName($array['unit']);
         }
     
@@ -139,8 +138,13 @@ final class Ingredient implements ValueObject
             return $value->toArray();
         }
         
+        if(is_a($value, \DateTime::class, true) || is_a($value, \DateTimeImmutable::class, true)){
+            return $value->format('Y-m-d');
+        }
+        
         return (string) $value;
-    }    
+    }
+        
     public function equals($value): bool
     {
         $ref = $this->toArray();
@@ -148,4 +152,5 @@ final class Ingredient implements ValueObject
         
         return ($ref === $val);
     }
+    
 }

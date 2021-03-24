@@ -1,6 +1,7 @@
 <template>
     <div class="container-fluid">
         <RestoHeader />
+
         <div class="col-12 mt-3">
             <div class="row mb-3">
                 <div class="text-center">Rezepte für heute</div>

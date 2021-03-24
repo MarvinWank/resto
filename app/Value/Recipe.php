@@ -252,8 +252,7 @@ final class Recipe implements ValueObject
         if (!array_key_exists('author', $array)) {
             throw new UnexpectedValueException('Array key author does not exist');
         }
-        
-        if (is_string($array['author']) && is_a(User::class, Enum::class, true)) {
+                if (is_string($array['author']) && is_a(User::class, Enum::class, true)) {
             $array['author'] = User::fromName($array['author']);
         }
     
@@ -264,8 +263,7 @@ final class Recipe implements ValueObject
         if (!array_key_exists('dietStyle', $array)) {
             throw new UnexpectedValueException('Array key dietStyle does not exist');
         }
-        
-        if (is_string($array['dietStyle']) && is_a(DietStyle::class, Enum::class, true)) {
+                if (is_string($array['dietStyle']) && is_a(DietStyle::class, Enum::class, true)) {
             $array['dietStyle'] = DietStyle::fromName($array['dietStyle']);
         }
     
@@ -276,8 +274,7 @@ final class Recipe implements ValueObject
         if (!array_key_exists('cuisine', $array)) {
             throw new UnexpectedValueException('Array key cuisine does not exist');
         }
-        
-        if (is_string($array['cuisine']) && is_a(Cuisine::class, Enum::class, true)) {
+                if (is_string($array['cuisine']) && is_a(Cuisine::class, Enum::class, true)) {
             $array['cuisine'] = Cuisine::fromName($array['cuisine']);
         }
     
@@ -296,8 +293,7 @@ final class Recipe implements ValueObject
         if (!array_key_exists('ingredients', $array)) {
             throw new UnexpectedValueException('Array key ingredients does not exist');
         }
-        
-        if (is_string($array['ingredients']) && is_a(IngredientsSet::class, Enum::class, true)) {
+                if (is_string($array['ingredients']) && is_a(IngredientsSet::class, Enum::class, true)) {
             $array['ingredients'] = IngredientsSet::fromName($array['ingredients']);
         }
     
@@ -328,8 +324,13 @@ final class Recipe implements ValueObject
             return $value->toArray();
         }
         
+        if(is_a($value, \DateTime::class, true) || is_a($value, \DateTimeImmutable::class, true)){
+            return $value->format('Y-m-d');
+        }
+        
         return (string) $value;
-    }    
+    }
+        
     public function equals($value): bool
     {
         $ref = $this->toArray();
@@ -337,6 +338,7 @@ final class Recipe implements ValueObject
         
         return ($ref === $val);
     }
+    
     public function __toString(): string
     {
         return $this->toString();

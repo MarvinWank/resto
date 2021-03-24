@@ -202,8 +202,7 @@ final class AddRecipeRequestDto implements ValueObject
         if (!array_key_exists('ingredients', $array)) {
             throw new UnexpectedValueException('Array key ingredients does not exist');
         }
-        
-        if (is_string($array['ingredients']) && is_a(IngredientsSet::class, Enum::class, true)) {
+                if (is_string($array['ingredients']) && is_a(IngredientsSet::class, Enum::class, true)) {
             $array['ingredients'] = IngredientsSet::fromName($array['ingredients']);
         }
     
@@ -232,8 +231,13 @@ final class AddRecipeRequestDto implements ValueObject
             return $value->toArray();
         }
         
+        if(is_a($value, \DateTime::class, true) || is_a($value, \DateTimeImmutable::class, true)){
+            return $value->format('Y-m-d');
+        }
+        
         return (string) $value;
-    }    
+    }
+        
     public function equals($value): bool
     {
         $ref = $this->toArray();
@@ -241,4 +245,5 @@ final class AddRecipeRequestDto implements ValueObject
         
         return ($ref === $val);
     }
+    
 }
