@@ -29,6 +29,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         $router->post('/recipes/get_by_id', 'Recipe\GetRecipeByIdController@get');
         $router->post('/recipes/update', 'Recipe\UpdateRecipeController@updateRecipe');
         $router->post("/recipes/delete", 'Recipe\DeleteRecipeController@delete');
+        $router->post("/recipes/search/sayt", 'Recipe\SearchSaytController@saytList');
     });
 });
 

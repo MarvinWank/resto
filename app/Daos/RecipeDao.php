@@ -86,13 +86,13 @@ class RecipeDao extends Model
         $currentRecipe->save();
     }
 
-    public function getRecipesForSaytSearch(string $searchString, User $user): Collection
+    public function getRecipesForSaytSearch(string $searchString, User $user, int $limit): Collection
     {
         $query = $this->newQuery();
         $query = $this->onlyGetAllowedRecipesForUser($query, $user);
         return $query
             ->where(self::PROPERTY_TITLE, 'LIKE', "%" . $searchString . "%")
-            ->limit(15)
+            ->limit($limit)
             ->get();
     }
 

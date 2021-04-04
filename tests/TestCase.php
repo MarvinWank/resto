@@ -39,6 +39,6 @@ abstract class TestCase extends BaseTestCase
 
     private function create_test_user(): \App\Value\User
     {
-        return $this->userFactory->from_id(1);
+        return $this->userFactory->fromId(1);
     }
 }

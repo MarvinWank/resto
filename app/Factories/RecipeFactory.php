@@ -75,7 +75,7 @@ class RecipeFactory
         return new Recipe(
             $id,
             $daoRecipe->getAttribute(RecipeDao::PROPERTY_TITLE),
-            $this->userFactory->from_id($daoRecipe->getAttribute(RecipeDao::PROPERTY_AUTHOR_ID)),
+            $this->userFactory->fromId($daoRecipe->getAttribute(RecipeDao::PROPERTY_AUTHOR_ID)),
             DietStyle::fromName($daoRecipe->getAttribute(RecipeDao::PROPERTY_DIET_STYLE)),
             Cuisine::fromName($daoRecipe->getAttribute(RecipeDao::PROPERTY_CUISINE)),
             $daoRecipe->getAttribute(RecipeDao::PROPERTY_TIME_TO_COOK),
@@ -102,9 +102,9 @@ class RecipeFactory
         return $this->fromId($id);
     }
 
-    public function getRecipesForSaytSearch(string $searchString, User $user): RecipeSet
+    public function getRecipesForSaytSearch(string $searchString, User $user, int $limit): RecipeSet
     {
-        $collection = $this->recipeDao->getRecipesForSaytSearch($searchString, $user);
+        $collection = $this->recipeDao->getRecipesForSaytSearch($searchString, $user, $limit);
         return $this->collectionToSet($collection);
     }
 
@@ -112,7 +112,7 @@ class RecipeFactory
     {
         $set = RecipeSet::fromArray([]);
         foreach ($collection->toArray() as $result) {
-            $result[RecipeDao::PROPERTY_AUTHOR_ID] = $this->userFactory->from_id($result[RecipeDao::PROPERTY_AUTHOR_ID]);
+            $result[RecipeDao::PROPERTY_AUTHOR_ID] = $this->userFactory->fromId($result[RecipeDao::PROPERTY_AUTHOR_ID]);
             $ingredients = json_decode($result[RecipeDao::PROPERTY_INGREDIENTS], true);
             $ingredients = IngredientsSet::fromArray($ingredients);
             $result[RecipeDao::PROPERTY_INGREDIENTS] = $ingredients;

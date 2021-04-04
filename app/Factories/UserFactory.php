@@ -24,10 +24,10 @@ class UserFactory
 
     public function currentUser(): User
     {
-        return  $this->from_id($this->state->getUserID());
+        return  $this->fromId($this->state->getUserID());
     }
 
-    public function from_id(int $id): User
+    public function fromId(int $id): User
     {
         $dao_user = $this->usersDao->get_user_by_id($id);
         return $this->user_from_dao($dao_user);

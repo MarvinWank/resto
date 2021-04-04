@@ -51,7 +51,7 @@ class LoginController extends Controller
         //ApiKey is validated by CheckApiKeyMiddleware
 
         $userID = $state->getUserID();
-        $user = $userFactory->from_id($userID);
+        $user = $userFactory->fromId($userID);
         $recipes = $recipeFactory->getTopRecipesForUser($user);
 
         return response()->json([

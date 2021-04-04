@@ -14,6 +14,7 @@
 import Vue from "vue"
 import Component from "vue-class-component";
 // No types available
+/* eslint-disable */
 // @ts-ignore
 import Autocomplete from '@trevoreyre/autocomplete-vue';
 
@@ -24,8 +25,8 @@ import Autocomplete from '@trevoreyre/autocomplete-vue';
 })
 export default class SearchBar extends Vue {
 
-    search() {
-
+    search(input: string) {
+        console.log(input)
     }
 
 }
