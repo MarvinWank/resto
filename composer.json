@@ -5,14 +5,14 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": "^7.4",
+        "php": "^7.4|^8.0",
         "ext-iconv": "*",
         "ext-json": "*",
         "ext-xdebug": "*",
         "doctrine/dbal": "2.*",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0",
-        "laravel/lumen-framework": "^7.0",
+        "laravel/lumen-framework": "^8.0",
         "marvinwank/vog": "^2.0.0",
         "palanik/lumen-cors": "dev-master",
         "thecodingmachine/safe": "^1.3"
