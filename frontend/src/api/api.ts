@@ -68,6 +68,10 @@ class Api {
     async deleteRecipe(recipeId: number){
         return await this.post("/recipes/delete", {id: recipeId});
     }
+
+    saytSearch(search: string){
+        return this.post("/recipes/search/sayt", {search: search})
+    }
 }
 
 export default new Api();

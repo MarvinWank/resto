@@ -1,7 +1,10 @@
 <template>
     <div class="row">
         <div class="col-12">
-            <autocomplete :search="search">
+            <autocomplete
+                :search="search"
+                placeholder="Rezept suchen"
+            >
 
             </autocomplete>
         </div>
@@ -17,6 +20,9 @@ import Component from "vue-class-component";
 /* eslint-disable */
 // @ts-ignore
 import Autocomplete from '@trevoreyre/autocomplete-vue';
+import '@trevoreyre/autocomplete-vue/dist/style.css'
+import api from "@/api/api";
+import {Recipe} from "@/types/recipe";
 
 @Component({
     components: {
@@ -26,7 +32,19 @@ import Autocomplete from '@trevoreyre/autocomplete-vue';
 export default class SearchBar extends Vue {
 
     search(input: string) {
-        console.log(input)
+        if (input.length < 1) {
+            return []
+        }
+
+        api.saytSearch(input).then(response => {
+            let result: Array<string> = [];
+            const recipes: Array<Recipe> = response.recipes;
+            recipes.forEach(recipe => {
+                result.push(recipe.title);
+            })
+
+            console.log(result);
+        });
     }
 
 }
