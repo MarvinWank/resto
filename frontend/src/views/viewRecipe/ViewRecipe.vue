@@ -2,17 +2,29 @@
     <div class="container-fluid">
         <RestoHeader/>
 
-        <div class="h3 mt-4">{{ recipe.title }}</div>
+        <div class="h3 mt-4 text-center">{{ recipe.title }}</div>
 
+        <div class="row justify-content-between pt-2">
+            <div class="col-12">
+                <i class="las la-stopwatch"></i> {{ recipe.timeToCook }} min Kochzeit
+            </div>
+            <div class="col-12">
+                <i class="las la-stopwatch"></i> {{ recipe.totalTime }} min Gesamtzeit
+            </div>
+
+            <!--                        <div class="col-12">-->
+            <!--                            {{totalCalories(recipe)}} kcal-->
+            <!--                        </div>-->
+        </div>
+
+        <div class="h5 mt-4">Zutaten</div>
         <div class="row">
             <div v-for="(ingredient, key) in recipe.ingredients" :key="key" class="col-12">
                 -  {{ingredient.amount}}{{ingredient.unit}} {{ingredient.name}}
             </div>
         </div>
 
-        <div class="h3 mt-4">
-            Beschreibung
-        </div>
+        <div class="h5 mt-4">Beschreibung</div>
         <p class="">
             {{recipe.description}}
         </p>

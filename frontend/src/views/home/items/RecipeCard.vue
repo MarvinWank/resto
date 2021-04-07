@@ -2,6 +2,7 @@
     <div class="row recipe-card">
         <div class="col-12 inner">
             <div class="title" @click="showRecipe">{{ recipe.title }}</div>
+
             <div class="row justify-content-between pt-2 content">
                 <div class="col-6" @click="showRecipe">
                     <i class="las la-stopwatch"></i> {{ recipe.totalTime }} min
@@ -20,6 +21,7 @@
                     ></i>
                 </div>
             </div>
+
         </div>
 
         <YesNoModal
