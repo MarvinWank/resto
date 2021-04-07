@@ -2,8 +2,9 @@
     <div class="row">
         <div class="col-12">
             <autocomplete
-                :search="search"
                 placeholder="Rezept suchen"
+                :search="search"
+                @submit="displayRecipe"
             >
 
             </autocomplete>
@@ -31,20 +32,34 @@ import {Recipe} from "@/types/recipe";
 })
 export default class SearchBar extends Vue {
 
+    recipes: Array<Recipe> = [];
+
     search(input: string) {
         if (input.length < 1) {
             return []
         }
 
-        api.saytSearch(input).then(response => {
+        return api.saytSearch(input).then(response => {
             let result: Array<string> = [];
-            const recipes: Array<Recipe> = response.recipes;
-            recipes.forEach(recipe => {
+            this.recipes = response.recipes;
+
+            this.recipes.forEach(recipe => {
                 result.push(recipe.title);
             })
 
-            console.log(result);
+            return result;
         });
+    }
+
+    displayRecipe(recipeTitle: string){
+        const recipe: Recipe | undefined = this.recipes.find(recipe => recipe.title === recipeTitle);
+
+        if (recipe === undefined){
+            console.error("Error in recipe filtering", recipeTitle,  recipe, this.recipes)
+            return;
+        }
+
+        this.$router.push("/recipe/view/" + recipe.id)
     }
 
 }
