@@ -2,7 +2,30 @@
     <div class="container-fluid">
         <RestoHeader/>
 
-        <div class="h3 mt-4 text-center">{{ recipe.title }}</div>
+        <YesNoModal
+            :show-modal="showDeleteModal"
+            :text="deleteModalText"
+            @yes="deleteRecipe"
+        />
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="h3 my-auto">{{ recipe.title }}</div>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-4 my-auto">
+                <i class="las la-lg la-pencil-alt mr-2"
+                   @click="editRecipe"
+                >
+                </i>
+                <i class="las la-lg la-trash-alt"
+                @click="showDeleteModal = true"
+                ></i>
+            </div>
+        </div>
+
 
         <div class="row justify-content-between pt-2">
             <div class="col-12">
@@ -20,13 +43,13 @@
         <div class="h5 mt-4">Zutaten</div>
         <div class="row">
             <div v-for="(ingredient, key) in recipe.ingredients" :key="key" class="col-12">
-                -  {{ingredient.amount}}{{ingredient.unit}} {{ingredient.name}}
+                - {{ ingredient.amount }}{{ ingredient.unit }} {{ ingredient.name }}
             </div>
         </div>
 
         <div class="h5 mt-4">Beschreibung</div>
         <p class="">
-            {{recipe.description}}
+            {{ recipe.description }}
         </p>
 
     </div>
@@ -40,10 +63,12 @@ import Vue from "vue";
 import {Recipe} from "@/types/recipe";
 import api from "@/api/api";
 import RestoHeader from "@/components/RestoHeader.vue";
+import YesNoModal from "@/components/YesNoModal.vue";
 
 @Component({
     components: {
-        RestoHeader
+        RestoHeader,
+        YesNoModal
     }
 })
 export default class ViewRecipe extends Vue {
@@ -58,6 +83,7 @@ export default class ViewRecipe extends Vue {
         title: "",
         description: ""
     };
+    showDeleteModal = false;
 
     created() {
         api.getRecipeById(Number(this.$route.params.id)).then(response => {
@@ -65,14 +91,29 @@ export default class ViewRecipe extends Vue {
         });
     }
 
-    get recipe() {
+    get recipe(): Recipe {
         return this.myRecipe;
+    }
+
+    editRecipe() {
+        this.$router.push("/recipe/edit/" + this.recipe.id)
+    }
+
+    get deleteModalText() {
+        return "Wollen Sie das Rezept '" + this.recipe?.title + "' wirklich löschen?"
+    }
+
+    deleteRecipe() {
+        this.showDeleteModal = false;
+        api.deleteRecipe(this.recipe?.id);
     }
 
 
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+i {
+    color: $grey_darker;
+}
 </style>
