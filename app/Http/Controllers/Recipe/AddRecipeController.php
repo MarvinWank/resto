@@ -24,8 +24,8 @@ class AddRecipeController extends Controller
         $recipe = $recipeFactory->addRecipe(
             $user,
             $data->title(),
-            DietStyle::fromValue($data->dietStyle()),
-            Cuisine::fromValue($data->cuisine()),
+            DietStyle::fromName($data->dietStyle()),
+            Cuisine::fromName($data->cuisine()),
             $data->timeToCook(),
             $data->totalTime(),
             $data->ingredients(),

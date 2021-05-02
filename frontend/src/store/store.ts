@@ -28,7 +28,7 @@ const state: restoState = {
 }
 
 const mutations: MutationTree<restoState> = {
-        setDataInitial(state: restoState, daten: setInitialDataPayload) {
+    setDataInitial(state: restoState, daten: setInitialDataPayload) {
         state.apiKey = daten.apiKey;
         state.user = daten.user;
         state.topRecipes = daten.topRecipes;
@@ -42,12 +42,12 @@ const mutations: MutationTree<restoState> = {
             return await api.addRecipe(state.recipeCurentlyBeingAdded);
         }
     },
-    async saveRecipe(state: restoState){
+    async saveRecipe(state: restoState) {
         if (state.recipeCurentlyBeingAdded !== undefined) {
             return await api.saveRecipe(state.recipeCurentlyBeingAdded);
         }
     },
-    resetCurrentRecipe(state: restoState){
+    resetCurrentRecipe(state: restoState) {
         state.recipeCurentlyBeingAdded = {
             id: -1,
             cuisine: "deutsch",
@@ -64,7 +64,8 @@ const mutations: MutationTree<restoState> = {
 const actions: ActionTree<restoState, any> = {
     setInitialData(context, payload: setInitialDataPayload) {
         context.commit("setDataInitial", payload)
-        router.push("/")
+        const targetUrl = payload.targetUrl !== undefined ? payload.targetUrl : "/";
+        router.push(targetUrl)
     }
 }
 
@@ -82,7 +83,7 @@ const getters: GetterTree<restoState, any> = {
     currentRecipe(state: restoState): Recipe {
         return state.recipeCurentlyBeingAdded;
     },
-    topRecipes(state: restoState): Array<Recipe>{
+    topRecipes(state: restoState): Array<Recipe> {
         return state.topRecipes;
     }
 }
