@@ -40,7 +40,7 @@ class StateFactoryTestCase extends \FactoryTestCase
         $state->setUserID($this->testUser->id());
         $this->stateFactory->save($state);
 
-        $dao_state = $this->stateDao->find($uuid);
+        $dao_state = $this->stateDao->newQuery()->find($uuid);
         $this->assertEquals(1, $dao_state->getAttribute(StateDao::PROPERTY_USER_ID));
 
         StateDao::query()->where(StateDao::PROPERTY_ID, '=', $uuid)->delete();

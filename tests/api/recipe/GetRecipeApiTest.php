@@ -52,7 +52,7 @@ class GetRecipeApiTest extends ApiTestCase
 
         $result = $this->apiPost("/recipes/all");
         $response = $result->getBody()->getContents();
-        $response = json_decode($response, true);
+        $response = \Safe\json_decode($response, true);
 
         $this->assertCount(4, $response['recipes']);
         $this->assertEquals("Test Recipe", $response['recipes'][0]['title']);
@@ -90,7 +90,7 @@ class GetRecipeApiTest extends ApiTestCase
 
         $result = $this->apiPost("/recipes/top");
         $response = $result->getBody()->getContents();
-        $response = json_decode($response, true);
+        $response = \Safe\json_decode($response, true);
 
         $this->assertCount(3, $response['recipes']);
         $this->assertEquals("Test Recipe", $response['recipes'][0]['title']);
@@ -119,12 +119,12 @@ class GetRecipeApiTest extends ApiTestCase
         ];
         $result = $this->apiPost("/recipes/add", $body);
         $response = $result->getBody()->getContents();
-        $response = json_decode($response, true);
+        $response = \Safe\json_decode($response, true);
         $response = Recipe::fromArray($response['recipe']);
 
         $resultApi = $this->apiPost("/recipes/get_by_id", ["id" => $response->id() ]);
         $resultApi = $resultApi->getBody()->getContents();
-        $resultApi = json_decode($resultApi, true);
+        $resultApi = \Safe\json_decode($resultApi, true);
         $resultApi = Recipe::fromArray($resultApi['recipe']);
 
         $this->assertEquals($response, $resultApi);

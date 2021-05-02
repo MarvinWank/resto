@@ -47,7 +47,7 @@ class AddRecipeTestApiTest extends ApiTestCase
         ];
         $response = $this->apiPost("/recipes/add", $body);
         $response = $response->getBody()->getContents();
-        $response = json_decode($response, true);
+        $response = \Safe\json_decode($response, true);
 
         $this->assertEquals("ok", $response['status']);
         $this->assertEquals("Test Recipe", $response['recipe']['title']);

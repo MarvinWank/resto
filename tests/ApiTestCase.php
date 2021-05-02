@@ -27,7 +27,7 @@ class ApiTestCase extends TestCase
             'password' => "test"
         ]];
         $response = $this->client->post('/api/login', $body)->getBody()->getContents();
-        $response = json_decode($response, true);
+        $response = \Safe\json_decode($response, true);
 
         $this->assertEquals("ok", $response['status']);
         $this->apiKey = $response['apiKey'];

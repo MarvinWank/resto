@@ -22,9 +22,9 @@ class UsersDao extends Model
     public $timestamps = false;
     protected static $unguarded = true;
 
-    public function get_user_by_id(string $id): UsersDao
+    public function get_user_by_id(string $id): Model
     {
-        return UsersDao::find($id);
+        return UsersDao::query()->find($id);
     }
 
     public function get_user_by_email(string $email): UsersDao
@@ -40,18 +40,21 @@ class UsersDao extends Model
         $dao_password = UsersDao::query()
             ->select('password')
             ->where(self::PROPERTY_EMAIL, '=', $email)
-            ->firstOrFail()
+            ->first()
             ->getAttribute('password');
         return ($dao_password === $password);
 
     }
 
+    /**
+     * @throws \Safe\Exceptions\PasswordException
+     */
     public function insert_user(User $user, string $password): int
     {
         return UsersDao::query()->insertGetId([
-            self::PROPERTY_NAME => $user->get_name(),
-            self::PROPERTY_EMAIL => $user->get_email(),
-            self::PROPERTY_PASSWORD => password_hash($password, 1)
+            self::PROPERTY_NAME => $user->name(),
+            self::PROPERTY_EMAIL => $user->email(),
+            self::PROPERTY_PASSWORD => \Safe\password_hash($password, 1)
         ]);
     }
 }

@@ -75,7 +75,6 @@ class LoginApiTest extends \ApiTestCase
         $response = $this->login();
         $recipes = RecipeSet::fromArray($response['topRecipes']);
         $this->assertEquals(1, $recipes->count());
-        /** @var Recipe $recipe */
         $recipe = $recipes->toArray()[0];
 
         $this->assertEquals("Test Rezept", $recipe['title']);
@@ -91,7 +90,7 @@ class LoginApiTest extends \ApiTestCase
         $result = $this->apiPost("/login_with_api_key", [
             "apiKey" => $this->apiKey
         ]);
-        $result = json_decode($result->getBody()->getContents(), true);
+        $result = \Safe\json_decode($result->getBody()->getContents(), true);
 
         $this->assertEquals("ok", $result['status']);
         $this->assertEquals($this->testUser->toArray(), $result['user']);
@@ -105,6 +104,6 @@ class LoginApiTest extends \ApiTestCase
             'password' => "test"
         ]];
         $response = $this->client->post('/api/login', $body);
-        return json_decode($response->getBody()->getContents(), true);
+        return \Safe\json_decode($response->getBody()->getContents(), true);
     }
 }

@@ -72,9 +72,7 @@ class RecipeFactoryTest extends \FactoryTestCase
         $this->generateRecipes();
 
         $allRecipes = $this->recipeFactory->getAllRecipesForUser($this->testUser);
-        /** @var Recipe $recipe1 */
         $recipe1 = $allRecipes->toArray()[0];
-        /** @var Recipe $recipe2 */
         $recipe2 = $allRecipes->toArray()[1];
 
         $this->assertEquals("Test Rezept", $recipe1['title']);
@@ -101,7 +99,6 @@ class RecipeFactoryTest extends \FactoryTestCase
     public function it_tests_sucessfully_get_recipe_by_id(): Recipe
     {
         $recipes = $this->generateRecipes();
-
         $recipeFromId = $this->recipeFactory->fromId($recipes[0]->id());
         $this->assertEquals($recipes[0], $recipeFromId);
 
@@ -148,7 +145,7 @@ class RecipeFactoryTest extends \FactoryTestCase
     {
         $recipes = $this->generateRecipes();
 
-        $recipesfromDao = $this->recipeFactory->getRecipesForSaytSearch("Test", $this->testUser);
+        $recipesfromDao = $this->recipeFactory->getRecipesForSaytSearch("Test", $this->testUser, 100);
 
         $this->assertCount(4, $recipesfromDao);
         $this->assertEquals($recipes[0], $recipesfromDao[0]);
@@ -161,7 +158,7 @@ class RecipeFactoryTest extends \FactoryTestCase
     public function it_tests_give_no_recipes_for_invalid_sayt_search()
     {
         $this->generateRecipes();
-        $recipesfromDao = $this->recipeFactory->getRecipesForSaytSearch("Foo", $this->testUser);#
+        $recipesfromDao = $this->recipeFactory->getRecipesForSaytSearch("Foo", $this->testUser, 100);
         $this->assertEmpty($recipesfromDao);
     }
 

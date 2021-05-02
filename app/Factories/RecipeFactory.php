@@ -62,11 +62,12 @@ class RecipeFactory
 
     /**
      * @throws RecipeNotFoundException
+     * @throws \Safe\Exceptions\JsonException
      */
     public function fromId(int $id): Recipe
     {
-        /** @var Model $daoRecipe */
         try {
+            /** @var Model $daoRecipe */
             $daoRecipe = $this->recipeDao->newQuery()->findOrFail($id);
         } catch (ModelNotFoundException $exception) {
             throw RecipeNotFoundException::recipeNotFound($id);
@@ -80,7 +81,7 @@ class RecipeFactory
             Cuisine::fromName($daoRecipe->getAttribute(RecipeDao::PROPERTY_CUISINE)),
             $daoRecipe->getAttribute(RecipeDao::PROPERTY_TIME_TO_COOK),
             $daoRecipe->getAttribute(RecipeDao::PROPERTY_TOTAL_TIME),
-            IngredientsSet::fromArray(\json_decode($daoRecipe->getAttribute(RecipeDao::PROPERTY_INGREDIENTS), true)),
+            IngredientsSet::fromArray(\Safe\json_decode($daoRecipe->getAttribute(RecipeDao::PROPERTY_INGREDIENTS), true)),
             $daoRecipe->getAttribute(RecipeDao::PROPERTY_DESCRIPTION)
         );
     }
@@ -113,7 +114,7 @@ class RecipeFactory
         $set = RecipeSet::fromArray([]);
         foreach ($collection->toArray() as $result) {
             $result[RecipeDao::PROPERTY_AUTHOR_ID] = $this->userFactory->fromId($result[RecipeDao::PROPERTY_AUTHOR_ID]);
-            $ingredients = json_decode($result[RecipeDao::PROPERTY_INGREDIENTS], true);
+            $ingredients = \Safe\json_decode($result[RecipeDao::PROPERTY_INGREDIENTS], true);
             $ingredients = IngredientsSet::fromArray($ingredients);
             $result[RecipeDao::PROPERTY_INGREDIENTS] = $ingredients;
             $recipe = Recipe::fromArray($result);
