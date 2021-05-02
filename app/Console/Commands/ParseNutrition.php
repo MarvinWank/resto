@@ -43,11 +43,13 @@ class ParseNutrition extends Command
      * Execute the console command.
      *
      * @return mixed
+     * @throws \Safe\Exceptions\FilesystemException
+     * @throws \Safe\Exceptions\JsonException
      */
     public function handle()
     {
-        $file = file_get_contents(self::FILE_PATH);
-        $content = json_decode($file);
+        $file = \Safe\file_get_contents(self::FILE_PATH);
+        $content = \Safe\json_decode($file);
         $parsed_values = [];
 
         foreach ($content as $raw_line) {

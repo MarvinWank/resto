@@ -8,7 +8,7 @@ use App\Exceptions\RecipeNotFoundException;
 use App\Value\Recipe;
 use App\Value\User;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -27,6 +27,9 @@ class RecipeDao extends Model
     protected $table = 'recipes';
     protected $primaryKey = 'id';
 
+    /**
+     * @throws \Safe\Exceptions\JsonException
+     */
     public function add(Recipe $recipe): int
     {
         return $this->newQuery()->insertGetId([
@@ -36,7 +39,7 @@ class RecipeDao extends Model
             self::PROPERTY_CUISINE => $recipe->cuisine()->name(),
             self::PROPERTY_TIME_TO_COOK => $recipe->timeToCook(),
             self::PROPERTY_TOTAL_TIME => $recipe->totalTime(),
-            self::PROPERTY_INGREDIENTS => json_encode($recipe->ingredients()->toArray()),
+            self::PROPERTY_INGREDIENTS => \Safe\json_encode($recipe->ingredients()->toArray()),
             self::PROPERTY_DESCRIPTION => $recipe->description()
         ]);
     }

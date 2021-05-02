@@ -1,7 +1,6 @@
 import Vue from "vue";
 import api from "@/api/api";
 import store from "@/store/store";
-import router from "@/router/router";
 
 export function getApiKeyFromCookie(): false | string {
     if (!Vue.$cookies.isKey("apiKey")){

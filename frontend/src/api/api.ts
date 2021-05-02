@@ -10,7 +10,9 @@ class Api {
         if (process.env.NODE_ENV === "development") {
             this.host = "http://resto.local/api";
         }
-
+        if (process.env.NODE_ENV === "production") {
+            this.host = "https://resto.marvin-wank.de/api";
+        }
     }
 
     getHost() {

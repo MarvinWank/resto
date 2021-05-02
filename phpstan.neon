@@ -1,2 +1,13 @@
 includes:
     - vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon
+
+parameters:
+    paths:
+        - app
+        - tests
+        - database
+    level: 4
+    excludePaths:
+        - app/Value/*
+        - app/Exceptions/Handler.php
+
