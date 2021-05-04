@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 class CreateTableShoppingLists extends Migration
 {
 
-    private const TABLE_NAME = 'shopping_lists';
+    public const TABLE_NAME = 'shopping_lists';
 
     public function up()
     {
