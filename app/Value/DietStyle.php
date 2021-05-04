@@ -10,7 +10,7 @@ namespace App\Value;
 
 use InvalidArgumentException;
 
-final class DietStyle implements Enum
+class DietStyle implements Enum
 {
     public const VALUES = ['alles', 'vegetarisch', 'vegan', ];               
     public const NAMES = ['ALLES', 'VEGETARISCH', 'VEGAN', ];               

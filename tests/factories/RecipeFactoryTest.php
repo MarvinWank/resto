@@ -16,12 +16,11 @@ use App\Value\SIUnit;
 
 class RecipeFactoryTest extends \FactoryTestCase
 {
-    private RecipeFactory $recipeFactory;
+
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->recipeFactory = app(RecipeFactory::class);
     }
 
     public function tearDown(): void
@@ -160,60 +159,6 @@ class RecipeFactoryTest extends \FactoryTestCase
         $this->generateRecipes();
         $recipesfromDao = $this->recipeFactory->getRecipesForSaytSearch("Foo", $this->testUser, 100);
         $this->assertEmpty($recipesfromDao);
-    }
-
-    private function generateRecipes(): array
-    {
-        $recipes = [];
-
-        $ingredients = IngredientsSet::fromArray([
-            new Ingredient("Butter", 200, SIUnit::g(), 100),
-            new Ingredient("Schmalz", 200, SIUnit::g(), 100),
-            new Ingredient("Milch", 200, SIUnit::g(), 100),
-            new Ingredient("Mehl", 200, SIUnit::g(), 100),
-        ]);
-        $recipes[] = $this->recipeFactory->addRecipe(
-            $this->testUser,
-            "Test Rezept",
-            DietStyle::ALLES(),
-            Cuisine::DEUTSCH(),
-            60,
-            90,
-            $ingredients,
-            "Your add here"
-        );
-        $recipes[] = $this->recipeFactory->addRecipe(
-            $this->testUser,
-            "Test Rezept 2",
-            DietStyle::VEGAN(),
-            Cuisine::ASIATISCH(),
-            60,
-            90,
-            $ingredients,
-            "Your add here"
-        );
-        $recipes[] = $this->recipeFactory->addRecipe(
-            $this->testUser,
-            "Test Rezept 2",
-            DietStyle::VEGAN(),
-            Cuisine::ASIATISCH(),
-            60,
-            90,
-            $ingredients,
-            "Your add here"
-        );
-        $recipes[] = $this->recipeFactory->addRecipe(
-            $this->testUser,
-            "Sayt Test Recipe",
-            DietStyle::VEGAN(),
-            Cuisine::ASIATISCH(),
-            60,
-            90,
-            $ingredients,
-            "Your add here"
-        );
-
-        return $recipes;
     }
 
 }

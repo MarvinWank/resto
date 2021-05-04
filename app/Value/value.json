@@ -91,6 +91,15 @@
             "name": "RecipeSet",
             "itemType": "Recipe",
             "mutable": true
+        },
+        {
+            "type": "valueObject",
+            "name": "ShoppingList",
+            "values": {
+                "id": "?int",
+                "userId": "int",
+                "ingredients": "IngredientsSet"
+            }
         }
     ]
 }

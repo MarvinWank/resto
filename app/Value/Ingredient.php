@@ -10,7 +10,7 @@ namespace App\Value;
 
 use UnexpectedValueException;
 
-final class Ingredient implements ValueObject
+class Ingredient implements ValueObject
 {
     private string $name;
     private float $amount;
@@ -29,27 +29,27 @@ final class Ingredient implements ValueObject
         $this->kcal = $kcal;
     }
     
-    public function name(): string 
+    public function getName(): string 
     {
         return $this->name;
     }
     
-    public function amount(): float 
+    public function getAmount(): float 
     {
         return $this->amount;
     }
     
-    public function unit(): SIUnit 
+    public function getUnit(): SIUnit 
     {
         return $this->unit;
     }
     
-    public function kcal(): ?int 
+    public function getKcal(): ?int 
     {
         return $this->kcal;
     }
     
-    public function with_name(string $name): self 
+    public function withName(string $name): self 
     {
         return new self(
             $name,
@@ -59,7 +59,7 @@ final class Ingredient implements ValueObject
         );
     }
     
-    public function with_amount(float $amount): self 
+    public function withAmount(float $amount): self 
     {
         return new self(
             $this->name,
@@ -69,7 +69,7 @@ final class Ingredient implements ValueObject
         );
     }
     
-    public function with_unit(SIUnit $unit): self 
+    public function withUnit(SIUnit $unit): self 
     {
         return new self(
             $this->name,
@@ -79,7 +79,7 @@ final class Ingredient implements ValueObject
         );
     }
     
-    public function with_kcal(?int $kcal): self 
+    public function withKcal(?int $kcal): self 
     {
         return new self(
             $this->name,

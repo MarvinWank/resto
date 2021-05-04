@@ -10,7 +10,7 @@ namespace App\Value;
 
 use UnexpectedValueException;
 
-final class Recipe implements ValueObject
+class Recipe implements ValueObject
 {
     private int $id;
     private string $title;
@@ -44,52 +44,52 @@ final class Recipe implements ValueObject
         $this->description = $description;
     }
     
-    public function id(): int 
+    public function getId(): int 
     {
         return $this->id;
     }
     
-    public function title(): string 
+    public function getTitle(): string 
     {
         return $this->title;
     }
     
-    public function author(): User 
+    public function getAuthor(): User 
     {
         return $this->author;
     }
     
-    public function dietStyle(): DietStyle 
+    public function getDietStyle(): DietStyle 
     {
         return $this->dietStyle;
     }
     
-    public function cuisine(): Cuisine 
+    public function getCuisine(): Cuisine 
     {
         return $this->cuisine;
     }
     
-    public function timeToCook(): int 
+    public function getTimeToCook(): int 
     {
         return $this->timeToCook;
     }
     
-    public function totalTime(): int 
+    public function getTotalTime(): int 
     {
         return $this->totalTime;
     }
     
-    public function ingredients(): IngredientsSet 
+    public function getIngredients(): IngredientsSet 
     {
         return $this->ingredients;
     }
     
-    public function description(): string 
+    public function getDescription(): string 
     {
         return $this->description;
     }
     
-    public function with_id(int $id): self 
+    public function withId(int $id): self 
     {
         return new self(
             $id,
@@ -104,7 +104,7 @@ final class Recipe implements ValueObject
         );
     }
     
-    public function with_title(string $title): self 
+    public function withTitle(string $title): self 
     {
         return new self(
             $this->id,
@@ -119,7 +119,7 @@ final class Recipe implements ValueObject
         );
     }
     
-    public function with_author(User $author): self 
+    public function withAuthor(User $author): self 
     {
         return new self(
             $this->id,
@@ -134,7 +134,7 @@ final class Recipe implements ValueObject
         );
     }
     
-    public function with_dietStyle(DietStyle $dietStyle): self 
+    public function withDietStyle(DietStyle $dietStyle): self 
     {
         return new self(
             $this->id,
@@ -149,7 +149,7 @@ final class Recipe implements ValueObject
         );
     }
     
-    public function with_cuisine(Cuisine $cuisine): self 
+    public function withCuisine(Cuisine $cuisine): self 
     {
         return new self(
             $this->id,
@@ -164,7 +164,7 @@ final class Recipe implements ValueObject
         );
     }
     
-    public function with_timeToCook(int $timeToCook): self 
+    public function withTimeToCook(int $timeToCook): self 
     {
         return new self(
             $this->id,
@@ -179,7 +179,7 @@ final class Recipe implements ValueObject
         );
     }
     
-    public function with_totalTime(int $totalTime): self 
+    public function withTotalTime(int $totalTime): self 
     {
         return new self(
             $this->id,
@@ -194,7 +194,7 @@ final class Recipe implements ValueObject
         );
     }
     
-    public function with_ingredients(IngredientsSet $ingredients): self 
+    public function withIngredients(IngredientsSet $ingredients): self 
     {
         return new self(
             $this->id,
@@ -209,7 +209,7 @@ final class Recipe implements ValueObject
         );
     }
     
-    public function with_description(string $description): self 
+    public function withDescription(string $description): self 
     {
         return new self(
             $this->id,

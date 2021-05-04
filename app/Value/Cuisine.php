@@ -10,7 +10,7 @@ namespace App\Value;
 
 use InvalidArgumentException;
 
-final class Cuisine implements Enum
+class Cuisine implements Enum
 {
     public const VALUES = ['deutsch', 'mediteran', 'asiatisch', 'amerikanisch', 'indisch', ];               
     public const NAMES = ['DEUTSCH', 'MEDITERAN', 'ASIATISCH', 'AMERIKANISCH', 'INDISCH', ];               

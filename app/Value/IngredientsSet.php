@@ -11,7 +11,7 @@ namespace App\Value;
 use UnexpectedValueException;
 use BadMethodCallException;
 
-final class IngredientsSet implements Set,\Countable,\ArrayAccess,\Iterator
+class IngredientsSet implements Set,\Countable,\ArrayAccess,\Iterator
 {        
     private array $items;
     private int $position;

@@ -10,7 +10,7 @@ namespace App\Value;
 
 use UnexpectedValueException;
 
-final class User implements ValueObject
+class User implements ValueObject
 {
     private int $id;
     private string $name;
@@ -26,22 +26,22 @@ final class User implements ValueObject
         $this->email = $email;
     }
     
-    public function id(): int 
+    public function getId(): int 
     {
         return $this->id;
     }
     
-    public function name(): string 
+    public function getName(): string 
     {
         return $this->name;
     }
     
-    public function email(): string 
+    public function getEmail(): string 
     {
         return $this->email;
     }
     
-    public function with_id(int $id): self 
+    public function withId(int $id): self 
     {
         return new self(
             $id,
@@ -50,7 +50,7 @@ final class User implements ValueObject
         );
     }
     
-    public function with_name(string $name): self 
+    public function withName(string $name): self 
     {
         return new self(
             $this->id,
@@ -59,7 +59,7 @@ final class User implements ValueObject
         );
     }
     
-    public function with_email(string $email): self 
+    public function withEmail(string $email): self 
     {
         return new self(
             $this->id,
