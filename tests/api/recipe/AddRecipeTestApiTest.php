@@ -34,8 +34,8 @@ class AddRecipeTestApiTest extends ApiTestCase
         $body = [
             "recipe" => [
                 "title" => "Test Recipe",
-                "dietStyle" => "alles",
-                "cuisine" => "asiatisch",
+                "dietStyle" => "ALLES",
+                "cuisine" => "ASIATISCH",
                 "timeToCook" => 60,
                 "totalTime" => 90,
                 "ingredients" => [
