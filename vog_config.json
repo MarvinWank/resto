@@ -2,6 +2,6 @@
     "generatorOptions": {
         "target": "MODE_FPP",
         "dateTimeFormat": "Y-m-d",
-        "toArrayMode": "DEEP"
+        "arrayMode": "DEEP"
     }
 }
