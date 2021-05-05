@@ -5,7 +5,10 @@ namespace factories;
 
 
 use App\Factories\ShoppingListFactory;
+use App\Value\Ingredient;
+use App\Value\IngredientsSet;
 use App\Value\ShoppingList;
+use App\Value\SIUnit;
 use FactoryTestCase;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -75,6 +78,18 @@ class ShoppingListFactoryTest extends FactoryTestCase
         $listForUser = $this->shoppingListFactory->forUser($this->testUser);
 
         $this->assertEquals($list, $listForUser);
+    }
+
+    /** @test */
+    public function it_tests_updating_ingredients_by_increasing_amount_of_existing_ingredient()
+    {
+        $this->it_tests_adding_shopping_list();
+        $newIngredient = new Ingredient("Butter", 200, SIUnit::g(), 100);
+        $newIngredientSet = IngredientsSet::fromArray([$newIngredient]);
+        $resultList = $this->shoppingListFactory->addItemsToShoppingList($this->testUser,$newIngredientSet);
+        $resultIngredients = $resultList->ingredients()->toArray();
+
+        $this->assertCount(4, $resultIngredients);
     }
 
 }

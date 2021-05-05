@@ -4,6 +4,8 @@
 namespace App\Daos;
 
 
+use App\Value\Ingredient;
+use App\Value\IngredientsSet;
 use App\Value\ShoppingList;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -29,6 +31,15 @@ class ShoppingListDao extends Model
         $model->save();
 
         return $model->getAttribute(self::PROPERTY_ID);
+    }
+
+    public function updateIngredients(int $id, IngredientsSet $ingredientsSet): self
+    {
+        $model = $this->newQuery()->findOrFail($id);
+        $model->setAttribute(self::PROPERTY_INGREDIENTS, \Safe\json_encode($ingredientsSet->toArray()));
+        $model->save();
+        /** @phpstan-ignore-next-line */
+        return $model;
     }
 
     public function getById(int $id): self

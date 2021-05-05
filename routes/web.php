@@ -23,6 +23,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->group(["middleware" => "checkApiKey"], function () use ($router) {
         $router->post('/login_with_api_key', 'LoginController@login_with_api_key');
 
+        //Recipes
         $router->post('/recipes/add', 'Recipe\AddRecipeController@add');
         $router->post('/recipes/all', 'Recipe\GetRecipesController@getAll');
         $router->post('/recipes/top', 'Recipe\GetRecipesController@getTop');
@@ -30,6 +31,9 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         $router->post('/recipes/update', 'Recipe\UpdateRecipeController@updateRecipe');
         $router->post("/recipes/delete", 'Recipe\DeleteRecipeController@delete');
         $router->post("/recipes/search/sayt", 'Search\SearchSaytController@saytList');
+
+        // Shopping List
+        $router->post('/list/add_items', 'ShoppingList\AddItemsController@addItems');
     });
 });
 

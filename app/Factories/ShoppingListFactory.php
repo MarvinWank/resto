@@ -5,9 +5,11 @@ namespace App\Factories;
 
 
 use App\Daos\ShoppingListDao;
+use App\Value\Ingredient;
 use App\Value\IngredientsSet;
 use App\Value\ShoppingList;
 use App\Value\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ShoppingListFactory
 {
@@ -25,6 +27,56 @@ class ShoppingListFactory
         return $shoppingList->with_id($id);
     }
 
+    public function addItemsToShoppingList(User $user, IngredientsSet $ingredientsSet): ShoppingList
+    {
+        $listExists = true;
+        $existingList = null;
+
+        try {
+            $existingList = $this->forUser($user);
+        } catch (ModelNotFoundException $exception) {
+            $listExists = false;
+        }
+
+        if (!$listExists) {
+            //Create new Shopping List
+            return $this->addShoppingList($user, $ingredientsSet);
+        } else {
+            $existingIngredients = $existingList->ingredients();
+            $resultIngredients = $this->mergeIngredients($existingIngredients, $ingredientsSet);
+            $this->shoppingListDao->updateIngredients($existingList->id(), $resultIngredients);
+
+            return $this->fromId($existingList->id());
+        }
+    }
+
+    private function mergeIngredients(IngredientsSet $existingIngredients, IngredientsSet $newIngredients): IngredientsSet
+    {
+        $resultIngredientSet = IngredientsSet::fromArray([]);
+        $newIngredient = null;
+
+        foreach ($newIngredients as $newIngredient) {
+            /** @var Ingredient $newIngredient */
+
+            foreach ($existingIngredients as $existingIngredient) {
+                /** @var Ingredient $newIngredient */
+                if ($existingIngredient->name() === $newIngredient->name()) {
+                    $newIngredient = new Ingredient(
+                        $existingIngredient->name(),
+                        $existingIngredient->amount() + $newIngredient->amount(),
+                        $existingIngredient->unit(),
+                        $existingIngredient->kcal()
+                    );
+                    break;
+                }
+            }
+
+            $resultIngredientSet = $resultIngredientSet->add($newIngredient);
+        }
+
+        return $resultIngredientSet;
+    }
+
     public function fromId(int $id): ShoppingList
     {
         $model = $this->shoppingListDao->getById($id);
@@ -40,7 +92,7 @@ class ShoppingListFactory
         );
     }
 
-    public function forUser(User $user)
+    public function forUser(User $user): ShoppingList
     {
         $model = $this->shoppingListDao->getByUserId($user->id());
 
