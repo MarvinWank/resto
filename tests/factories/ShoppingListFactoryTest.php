@@ -90,6 +90,8 @@ class ShoppingListFactoryTest extends FactoryTestCase
         $resultIngredients = $resultList->ingredients()->toArray();
 
         $this->assertCount(4, $resultIngredients);
+        $this->assertEquals("Butter",$resultIngredients[0]['name']);
+        $this->assertEquals(400,$resultIngredients[0]['amount']);
     }
 
 }

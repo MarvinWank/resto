@@ -53,15 +53,16 @@ class ShoppingListFactory
     private function mergeIngredients(IngredientsSet $existingIngredients, IngredientsSet $newIngredients): IngredientsSet
     {
         $resultIngredientSet = IngredientsSet::fromArray([]);
-        $newIngredient = null;
+        $resultIngredient = null;
 
-        foreach ($newIngredients as $newIngredient) {
-            /** @var Ingredient $newIngredient */
+        foreach ($existingIngredients as $existingIngredient) {
+            /** @var Ingredient $existingIngredient */
+            $resultIngredient = $existingIngredient;
 
-            foreach ($existingIngredients as $existingIngredient) {
+            foreach ($newIngredients as $newIngredient) {
                 /** @var Ingredient $newIngredient */
                 if ($existingIngredient->name() === $newIngredient->name()) {
-                    $newIngredient = new Ingredient(
+                    $resultIngredient = new Ingredient(
                         $existingIngredient->name(),
                         $existingIngredient->amount() + $newIngredient->amount(),
                         $existingIngredient->unit(),
@@ -71,13 +72,14 @@ class ShoppingListFactory
                 }
             }
 
-            $resultIngredientSet = $resultIngredientSet->add($newIngredient);
+            $resultIngredientSet = $resultIngredientSet->add($resultIngredient);
         }
 
         return $resultIngredientSet;
     }
 
-    public function fromId(int $id): ShoppingList
+    public
+    function fromId(int $id): ShoppingList
     {
         $model = $this->shoppingListDao->getById($id);
 
@@ -92,7 +94,8 @@ class ShoppingListFactory
         );
     }
 
-    public function forUser(User $user): ShoppingList
+    public
+    function forUser(User $user): ShoppingList
     {
         $model = $this->shoppingListDao->getByUserId($user->id());
 
@@ -107,7 +110,8 @@ class ShoppingListFactory
         );
     }
 
-    public function deleteShoppingList(ShoppingList $list)
+    public
+    function deleteShoppingList(ShoppingList $list)
     {
         $this->shoppingListDao->deleteById($list->id());
     }
