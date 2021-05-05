@@ -40,6 +40,21 @@ class ShoppingListFactory
         );
     }
 
+    public function forUser(User $user)
+    {
+        $model = $this->shoppingListDao->getByUserId($user->id());
+
+        $ingredients = $model->ingredients();
+        $ingredients = \Safe\json_decode($ingredients, true);
+        $ingredients = IngredientsSet::fromArray($ingredients);
+
+        return new ShoppingList(
+            $model->id(),
+            $model->userId(),
+            $ingredients
+        );
+    }
+
     public function deleteShoppingList(ShoppingList $list)
     {
         $this->shoppingListDao->deleteById($list->id());

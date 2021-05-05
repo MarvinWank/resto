@@ -34,7 +34,14 @@ class ShoppingListDao extends Model
     public function getById(int $id): self
     {
         $model = new self();
+        /** @phpstan-ignore-next-line */
         return $model->newQuery()->findOrFail($id);
+    }
+
+    public function getByUserId(int $id): self
+    {
+        /** @phpstan-ignore-next-line */
+        return $this->newQuery()->where(self::PROPERTY_USER_ID, '=', $id)->firstOrFail();
     }
 
     /** @throws ModelNotFoundException */

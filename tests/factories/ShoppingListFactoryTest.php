@@ -67,4 +67,14 @@ class ShoppingListFactoryTest extends FactoryTestCase
         $this->shoppingList = null;
     }
 
+    /** @test */
+    public function it_tests_receiving_list_for_user()
+    {
+        $list = $this->it_tests_adding_shopping_list();
+
+        $listForUser = $this->shoppingListFactory->forUser($this->testUser);
+
+        $this->assertEquals($list, $listForUser);
+    }
+
 }
