@@ -20,8 +20,8 @@ class ShoppingListFactory
 
     public function addShoppingList(User $user, IngredientsSet $ingredients): ShoppingList
     {
-        $shoppingList = new ShoppingList(null, $user->getId(), $ingredients);
+        $shoppingList = new ShoppingList(null, $user->id(), $ingredients);
         $id = $this->shoppingListDao->add($shoppingList);
-        return $shoppingList->withId($id);
+        return $shoppingList->with_id($id);
     }
 }

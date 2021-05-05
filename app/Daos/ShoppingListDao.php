@@ -24,8 +24,8 @@ class ShoppingListDao extends Model
     public function add(ShoppingList $shoppingList): int
     {
         $model = new self();
-        $model->setAttribute(self::PROPERTY_ID, $shoppingList->getUserId());
-        $model->setAttribute(self::PROPERTY_INGREDIENTS, \Safe\json_encode($shoppingList->getIngredients()));
+        $model->setAttribute(self::PROPERTY_ID, $shoppingList->userId());
+        $model->setAttribute(self::PROPERTY_INGREDIENTS, \Safe\json_encode($shoppingList->ingredients()));
         $test = $model->save();
 
         return $model->getAttribute(self::PROPERTY_ID);
