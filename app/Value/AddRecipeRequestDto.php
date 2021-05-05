@@ -38,42 +38,42 @@ class AddRecipeRequestDto implements ValueObject
         $this->description = $description;
     }
     
-    public function getTitle(): string 
+    public function title(): string 
     {
         return $this->title;
     }
     
-    public function getDietStyle(): string 
+    public function dietStyle(): string 
     {
         return $this->dietStyle;
     }
     
-    public function getCuisine(): string 
+    public function cuisine(): string 
     {
         return $this->cuisine;
     }
     
-    public function getTimeToCook(): int 
+    public function timeToCook(): int 
     {
         return $this->timeToCook;
     }
     
-    public function getTotalTime(): int 
+    public function totalTime(): int 
     {
         return $this->totalTime;
     }
     
-    public function getIngredients(): IngredientsSet 
+    public function ingredients(): IngredientsSet 
     {
         return $this->ingredients;
     }
     
-    public function getDescription(): string 
+    public function description(): string 
     {
         return $this->description;
     }
     
-    public function withTitle(string $title): self 
+    public function with_title(string $title): self 
     {
         return new self(
             $title,
@@ -86,7 +86,7 @@ class AddRecipeRequestDto implements ValueObject
         );
     }
     
-    public function withDietStyle(string $dietStyle): self 
+    public function with_dietStyle(string $dietStyle): self 
     {
         return new self(
             $this->title,
@@ -99,7 +99,7 @@ class AddRecipeRequestDto implements ValueObject
         );
     }
     
-    public function withCuisine(string $cuisine): self 
+    public function with_cuisine(string $cuisine): self 
     {
         return new self(
             $this->title,
@@ -112,7 +112,7 @@ class AddRecipeRequestDto implements ValueObject
         );
     }
     
-    public function withTimeToCook(int $timeToCook): self 
+    public function with_timeToCook(int $timeToCook): self 
     {
         return new self(
             $this->title,
@@ -125,7 +125,7 @@ class AddRecipeRequestDto implements ValueObject
         );
     }
     
-    public function withTotalTime(int $totalTime): self 
+    public function with_totalTime(int $totalTime): self 
     {
         return new self(
             $this->title,
@@ -138,7 +138,7 @@ class AddRecipeRequestDto implements ValueObject
         );
     }
     
-    public function withIngredients(IngredientsSet $ingredients): self 
+    public function with_ingredients(IngredientsSet $ingredients): self 
     {
         return new self(
             $this->title,
@@ -151,7 +151,7 @@ class AddRecipeRequestDto implements ValueObject
         );
     }
     
-    public function withDescription(string $description): self 
+    public function with_description(string $description): self 
     {
         return new self(
             $this->title,

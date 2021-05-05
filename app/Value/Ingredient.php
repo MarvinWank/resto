@@ -29,27 +29,27 @@ class Ingredient implements ValueObject
         $this->kcal = $kcal;
     }
     
-    public function getName(): string 
+    public function name(): string 
     {
         return $this->name;
     }
     
-    public function getAmount(): float 
+    public function amount(): float 
     {
         return $this->amount;
     }
     
-    public function getUnit(): SIUnit 
+    public function unit(): SIUnit 
     {
         return $this->unit;
     }
     
-    public function getKcal(): ?int 
+    public function kcal(): ?int 
     {
         return $this->kcal;
     }
     
-    public function withName(string $name): self 
+    public function with_name(string $name): self 
     {
         return new self(
             $name,
@@ -59,7 +59,7 @@ class Ingredient implements ValueObject
         );
     }
     
-    public function withAmount(float $amount): self 
+    public function with_amount(float $amount): self 
     {
         return new self(
             $this->name,
@@ -69,7 +69,7 @@ class Ingredient implements ValueObject
         );
     }
     
-    public function withUnit(SIUnit $unit): self 
+    public function with_unit(SIUnit $unit): self 
     {
         return new self(
             $this->name,
@@ -79,7 +79,7 @@ class Ingredient implements ValueObject
         );
     }
     
-    public function withKcal(?int $kcal): self 
+    public function with_kcal(?int $kcal): self 
     {
         return new self(
             $this->name,

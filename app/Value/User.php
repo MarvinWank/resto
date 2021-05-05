@@ -26,22 +26,22 @@ class User implements ValueObject
         $this->email = $email;
     }
     
-    public function getId(): int 
+    public function id(): int 
     {
         return $this->id;
     }
     
-    public function getName(): string 
+    public function name(): string 
     {
         return $this->name;
     }
     
-    public function getEmail(): string 
+    public function email(): string 
     {
         return $this->email;
     }
     
-    public function withId(int $id): self 
+    public function with_id(int $id): self 
     {
         return new self(
             $id,
@@ -50,7 +50,7 @@ class User implements ValueObject
         );
     }
     
-    public function withName(string $name): self 
+    public function with_name(string $name): self 
     {
         return new self(
             $this->id,
@@ -59,7 +59,7 @@ class User implements ValueObject
         );
     }
     
-    public function withEmail(string $email): self 
+    public function with_email(string $email): self 
     {
         return new self(
             $this->id,

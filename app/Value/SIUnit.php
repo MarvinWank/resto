@@ -13,20 +13,20 @@ use InvalidArgumentException;
 class SIUnit implements Enum
 {
     public const VALUES = ['gramm', 'kilogramm', 'millilitre', 'litre', 'pieces', ];               
-    public const NAMES = ['G', 'KG', 'ML', 'L', 'STK', ];               
+    public const NAMES = ['g', 'kg', 'ml', 'l', 'Stk', ];               
     public const OPTIONS = [ 
-        'G' => 'gramm',
-        'KG' => 'kilogramm',
-        'ML' => 'millilitre',
-        'L' => 'litre',
-        'STK' => 'pieces',
+        'g' => 'gramm',
+        'kg' => 'kilogramm',
+        'ml' => 'millilitre',
+        'l' => 'litre',
+        'Stk' => 'pieces',
     ];
 
-    public const G = 'gramm';               
-    public const KG = 'kilogramm';               
-    public const ML = 'millilitre';               
-    public const L = 'litre';               
-    public const STK = 'pieces';                       
+    public const g = 'gramm';               
+    public const kg = 'kilogramm';               
+    public const ml = 'millilitre';               
+    public const l = 'litre';               
+    public const Stk = 'pieces';                       
     private string $name;
     private string $value;
         
@@ -36,29 +36,29 @@ class SIUnit implements Enum
         $this->value = self::OPTIONS[$name];
     }
 
-    public static function G(): self
+    public static function g(): self
     {
-        return new self('G');
+        return new self('g');
     }
     
-    public static function KG(): self
+    public static function kg(): self
     {
-        return new self('KG');
+        return new self('kg');
     }
     
-    public static function ML(): self
+    public static function ml(): self
     {
-        return new self('ML');
+        return new self('ml');
     }
     
-    public static function L(): self
+    public static function l(): self
     {
-        return new self('L');
+        return new self('l');
     }
     
-    public static function STK(): self
+    public static function Stk(): self
     {
-        return new self('STK');
+        return new self('Stk');
     }
     
     public static function fromValue(string $value): self

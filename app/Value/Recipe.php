@@ -44,52 +44,52 @@ class Recipe implements ValueObject
         $this->description = $description;
     }
     
-    public function getId(): int 
+    public function id(): int 
     {
         return $this->id;
     }
     
-    public function getTitle(): string 
+    public function title(): string 
     {
         return $this->title;
     }
     
-    public function getAuthor(): User 
+    public function author(): User 
     {
         return $this->author;
     }
     
-    public function getDietStyle(): DietStyle 
+    public function dietStyle(): DietStyle 
     {
         return $this->dietStyle;
     }
     
-    public function getCuisine(): Cuisine 
+    public function cuisine(): Cuisine 
     {
         return $this->cuisine;
     }
     
-    public function getTimeToCook(): int 
+    public function timeToCook(): int 
     {
         return $this->timeToCook;
     }
     
-    public function getTotalTime(): int 
+    public function totalTime(): int 
     {
         return $this->totalTime;
     }
     
-    public function getIngredients(): IngredientsSet 
+    public function ingredients(): IngredientsSet 
     {
         return $this->ingredients;
     }
     
-    public function getDescription(): string 
+    public function description(): string 
     {
         return $this->description;
     }
     
-    public function withId(int $id): self 
+    public function with_id(int $id): self 
     {
         return new self(
             $id,
@@ -104,7 +104,7 @@ class Recipe implements ValueObject
         );
     }
     
-    public function withTitle(string $title): self 
+    public function with_title(string $title): self 
     {
         return new self(
             $this->id,
@@ -119,7 +119,7 @@ class Recipe implements ValueObject
         );
     }
     
-    public function withAuthor(User $author): self 
+    public function with_author(User $author): self 
     {
         return new self(
             $this->id,
@@ -134,7 +134,7 @@ class Recipe implements ValueObject
         );
     }
     
-    public function withDietStyle(DietStyle $dietStyle): self 
+    public function with_dietStyle(DietStyle $dietStyle): self 
     {
         return new self(
             $this->id,
@@ -149,7 +149,7 @@ class Recipe implements ValueObject
         );
     }
     
-    public function withCuisine(Cuisine $cuisine): self 
+    public function with_cuisine(Cuisine $cuisine): self 
     {
         return new self(
             $this->id,
@@ -164,7 +164,7 @@ class Recipe implements ValueObject
         );
     }
     
-    public function withTimeToCook(int $timeToCook): self 
+    public function with_timeToCook(int $timeToCook): self 
     {
         return new self(
             $this->id,
@@ -179,7 +179,7 @@ class Recipe implements ValueObject
         );
     }
     
-    public function withTotalTime(int $totalTime): self 
+    public function with_totalTime(int $totalTime): self 
     {
         return new self(
             $this->id,
@@ -194,7 +194,7 @@ class Recipe implements ValueObject
         );
     }
     
-    public function withIngredients(IngredientsSet $ingredients): self 
+    public function with_ingredients(IngredientsSet $ingredients): self 
     {
         return new self(
             $this->id,
@@ -209,7 +209,7 @@ class Recipe implements ValueObject
         );
     }
     
-    public function withDescription(string $description): self 
+    public function with_description(string $description): self 
     {
         return new self(
             $this->id,

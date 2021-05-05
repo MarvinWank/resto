@@ -26,22 +26,22 @@ class ShoppingList implements ValueObject
         $this->ingredients = $ingredients;
     }
     
-    public function getId(): ?int 
+    public function id(): ?int 
     {
         return $this->id;
     }
     
-    public function getUserId(): int 
+    public function userId(): int 
     {
         return $this->userId;
     }
     
-    public function getIngredients(): IngredientsSet 
+    public function ingredients(): IngredientsSet 
     {
         return $this->ingredients;
     }
     
-    public function withId(?int $id): self 
+    public function with_id(?int $id): self 
     {
         return new self(
             $id,
@@ -50,7 +50,7 @@ class ShoppingList implements ValueObject
         );
     }
     
-    public function withUserId(int $userId): self 
+    public function with_userId(int $userId): self 
     {
         return new self(
             $this->id,
@@ -59,7 +59,7 @@ class ShoppingList implements ValueObject
         );
     }
     
-    public function withIngredients(IngredientsSet $ingredients): self 
+    public function with_ingredients(IngredientsSet $ingredients): self 
     {
         return new self(
             $this->id,
