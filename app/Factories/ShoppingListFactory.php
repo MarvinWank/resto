@@ -53,7 +53,6 @@ class ShoppingListFactory
     private function mergeIngredients(IngredientsSet $existingIngredients, IngredientsSet $newIngredients): IngredientsSet
     {
         $resultIngredientSet = IngredientsSet::fromArray([]);
-        $resultIngredient = null;
 
         foreach ($existingIngredients as $existingIngredient) {
             /** @var Ingredient $existingIngredient */

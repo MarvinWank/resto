@@ -26,7 +26,7 @@ class ShoppingListFactoryTest extends FactoryTestCase
 
     public function tearDown(): void
     {
-        if ($this->shoppingList !== null){
+        if ($this->shoppingList !== null) {
             $this->shoppingListFactory->deleteShoppingList($this->shoppingList);
         }
 
@@ -57,13 +57,13 @@ class ShoppingListFactoryTest extends FactoryTestCase
         $exceptionThrown = false;
         try {
             $this->shoppingListFactory->fromId($list->id());
-        }catch (ModelNotFoundException $exception){
+        } catch (ModelNotFoundException $exception) {
             $exceptionThrown = true;
         }
 
-        if ($exceptionThrown){
+        if ($exceptionThrown) {
             $this->assertTrue(true);
-        }else{
+        } else {
             $this->assertTrue(false);
         }
 
@@ -86,12 +86,27 @@ class ShoppingListFactoryTest extends FactoryTestCase
         $this->it_tests_adding_shopping_list();
         $newIngredient = new Ingredient("Butter", 200, SIUnit::g(), 100);
         $newIngredientSet = IngredientsSet::fromArray([$newIngredient]);
-        $resultList = $this->shoppingListFactory->addItemsToShoppingList($this->testUser,$newIngredientSet);
+        $resultList = $this->shoppingListFactory->addItemsToShoppingList($this->testUser, $newIngredientSet);
         $resultIngredients = $resultList->ingredients()->toArray();
 
         $this->assertCount(4, $resultIngredients);
-        $this->assertEquals("Butter",$resultIngredients[0]['name']);
-        $this->assertEquals(400,$resultIngredients[0]['amount']);
+        $this->assertEquals("Butter", $resultIngredients[0]['name']);
+        $this->assertEquals(400, $resultIngredients[0]['amount']);
     }
+
+    /** @test */
+    public function it_tests_updating_ingredients_by_creating_new_shopping_list()
+    {
+        $newIngredient = new Ingredient("Butter", 200, SIUnit::g(), 100);
+        $newIngredientSet = IngredientsSet::fromArray([$newIngredient]);
+        $resultList = $this->shoppingListFactory->addItemsToShoppingList($this->testUser, $newIngredientSet);
+        $this->shoppingList = $resultList;
+        $resultIngredients = $resultList->ingredients()->toArray();
+
+        $this->assertCount(1, $resultIngredients);
+        $this->assertEquals("Butter", $resultIngredients[0]['name']);
+        $this->assertEquals(200, $resultIngredients[0]['amount']);
+    }
+
 
 }
