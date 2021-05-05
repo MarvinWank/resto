@@ -22,13 +22,8 @@ class FactoryTestCase extends TestCase
     protected function generateRecipes(): array
     {
         $recipes = [];
+        $ingredients = $this->generateIngredients();
 
-        $ingredients = IngredientsSet::fromArray([
-            new Ingredient("Butter", 200, SIUnit::g(), 100),
-            new Ingredient("Schmalz", 200, SIUnit::g(), 100),
-            new Ingredient("Milch", 200, SIUnit::g(), 100),
-            new Ingredient("Mehl", 200, SIUnit::g(), 100),
-        ]);
         $recipes[] = $this->recipeFactory->addRecipe(
             $this->testUser,
             "Test Rezept",
@@ -71,5 +66,15 @@ class FactoryTestCase extends TestCase
         );
 
         return $recipes;
+    }
+
+    protected function generateIngredients(): IngredientsSet
+    {
+        return IngredientsSet::fromArray([
+            new Ingredient("Butter", 200, SIUnit::g(), 100),
+            new Ingredient("Schmalz", 200, SIUnit::g(), 100),
+            new Ingredient("Milch", 200, SIUnit::g(), 100),
+            new Ingredient("Mehl", 200, SIUnit::g(), 100),
+        ]);
     }
 }

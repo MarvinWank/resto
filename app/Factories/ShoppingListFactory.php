@@ -24,4 +24,24 @@ class ShoppingListFactory
         $id = $this->shoppingListDao->add($shoppingList);
         return $shoppingList->with_id($id);
     }
+
+    public function fromId(int $id): ShoppingList
+    {
+        $model = $this->shoppingListDao->getById($id);
+
+        $ingredients = $model->ingredients();
+        $ingredients = \Safe\json_decode($ingredients, true);
+        $ingredients = IngredientsSet::fromArray($ingredients);
+
+        return new ShoppingList(
+            $model->id(),
+            $model->userId(),
+            $ingredients
+        );
+    }
+
+    public function deleteShoppingList(ShoppingList $list)
+    {
+        $this->shoppingListDao->deleteById($list->id());
+    }
 }

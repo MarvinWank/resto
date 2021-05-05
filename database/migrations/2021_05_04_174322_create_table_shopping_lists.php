@@ -14,7 +14,7 @@ class CreateTableShoppingLists extends Migration
         Schema::create(self::TABLE_NAME, function (Blueprint $table) {
             $table->id();
             //Foreign key constraint to id of the shopping lists owner
-            $table->bigInteger("user_id");
+            $table->bigInteger("user_id")->unsigned()->unique();
             $table->foreign("user_id")->references('id')->on('users');
             $table->json('ingredients');
         });
