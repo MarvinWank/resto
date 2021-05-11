@@ -50,6 +50,7 @@
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "vog-generate" : "php vendor/bin/vog generate app/Value/value.json",
-        "phpstan": "php7.4 vendor/bin/phpstan analyse --memory-limit=16M -c phpstan.neon"
+        "phpstan": "php7.4 vendor/bin/phpstan analyse --memory-limit=16M -c phpstan.neon",
+        "phpunit": "php7.4 vendor/bin/phpunit tests/"
     }
 }
