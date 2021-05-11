@@ -1,9 +1,9 @@
 git pull
 git checkout prod
 
-php74 bin/composer.phar install
-php74 bin/composer.phar run phpstan
-php74 bin/composer.phar run phpunit
+php7.4 bin/composer.phar install
+php7.4 bin/composer.phar run phpstan
+php7.4 bin/composer.phar run phpunit
 
 cd frontend
 yarn
