@@ -1,7 +1,7 @@
 <template>
     <div class="row recipe-card">
         <div class="col-12 inner">
-            <div class="title link-hover" @click="showRecipe">{{ recipe.title }}</div>
+            <div class="title cursor-pointer" @click="showRecipe">{{ recipe.title }}</div>
 
             <div class="row justify-content-between pt-2 content">
                 <div class="col-6" @click="showRecipe">
@@ -69,4 +69,5 @@ export default class RecipeCard extends Vue {
 </script>
 
 <style scoped>
+
 </style>
