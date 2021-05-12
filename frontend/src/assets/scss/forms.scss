@@ -1,5 +1,3 @@
-@import "variables";
-
 .btn-primary {
     background-color: $olivegreen_lighter;
     color: black;
@@ -51,4 +49,17 @@ label {
 textarea{
     width: 100%;
     min-height: 20rem;
+}
+
+
+.cursor-pointer{
+    cursor: pointer;
+}
+
+.link-hover{
+    &:hover{
+        color: $blue-darker;
+        text-decoration: underline;
+        cursor: pointer;
+    }
 }

@@ -2,12 +2,27 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 @import '~line-awesome/dist/line-awesome/css/line-awesome.css';
+@import "variables";
 @import "forms";
 @import "modal";
 @import "recipe";
 
 //@import '../../../node_modules/@braid/vue-formulate/themes/snow/snow.scss';
 
+#app{
+    min-height: 90vh;
+}
+
+#imprint{
+    background-color: $grey-lighter;
+
+    min-height: 7.5vh;
+    margin-top: 2rem;
+
+    text-align: center;
+    padding-top: .5rem;
+    padding-left: 1rem;
+}
 
 body {
     font-size: 18px;

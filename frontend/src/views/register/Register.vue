@@ -46,7 +46,7 @@
         </div>
 
 
-        <div class="row mt-2">
+        <div class="row ">
             <div class="col-12 col-lg-6">
                 <div class="form-group">
                     <label for="password_1">Passwort</label>
@@ -91,7 +91,7 @@ export default class Register extends Vue {
     password_1 = '';
     password_2 = '';
     registerError = false;
-    registerErrorMessage =  '';
+    registerErrorMessage = '';
 
 
     login() {
@@ -131,6 +131,13 @@ export default class Register extends Vue {
     }
 
     attemptRegister() {
+        this.checkPassword();
+        this.checkEmail();
+
+        if (this.registerError){
+            return;
+        }
+
         api.register(this.username, this.email_1, this.password_1).then(res => {
 
                 if (res.status === "error") {
@@ -161,7 +168,11 @@ export default class Register extends Vue {
             "btn": true,
             "btn-primary": true,
             "btn-block": true,
-            "disabled": this.username === '' || this.email_1 === '' || this.email_2 === '' || this.password_1 === '' || this.password_2 === ''
+            "disabled":
+                this.username === '' || this.email_1 === ''
+                || this.email_2 === '' || this.password_1 === ''
+                || this.password_2 === ''
+                || this.registerError
         }
     }
 

@@ -3,10 +3,8 @@
         <div class="container-fluid container-lg container-xl" id="app">
             <router-view></router-view>
         </div>
-        <div class="imprint">
-            <a class="link-secondary" href="" @click="showImprint">
-                Impresseum
-            </a>
+        <div class="" id="imprint">
+            <a class="link-secondary" href="#" @click="showImprint">Impresseum</a>
         </div>
     </div>
 </template>

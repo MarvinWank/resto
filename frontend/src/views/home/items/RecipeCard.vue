@@ -1,7 +1,7 @@
 <template>
     <div class="row recipe-card">
         <div class="col-12 inner">
-            <div class="title" @click="showRecipe">{{ recipe.title }}</div>
+            <div class="title link-hover" @click="showRecipe">{{ recipe.title }}</div>
 
             <div class="row justify-content-between pt-2 content">
                 <div class="col-6" @click="showRecipe">
@@ -12,8 +12,8 @@
                 <!--                            {{totalCalories(recipe)}} kcal-->
                 <!--                        </div>-->
 
-                <div class="col-6 justify-content-end d-flex align-items-center">
-                    <i class="las la-lg la-pencil-alt mr-2"
+                <div class="col-auto justify-content-end d-flex align-items-center cursor-pointer">
+                    <i class="las la-lg la-pencil-alt mr-2 "
                        @click="editRecipe"
                     ></i>
                     <i class="las la-lg la-trash-alt"
@@ -69,5 +69,4 @@ export default class RecipeCard extends Vue {
 </script>
 
 <style scoped>
-
 </style>
