@@ -21,6 +21,9 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
+// No types available
+/* eslint-disable */
+// @ts-ignore
 import {Slide} from 'vue-burger-menu';
 import router from "@/router/router";
 import {User} from "@/types/user";
