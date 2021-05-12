@@ -6,7 +6,7 @@ namespace App\Factories;
 
 use App\Daos\StateDao;
 use App\Models\State;
-use Faker\Provider\Uuid;
+use Ramsey\Uuid\Uuid;
 
 class StateFactory
 {
@@ -21,9 +21,9 @@ class StateFactory
     {
         //Erzeuge neue State
         if ($id === null || $id === "") {
-            $id = Uuid::uuid();
+            $id = Uuid::uuid4();
             $this->dao = new StateDao;
-            $this->dao->setAttribute(StateDao::PROPERTY_ID, $id);
+            $this->dao->setAttribute(StateDao::PROPERTY_ID, $id->toString());
 
             return new State($id);
         } // Setze bestehende State
