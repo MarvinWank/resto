@@ -1,6 +1,5 @@
 <template>
     <div class="container-fluid">
-        <RestoHeader/>
 
         <YesNoModal
             :show-modal="showDeleteModal"

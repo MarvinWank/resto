@@ -1,6 +1,5 @@
 <template>
     <div>
-        <RestoHeader/>
         <div class="mt-3">
             <SetBasicRecipeData
                 v-if="currentStep === 1"

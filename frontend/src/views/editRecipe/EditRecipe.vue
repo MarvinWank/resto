@@ -1,7 +1,6 @@
 <template>
 
     <div class="container-fluid">
-        <RestoHeader/>
 
 
         <div class="row">

@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid">
-        <RestoHeader />
+
         <SearchBar/>
 
         <div class="col-12 mt-3">

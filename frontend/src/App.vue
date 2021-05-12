@@ -1,5 +1,6 @@
 <template>
     <div>
+        <RestoHeader />
         <div class="container-fluid container-lg container-xl" id="app">
             <router-view></router-view>
         </div>
@@ -12,9 +13,10 @@ import Component from "vue-class-component";
 import Vue from "vue";
 import Imprint from "@/views/footer/Imprint.vue";
 import router from "@/router/router";
+import RestoHeader from "@/components/RestoHeader.vue";
 
 @Component({
-    components: {Imprint}
+    components: {RestoHeader, Imprint}
 })
 export default class App extends Vue {
 
