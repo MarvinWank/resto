@@ -58,7 +58,7 @@ textarea{
 
 .link-hover{
     &:hover{
-        color: $blue-darker;
+        color: $blue-darker !important;
         text-decoration: underline;
         cursor: pointer;
     }

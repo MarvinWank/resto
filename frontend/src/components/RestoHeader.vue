@@ -1,21 +1,33 @@
 <template>
     <div class="homescreen-header"
-        @click="jumpToHome"
+
     >
-        <p class="homescreen-headline">resto</p>
+        <Menu/>
+        <p class="homescreen-headline" @click="jumpToHome">resto</p>
     </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
+import router from "@/router/router";
+import Menu from "@/components/Menu.vue";
 
-@Component
+@Component({
+    components: {
+        Menu,
+    }
+})
 export default class RestoHeader extends Vue {
 
-    jumpToHome(){
+    jumpToHome() {
         this.$router.push("/");
     }
+
+    showImprint() {
+        router.push({name: "Imprint"});
+    }
+
 }
 </script>
 

@@ -6,6 +6,7 @@
 @import "forms";
 @import "modal";
 @import "recipe";
+@import "burger-menu";
 
 //@import '../../../node_modules/@braid/vue-formulate/themes/snow/snow.scss';
 
@@ -38,13 +39,13 @@ body {
     justify-content: center;
     align-items: center;
     border-bottom: 1px solid $grey_lighter;
-    cursor: pointer;
 }
 
 .homescreen-headline {
     margin: 0;
     font-size: 3rem;
     color: $olivegreen;
+    cursor: pointer;
 }
 
 .container-fluid{
