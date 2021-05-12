@@ -1,5 +1,5 @@
 <template>
-    <div class="homescreen-header"
+    <div class="resto-header"
 
     >
         <Menu/>
