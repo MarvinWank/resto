@@ -6,6 +6,7 @@ import Login from "../views/Login.vue";
 import AddRecipe from "../views/addRecipe/AddRecipe.vue";
 import ViewRecipe from "@/views/viewRecipe/ViewRecipe.vue";
 import EditRecipe from "@/views/editRecipe/EditRecipe.vue";
+import Register from "@/views/register/Register.vue";
 
 Vue.use(VueRouter)
 
@@ -21,6 +22,11 @@ const routes = [
         path: '/login',
         name: 'Login',
         component: Login
+    },
+    {
+        path: '/register',
+        name: 'Register',
+        component: Register
     },
     {
         path: '/recipe/add',

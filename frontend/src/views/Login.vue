@@ -5,7 +5,9 @@
             <img class="img-fluid text-center" src="/img/icons/resto_logo.png">
         </div>
 
-        <h2 class="mb-4 mt-3">Anmelden</h2>
+        <h2 class="mb-4 mt-3">
+            Anmelden <span class="color-grey">oder</span> <a @click="register" href="" class="link-primary">registrieren</a>
+        </h2>
 
         <div class="form-group mt-4">
             <label for="email">E-Mail Adresse</label>
@@ -25,6 +27,7 @@
 import api from "../api/api";
 import {Component, Vue} from 'vue-property-decorator'
 import {setCookie} from "@/CookieHandler";
+import router from "@/router/router";
 
 @Component
 export default class Login extends Vue {
@@ -39,6 +42,10 @@ export default class Login extends Vue {
             "btn-block": true,
             "disabled": this.email === '' || this.password === ''
         }
+    }
+
+    register(){
+        router.push({name:'Register'});
     }
 
 
