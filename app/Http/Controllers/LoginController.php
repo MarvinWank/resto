@@ -24,7 +24,7 @@ class LoginController extends Controller
         $email = $data->get('email');
         $password = $data->get('password');
 
-        $user = $this->userFactory->from_auth($email, $password);
+        $user = $this->userFactory->fromAuth($email, $password);
 
         if ($user === null) {
             return response()->json(["status" => "fehler"]);

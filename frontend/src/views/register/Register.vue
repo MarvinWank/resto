@@ -91,7 +91,7 @@ export default class Register extends Vue {
     password_1 = '';
     password_2 = '';
     registerError = false;
-    registerErrorMessage: '';
+    registerErrorMessage =  '';
 
 
     login() {
@@ -148,8 +148,7 @@ export default class Register extends Vue {
                 const payload: setInitialDataPayload = {
                     apiKey: res.apiKey,
                     user: user,
-                    topRecipes: res.topRecipes,
-                    targetUrl: null
+                    topRecipes: res.topRecipes
                 }
                 this.$store.commit('setDataInitial', payload)
                 router.push({name: 'Home'});

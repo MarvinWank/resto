@@ -33,7 +33,8 @@ class UserFactory
         return $this->fromDao($dao_user);
     }
 
-    public function from_auth(string $email, string $password): ?User
+    //TODO better exception Handling
+    public function fromAuth(string $email, string $password): ?User
     {
         try{
             $dao_user = $this->usersDao->get_user_by_email($email);
