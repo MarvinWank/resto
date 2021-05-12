@@ -90,7 +90,6 @@ class LoginApiTest extends \ApiTestCase
         $result = $this->apiPost("/login_with_api_key", [
             "apiKey" => $this->apiKey
         ]);
-        $result = \Safe\json_decode($result->getBody()->getContents(), true);
 
         $this->assertEquals("ok", $result['status']);
         $this->assertEquals($this->testUser->toArray(), $result['user']);

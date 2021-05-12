@@ -34,9 +34,7 @@ class DeleteRecipeApiTest extends ApiTestCase
      */
     public function itTestsSucessfullyDeletingRecipe()
     {
-        $result = $this->apiPost("/recipes/delete", ["id" => $this->testRecipe->id()]);
-        $response = $result->getBody()->getContents();
-        $response = \Safe\json_decode($response, true);
+        $response = $this->apiPost("/recipes/delete", ["id" => $this->testRecipe->id()]);
 
         $recipeId = $this->testRecipe->id();
         $this->assertEquals("ok", $response['status']);

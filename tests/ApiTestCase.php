@@ -37,7 +37,9 @@ class ApiTestCase extends TestCase
     {
         $json_body['apiKey'] = $this->apiKey;
         $body = ["json" => $json_body];
-        return $this->client->post("/api".$url, $body);
+        $response = $this->client->post("/api".$url, $body);
+        $response = $response->getBody()->getContents();
+        return \Safe\json_decode($response, true);
     }
 
     public function apiGet(string $url)

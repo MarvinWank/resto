@@ -50,10 +50,8 @@ class SaytSearchApiTest extends \ApiTestCase
     public function it_tests_sucessfull_search()
     {
         $results = $this->apiPost("/recipes/search/sayt", ["search" => "Test Recipe"]);
-        $results = \Safe\json_decode($results->getBody()->getContents(), true);
 
         $recipes = $results['recipes'];
-
         $this->assertCount(3, $recipes);
     }
 
