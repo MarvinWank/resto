@@ -143,7 +143,6 @@ export default class EditRecipe extends Vue {
     }
 
     saveIngredient(data: {ingredient: Ingredient; id: number}) {
-        console.log(data);
         const ingredient: Ingredient = data.ingredient;
         const id = data.id;
 

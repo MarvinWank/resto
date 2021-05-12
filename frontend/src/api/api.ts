@@ -20,12 +20,10 @@ class Api {
     }
 
     async post(route: string, data: any) {
-        console.log(data);
         const result = await axios.post(this.host + route, {
             ...data,
             "apiKey": store.getters.apiKey
         }).then(res => res.data)
-        console.log(result);
 
         if (result.message === "apiKey ungueltig") {
             router.push('/login');
@@ -40,11 +38,14 @@ class Api {
         return data;
     }
 
-    async loginWithApiKey(apiKey: string){
+    register(username: string, email: string, password: string) {
+        return this.post('/register', {name: username, email: email, password: password})
+    }
+
+    async loginWithApiKey(apiKey: string) {
         const result = await axios.post(this.host + "/login_with_api_key", {
             "apiKey": apiKey
         }).then(res => res.data)
-        console.log(result);
 
         if (result.message === "apiKey ungueltig") {
             router.push('/login');
@@ -58,7 +59,7 @@ class Api {
         return data;
     }
 
-    async saveRecipe(recipe: Recipe){
+    async saveRecipe(recipe: Recipe) {
         return await this.post("/recipes/update", {recipe: recipe});
     }
 
@@ -67,11 +68,11 @@ class Api {
         return data;
     }
 
-    async deleteRecipe(recipeId: number){
+    async deleteRecipe(recipeId: number) {
         return await this.post("/recipes/delete", {id: recipeId});
     }
 
-    saytSearch(search: string){
+    saytSearch(search: string) {
         return this.post("/recipes/search/sayt", {search: search})
     }
 }

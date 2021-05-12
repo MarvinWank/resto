@@ -7,7 +7,7 @@
 
         <h2 class="mb-4 mt-3">
             Registrieren <span class="color-grey">oder</span> <a @click="login" href=""
-                                                                 class="link-primary">anmeldem</a>
+                                                                 class="link-primary">anmelden</a>
         </h2>
 
         <div class="form-group">
@@ -50,7 +50,8 @@
             <div class="col-12 col-lg-6">
                 <div class="form-group">
                     <label for="password_1">Passwort</label>
-                    <input v-model="password_1" @blur="checkPassword" type="password" class="form-control" id="password_1"
+                    <input v-model="password_1" @blur="checkPassword" type="password" class="form-control"
+                           id="password_1"
                            placeholder="Passwort">
                 </div>
             </div>
@@ -58,14 +59,15 @@
             <div class="col-12 col-lg-6">
                 <div class="form-group">
                     <label for="password_2">Passwort wiederholen</label>
-                    <input v-model="password_2" @blur="checkPassword" type="password" class="form-control" id="password_2"
+                    <input v-model="password_2" @blur="checkPassword" type="password" class="form-control"
+                           id="password_2"
                            placeholder="Passwort wiederholen">
                 </div>
             </div>
         </div>
 
 
-        <div v-if="registerError" class="alert alert-danger">{{registerErrorMessage}}</div>
+        <div v-if="registerError" class="alert alert-danger">{{ registerErrorMessage }}</div>
         <button type="submit" :class="getLoginButtonClasses" @click="attemptRegister">Registrieren</button>
 
     </div>
@@ -76,6 +78,9 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import router from "@/router/router";
+import api from "@/api/api";
+import {User} from "@/types/user";
+import {setInitialDataPayload} from "@/types/api";
 
 @Component
 export default class Register extends Vue {
@@ -93,40 +98,63 @@ export default class Register extends Vue {
         router.push({name: "Login"})
     }
 
-    checkEmail(){
-        if (this.email_1 === '' || this.email_2 === '' ){
+    checkEmail() {
+        if (this.email_1 === '' || this.email_2 === '') {
             return;
         }
 
-        if (this.email_1 === this.email_2){
+        if (this.email_1 === this.email_2) {
             this.registerError = false;
             this.registerErrorMessage = '';
         }
 
-        if (this.email_1 !== this.email_2){
+        if (this.email_1 !== this.email_2) {
             this.registerError = true;
             this.registerErrorMessage = "E-Mail Adressen stimmen nicht überein"
         }
     }
 
-    checkPassword(){
-        if (this.password_1 === '' || this.password_2 === '' ){
+    checkPassword() {
+        if (this.password_1 === '' || this.password_2 === '') {
             return;
         }
 
-        if (this.password_1 === this.password_2){
+        if (this.password_1 === this.password_2) {
             this.registerError = false;
             this.registerErrorMessage = '';
         }
 
-        if (this.password_1 !== this.password_2){
+        if (this.password_1 !== this.password_2) {
             this.registerError = true;
             this.registerErrorMessage = "Passwörter stimmen nicht überein"
         }
     }
 
     attemptRegister() {
-        console.log("foo");
+        api.register(this.username, this.email_1, this.password_1).then(res => {
+
+                if (res.status === "error") {
+                    this.registerError = true;
+                    this.registerErrorMessage = res.message;
+                    console.log(res.message);
+                    return;
+                } else if (res.status !== "ok") {
+                    this.registerError = true;
+                    this.registerErrorMessage = "Unerwarteter Server Fehler"
+                    console.log(res.message);
+                }
+
+                const user: User = res.user;
+                const payload: setInitialDataPayload = {
+                    apiKey: res.apiKey,
+                    user: user,
+                    topRecipes: res.topRecipes,
+                    targetUrl: null
+                }
+                this.$store.commit('setDataInitial', payload)
+                router.push({name: 'Home'});
+            }
+        )
     }
 
     get getLoginButtonClasses() {

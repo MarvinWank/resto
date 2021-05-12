@@ -30,7 +30,7 @@ class UserFactory
     public function fromId(int $id): User
     {
         $dao_user = $this->usersDao->get_user_by_id($id);
-        return $this->user_from_dao($dao_user);
+        return $this->fromDao($dao_user);
     }
 
     public function from_auth(string $email, string $password): ?User
@@ -46,23 +46,27 @@ class UserFactory
             return null;
         }
 
-        $user = $this->user_from_dao($dao_user);
+        $user = $this->fromDao($dao_user);
         $this->state->setUserID($user->id());
 
         return $user;
     }
 
-    public function add_user(string $name, string $email, string $pasword): User
+    /**
+     * @throws \Throwable
+     */
+    public function addUser(string $name, string $email, string $pasword): User
     {
+        $this->usersDao = new UsersDao();
         $this->usersDao->setAttribute(UsersDao::PROPERTY_NAME, $name);
         $this->usersDao->setAttribute(UsersDao::PROPERTY_EMAIL, $email);
         $this->usersDao->setAttribute(UsersDao::PROPERTY_PASSWORD, $pasword);
-        $this->usersDao->save();
+        $this->usersDao->saveOrFail();
 
-        return $this->user_from_dao($this->usersDao);
+        return $this->fromDao($this->usersDao);
     }
 
-    private function user_from_dao(UsersDao $dao_user): User
+    private function fromDao(UsersDao $dao_user): User
     {
         $id = $dao_user->getAttribute(UsersDao::PROPERTY_ID);
         $email = $dao_user->getAttribute(UsersDao::PROPERTY_EMAIL);

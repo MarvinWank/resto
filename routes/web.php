@@ -19,6 +19,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
     //You can't have an API-Key if you're not logged in
     $router->post('/login', 'LoginController@login');
+    //Or registered
+    $router->post('/register', 'RegisterController@register');
 
     $router->group(["middleware" => "checkApiKey"], function () use ($router) {
         $router->post('/login_with_api_key', 'LoginController@login_with_api_key');

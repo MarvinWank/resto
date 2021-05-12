@@ -10,11 +10,6 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
 
     private UserFactory $userFactory;
 

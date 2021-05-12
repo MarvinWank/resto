@@ -17,7 +17,6 @@ export function loginWithCookie(): false | void{
 
     const apiKey = getApiKeyFromCookie().toString();
     api.loginWithApiKey(apiKey).then(res => {
-        console.log(res);
 
         if (res.status !== "ok"){
             return;
