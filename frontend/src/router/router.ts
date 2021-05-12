@@ -7,6 +7,7 @@ import AddRecipe from "../views/addRecipe/AddRecipe.vue";
 import ViewRecipe from "@/views/viewRecipe/ViewRecipe.vue";
 import EditRecipe from "@/views/editRecipe/EditRecipe.vue";
 import Register from "@/views/register/Register.vue";
+import Imprint from "@/views/footer/Imprint.vue";
 
 Vue.use(VueRouter)
 
@@ -42,6 +43,11 @@ const routes = [
         path: "/recipe/edit/:id",
         name: "EditRecipe",
         component: EditRecipe
+    },
+    {
+        path: "/imprint",
+        name: "Imprint",
+        component: Imprint
     }
 
 ]

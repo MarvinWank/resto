@@ -1,6 +1,13 @@
 <template>
-    <div class="container-fluid container-lg container-xl" id="app">
-        <router-view></router-view>
+    <div>
+        <div class="container-fluid container-lg container-xl" id="app">
+            <router-view></router-view>
+        </div>
+        <div class="imprint">
+            <a class="link-secondary" href="" @click="showImprint">
+                Impresseum
+            </a>
+        </div>
     </div>
 </template>
 
@@ -8,9 +15,17 @@
 
 import Component from "vue-class-component";
 import Vue from "vue";
+import Imprint from "@/views/footer/Imprint.vue";
+import router from "@/router/router";
 
-@Component
-export default class App extends Vue{
+@Component({
+    components: {Imprint}
+})
+export default class App extends Vue {
+
+    showImprint(){
+        router.push({name: "Imprint"})
+    }
 
 }
 
