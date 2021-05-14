@@ -41,6 +41,8 @@ class AddRecipeTestApiTest extends ApiTestCase
                 "ingredients" => [
                     ["name" => "Milch", "amount" => 200, "unit" => "g", "kcal" => 400],
                     ["name" => "Mehl", "amount" => 0.2, "unit" => "kg", "kcal" => 400],
+                    ["name" => "Paprika", "amount" => 1, "unit" => "TL", "kcal" => 400],
+                    ["name" => "Zimt", "amount" => 1, "unit" => "EL", "kcal" => 400],
                 ],
                 "description" => "Your add here"
             ]
@@ -56,6 +58,8 @@ class AddRecipeTestApiTest extends ApiTestCase
         $this->assertEquals(90, $response['recipe']['totalTime']);
         $this->assertEquals(["name" => "Milch", "amount" => 200, "unit" => "g", "kcal" => 400], $response['recipe']['ingredients'][0]);
         $this->assertEquals(["name" => "Mehl", "amount" => 0.2, "unit" => "kg", "kcal" => 400], $response['recipe']['ingredients'][1]);
+        $this->assertEquals(["name" => "Paprika", "amount" => 1, "unit" => "TL", "kcal" => 400], $response['recipe']['ingredients'][2]);
+        $this->assertEquals(["name" => "Zimt", "amount" => 1, "unit" => "EL", "kcal" => 400], $response['recipe']['ingredients'][3]);
         $this->assertEquals("Your add here", $response['recipe']['description']);
 
     }

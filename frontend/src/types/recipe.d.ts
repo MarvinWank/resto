@@ -20,4 +20,4 @@ export interface Ingredient {
     kcal: number | null;
 }
 
-type SI_UNIT = "g" | "kg" | "ml" | "l";
+type SI_UNIT = "g" | "kg" | "ml" | "l"| "Stk"| "EL"| "TL";

@@ -45,7 +45,7 @@ import {Prop} from "vue-property-decorator";
 @Component
 export default class AddIngredientModal extends Vue implements Ingredient {
 
-    units = ["g", "kg", "ml", "l", "Stk"];
+    units = ["g", "kg", "ml", "l", "Stk", "EL", "TL"];
     @Prop() id: number;
     @Prop() name: string;
     @Prop() amount: number;

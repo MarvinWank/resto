@@ -83,7 +83,9 @@
                 "kg": "kilogramm",
                 "ml": "millilitre",
                 "l": "litre",
-                "Stk": "pieces"
+                "Stk": "pieces",
+                "TL": "teaspoons",
+                "EL": "tablespoons"
             }
         },
         {

@@ -12,21 +12,25 @@ use InvalidArgumentException;
 
 class SIUnit implements Enum
 {
-    public const VALUES = ['gramm', 'kilogramm', 'millilitre', 'litre', 'pieces', ];               
-    public const NAMES = ['g', 'kg', 'ml', 'l', 'Stk', ];               
+    public const VALUES = ['gramm', 'kilogramm', 'millilitre', 'litre', 'pieces', 'teaspoons', 'tablespoons', ];               
+    public const NAMES = ['g', 'kg', 'ml', 'l', 'Stk', 'TL', 'EL', ];               
     public const OPTIONS = [ 
         'g' => 'gramm',
         'kg' => 'kilogramm',
         'ml' => 'millilitre',
         'l' => 'litre',
         'Stk' => 'pieces',
+        'TL' => 'teaspoons',
+        'EL' => 'tablespoons',
     ];
 
     public const g = 'gramm';               
     public const kg = 'kilogramm';               
     public const ml = 'millilitre';               
     public const l = 'litre';               
-    public const Stk = 'pieces';                       
+    public const Stk = 'pieces';               
+    public const TL = 'teaspoons';               
+    public const EL = 'tablespoons';                       
     private string $name;
     private string $value;
         
@@ -59,6 +63,16 @@ class SIUnit implements Enum
     public static function Stk(): self
     {
         return new self('Stk');
+    }
+    
+    public static function TL(): self
+    {
+        return new self('TL');
+    }
+    
+    public static function EL(): self
+    {
+        return new self('EL');
     }
     
     public static function fromValue(string $value): self

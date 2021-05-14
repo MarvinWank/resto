@@ -44,7 +44,7 @@ import {Ingredient, SI_UNIT} from "@/types/recipe";
 @Component
 export default class AddIngredientModal extends Vue implements Ingredient {
 
-    units = ["g", "kg", "ml", "l", "Stk"];
+    units = ["g", "kg", "ml", "l", "Stk", "EL", "TL"];
     name =  ""
     amount = 0
     unit: SI_UNIT = "g";
