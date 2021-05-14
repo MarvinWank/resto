@@ -1,28 +1,28 @@
 .bm-burger-button {
-    top: 30px;
-    left: 15px;
+    top: 30px !important;
+    left: 15px !important;
 }
+
 .bm-burger-bars {
-    background-color: $olivegreen_lightest;
+    background-color: $olivegreen_lightest !important;
 }
 
 .bm-menu {
-    background-color: $olivegreen-lighter;
-    cursor: revert;
+    background-color: $olivegreen-lighter !important;
     padding-top: 0; /* Place content 60px from the top */
     transition: 0.5s; /*0.5 second transition effect to slide in the sidenav*/
 }
 
 
 .bm-overlay {
-    background: rgba(0, 0, 0, 0);
+    background: rgba(0, 0, 0, 0) !important;
 }
 
-.bm-item-list{
-    color: white;
-    font-size: 1.2em;
-    margin-right: 2rem;
-    margin-left: 1.5rem;
+.bm-item-list {
+    color: white !important;
+    font-size: 1.2em !important;
+    margin-right: 2rem !important;
+    margin-left: 1.5rem !important;
 
 }
 
@@ -37,10 +37,10 @@
     border-bottom: 1px solid white;
 }
 
-.bm-cross-button{
+.bm-cross-button {
     display: none;
 }
 
-.bm-user{
+.bm-user {
     font-size: 2rem;
 }

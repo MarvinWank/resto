@@ -11,29 +11,18 @@
 //@import '../../../node_modules/@braid/vue-formulate/themes/snow/snow.scss';
 
 #app{
-    min-height: 90vh;
+    padding-bottom: 10vh;
 }
 
-#footer{
-    background-color: $grey_lightest;
-    border-top: 1px solid $grey_lighter;
-
-    margin-top: 2rem;
-    min-height: 7vh;
-
-    text-align: center;
-    padding-top: .5rem;
-    padding-left: 1rem;
-}
 
 body {
     font-size: 18px;
 }
 
 
-.resto-header {
+#resto-header {
     width: 100%;
-    height: 5rem;
+    min-height: 5vh;
     text-align: center;
     display: flex;
     align-content: center;
