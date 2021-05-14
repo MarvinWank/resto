@@ -4,8 +4,8 @@ import router from "../router/router";
 import {restoState} from "@/types/store";
 import {setInitialDataPayload} from "@/types/api";
 import {User} from "@/types/user";
-import {Recipe} from "@/types/recipe";
 import api from "@/api/api";
+import {Recipe} from "@/types/value";
 
 Vue.use(Vuex)
 

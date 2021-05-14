@@ -57,7 +57,7 @@ import VEasyDialog from 'v-easy-dialog'
 import AddIngredientModal from "@/views/addRecipe/AddIngredientModal.vue";
 import Component from "vue-class-component";
 import Vue from "vue";
-import {Ingredient, Recipe} from "@/types/recipe";
+import {Ingredient, Recipe} from "@/types/value";
 
 @Component({
     components: {

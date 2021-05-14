@@ -40,9 +40,9 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import {Prop} from "vue-property-decorator";
-import {Recipe} from "@/types/recipe";
 import YesNoModal from "@/components/YesNoModal.vue";
 import api from "@/api/api";
+import {Recipe} from "@/types/value";
 
 @Component({
     components: {YesNoModal}

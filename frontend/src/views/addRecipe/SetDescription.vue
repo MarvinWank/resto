@@ -21,7 +21,7 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import {Recipe} from "@/types/recipe";
+import {Recipe} from "@/types/value";
 
 @Component
 export default class SetDescription extends Vue {

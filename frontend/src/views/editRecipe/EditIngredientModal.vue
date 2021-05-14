@@ -39,8 +39,8 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import {Ingredient, SI_UNIT} from "@/types/recipe";
 import {Prop} from "vue-property-decorator";
+import {Ingredient, SIUnit} from "@/types/value";
 
 @Component
 export default class AddIngredientModal extends Vue implements Ingredient {
@@ -49,8 +49,8 @@ export default class AddIngredientModal extends Vue implements Ingredient {
     @Prop() id: number;
     @Prop() name: string;
     @Prop() amount: number;
-    @Prop() unit: SI_UNIT;
-    @Prop() kcal = null;
+    @Prop() unit: SIUnit;
+    @Prop() kcal = undefined;
 
     addIngredient() {
         const ingredient: Ingredient = {

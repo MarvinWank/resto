@@ -39,7 +39,7 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import {Ingredient, SI_UNIT} from "@/types/recipe";
+import {Ingredient, SIUnit} from "@/types/value";
 
 @Component
 export default class AddIngredientModal extends Vue implements Ingredient {
@@ -47,8 +47,8 @@ export default class AddIngredientModal extends Vue implements Ingredient {
     units = ["g", "kg", "ml", "l", "Stk", "EL", "TL"];
     name =  ""
     amount = 0
-    unit: SI_UNIT = "g";
-    kcal = null;
+    unit: SIUnit = SIUnit.g;
+    kcal = undefined;
 
     addIngredient(){
         const ingredient: Ingredient = {

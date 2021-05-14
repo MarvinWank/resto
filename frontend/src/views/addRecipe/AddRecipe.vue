@@ -38,7 +38,7 @@ import SetIngredients from "@/views/addRecipe/SetIngredients.vue";
 import SetDescription from "@/views/addRecipe/SetDescription.vue";
 import Component from "vue-class-component";
 import Vue from "vue";
-import {Recipe} from "@/types/recipe";
+import {Recipe} from "@/types/value";
 
 @Component({
     components: {

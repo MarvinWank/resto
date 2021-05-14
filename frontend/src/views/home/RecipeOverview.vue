@@ -24,8 +24,8 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import {Recipe} from "@/types/recipe";
 import RecipeCard from "@/views/home/items/RecipeCard.vue";
+import {Recipe} from "@/types/value";
 @Component({
     components: {RecipeCard}
 })

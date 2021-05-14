@@ -1,7 +1,7 @@
 import store from "../store/store";
 import axios from "axios"
 import router from "@/router/router";
-import {Recipe} from "@/types/recipe";
+import {Recipe} from "@/types/value";
 
 class Api {
     host = '';

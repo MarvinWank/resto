@@ -23,7 +23,7 @@ import Component from "vue-class-component";
 import Autocomplete from '@trevoreyre/autocomplete-vue';
 import '@trevoreyre/autocomplete-vue/dist/style.css'
 import api from "@/api/api";
-import {Recipe} from "@/types/recipe";
+import {Recipe} from "@/types/value";
 
 @Component({
     components: {

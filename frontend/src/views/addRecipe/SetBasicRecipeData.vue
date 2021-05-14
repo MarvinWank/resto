@@ -58,9 +58,9 @@
 
 
 import Component from "vue-class-component";
-import {Cuisine, dietStyle, Recipe} from "@/types/recipe";
 import Vue from "vue";
 import {Prop} from "vue-property-decorator";
+import {Cuisine, DietStyle, Recipe} from "@/types/value";
 
 @Component
 export default class SetBasicRecipeData extends Vue {
@@ -135,11 +135,11 @@ export default class SetBasicRecipeData extends Vue {
         this.save(recipe);
     }
 
-    get dietStyle(): dietStyle {
+    get dietStyle(): DietStyle {
         return this.currentRecipe.dietStyle;
     }
 
-    set dietStyle(dietStyle: dietStyle){
+    set dietStyle(dietStyle: DietStyle){
         const recipe = this.currentRecipe;
         recipe.dietStyle = dietStyle;
 

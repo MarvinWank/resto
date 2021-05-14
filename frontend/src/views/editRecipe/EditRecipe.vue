@@ -36,7 +36,7 @@
 
             <div class="col-12 mt-3">
                 <button class="btn btn-primary btn-block"
-                    @click="showAddIngredientModal = true"
+                        @click="showAddIngredientModal = true"
                 >
                     Zutat hinzufügen
                 </button>
@@ -83,7 +83,6 @@
 
 import Vue from "vue"
 import Component from "vue-class-component";
-import {Ingredient, Recipe} from "@/types/recipe";
 import api from "@/api/api";
 import RestoHeader from "@/components/RestoHeader.vue";
 import {Watch} from "vue-property-decorator";
@@ -92,6 +91,7 @@ import SetBasicRecipeData from "@/views/addRecipe/SetBasicRecipeData.vue";
 import VEasyDialog from 'v-easy-dialog'
 import EditIngredientModal from "@/views/editRecipe/EditIngredientModal.vue";
 import AddIngredientModal from "@/views/addRecipe/AddIngredientModal.vue";
+import {Cuisine, DietStyle, Ingredient, Recipe, SIUnit} from "@/types/value";
 
 @Component({
     components: {AddIngredientModal, EditIngredientModal, SetBasicRecipeData, RestoHeader, VEasyDialog}
@@ -100,8 +100,13 @@ export default class EditRecipe extends Vue {
 
     private myRecipe: Recipe = {
         id: -1,
-        cuisine: "deutsch",
-        dietStyle: "alles",
+        author: {
+            id: -1,
+            name: '',
+            email: ''
+        },
+        cuisine: Cuisine.DEUTSCH,
+        dietStyle: DietStyle.ALLES,
         ingredients: [],
         timeToCook: 0,
         totalTime: 0,
@@ -113,8 +118,7 @@ export default class EditRecipe extends Vue {
     ingredientBeingEdited: Ingredient = {
         name: "",
         amount: 0,
-        unit: "g",
-        kcal: null
+        unit: SIUnit.g,
     }
 
     showEditIngredientModal = false;
@@ -164,7 +168,7 @@ export default class EditRecipe extends Vue {
         this.save();
     }
 
-    addIngredient(ingredient: Ingredient){
+    addIngredient(ingredient: Ingredient) {
         this.showAddIngredientModal = false;
         //Is necessary, because the modal returns a string for whatever reason
         ingredient.amount = Number.parseInt((ingredient.amount.toString()));
@@ -189,8 +193,7 @@ export default class EditRecipe extends Vue {
         this.ingredientBeingEdited = {
             name: "",
             amount: 0,
-            unit: "g",
-            kcal: null
+            unit: SIUnit.g,
         };
     }
 

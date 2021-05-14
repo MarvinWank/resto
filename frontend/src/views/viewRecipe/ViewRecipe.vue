@@ -22,6 +22,9 @@
                 <i class="las la-lg la-trash-alt"
                 @click="showDeleteModal = true"
                 ></i>
+                <i class="las la-lg la-list">
+
+                </i>
             </div>
         </div>
 
@@ -59,10 +62,10 @@
 
 import Component from "vue-class-component";
 import Vue from "vue";
-import {Recipe} from "@/types/recipe";
 import api from "@/api/api";
 import RestoHeader from "@/components/RestoHeader.vue";
 import YesNoModal from "@/components/YesNoModal.vue";
+import {Cuisine, DietStyle, Recipe} from "@/types/value";
 
 @Component({
     components: {
@@ -74,8 +77,13 @@ export default class ViewRecipe extends Vue {
 
     private myRecipe: Recipe = {
         id: -1,
-        cuisine: "deutsch",
-        dietStyle: "alles",
+        author: {
+            id: -1,
+            name: '',
+            email: ''
+        },
+        cuisine: Cuisine.DEUTSCH,
+        dietStyle: DietStyle.VEGAN,
         ingredients: [],
         timeToCook: 0,
         totalTime: 0,
