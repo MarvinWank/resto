@@ -36,7 +36,15 @@ import {User} from "@/types/user";
 export default class Menu extends Vue {
 
     get user(): User{
-        return this.$store.getters.currentUser;
+        if (this.$store.getters.currentUser !== undefined){
+            return this.$store.getters.currentUser;
+        }else {
+            return {
+                id: -1,
+                name: '',
+                email: ''
+            }
+        }
     }
 
     showHome() {

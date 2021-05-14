@@ -16,9 +16,12 @@
                     <i class="las la-lg la-pencil-alt mr-2 "
                        @click="editRecipe"
                     ></i>
-                    <i class="las la-lg la-trash-alt"
+                    <i class="las la-lg la-trash-alt mr-2"
                        @click="showDeleteModal = true"
                     ></i>
+                    <i class="las la-lg la-list">
+
+                    </i>
                 </div>
             </div>
 
