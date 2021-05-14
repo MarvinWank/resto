@@ -52,7 +52,7 @@
             </div>
 
 
-            <div class="btn btn-primary btn-block mt-5 col-12"
+            <div class="btn btn-primary btn-block mt-3" style="margin-left: 15px; margin-right: 15px"
                  @click="save"
             >
                 Rezept speichern
