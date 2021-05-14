@@ -26,7 +26,9 @@
                             <i class="las la-lg la-pencil-alt mr-2"
                                @click="editIngredient(ingredient, key)"
                             ></i>
-                            <i class="las la-lg la-trash-alt"></i>
+                            <i class="las la-lg la-trash-alt"
+                               @click="deleteIngredient(key)"
+                            ></i>
                         </div>
                     </div>
                 </div>
@@ -117,12 +119,12 @@ export default class EditRecipe extends Vue {
         return this.myRecipe;
     }
 
-    get description(): string{
+    get description(): string {
         return this.recipe.description
     }
 
     //TODO: This is ludicrously bad perfomancewise
-    set description(description: string){
+    set description(description: string) {
         const recipe = this.recipe;
         recipe.description = description;
 
@@ -140,7 +142,13 @@ export default class EditRecipe extends Vue {
         this.showIngredientModal = true;
     }
 
-    saveIngredient(data: {ingredient: Ingredient; id: number}) {
+    deleteIngredient(key: number) {
+        this.recipe.ingredients.splice(key, 1);
+        this.updateRecipe();
+        this.save();
+    }
+
+    saveIngredient(data: { ingredient: Ingredient; id: number }) {
         const ingredient: Ingredient = data.ingredient;
         const id = data.id;
 
