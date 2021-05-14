@@ -3,10 +3,11 @@
 
         <div class="col-12">
             <div class="row">
-                <div v-for="(recipe, id) in topRecipes" :key="id" class="col-12 col-lg-6">
+                <div v-for="(recipe, id) in topRecipes" :key="id" class="col-12 col-md-6">
                     <div class="recipe-card-wrapper">
                         <RecipeCard
                             :recipe="recipe"
+                            :index="id"
                         />
                     </div>
                 </div>

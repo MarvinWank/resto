@@ -1,5 +1,5 @@
 <template>
-    <div class="row recipe-card">
+    <div :class="getCardClasses">
         <div class="col-12 inner">
             <div class="title link-hover cursor-pointer" @click="showRecipe">{{ recipe.title }}</div>
 
@@ -17,7 +17,7 @@
                        @click="editRecipe"
                     ></i>
                     <i class="las la-lg la-trash-alt"
-                        @click="showDeleteModal = true"
+                       @click="showDeleteModal = true"
                     ></i>
                 </div>
             </div>
@@ -33,27 +33,30 @@
 </template>
 
 <script lang="ts">
+
 import Vue from "vue";
 import Component from "vue-class-component";
 import {Prop} from "vue-property-decorator";
 import {Recipe} from "@/types/recipe";
 import YesNoModal from "@/components/YesNoModal.vue";
 import api from "@/api/api";
+
 @Component({
     components: {YesNoModal}
 })
 export default class RecipeCard extends Vue {
     @Prop() private recipe: Recipe | undefined;
+    @Prop() private index: number;
 
     showDeleteModal = false;
 
-    get deleteModalText(){
+    get deleteModalText() {
         return "Wollen Sie das Rezept '" + this.recipe?.title + "' wirklich löschen?"
     }
 
-    deleteRecipe(){
+    deleteRecipe() {
         this.showDeleteModal = false;
-        if (this.recipe != undefined){
+        if (this.recipe != undefined) {
             api.deleteRecipe(this.recipe?.id);
         }
     }
@@ -62,8 +65,17 @@ export default class RecipeCard extends Vue {
         this.$router.push("/recipe/view/" + this.recipe?.id)
     }
 
-    editRecipe(){
+    editRecipe() {
         this.$router.push("/recipe/edit/" + this.recipe?.id)
+    }
+
+    get getCardClasses() {
+        return {
+            "row": true,
+            "recipe-card": true,
+            "left": this.index % 2 === 0,
+            "right": this.index % 2 !== 0
+        }
     }
 }
 </script>

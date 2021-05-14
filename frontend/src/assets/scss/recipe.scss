@@ -13,6 +13,18 @@
         }
     }
 
+    &.left{
+        @include media-breakpoint-up(md) {
+            margin-right: 0;
+        }
+    }
+
+    &.right{
+        @include media-breakpoint-up(md) {
+            margin-left: 0;
+        }
+    }
+
 }
 
 .add-recipe {
