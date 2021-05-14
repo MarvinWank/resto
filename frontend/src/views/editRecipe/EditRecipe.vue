@@ -17,12 +17,11 @@
             <div v-for="(ingredient, key) in recipe.ingredients" :key="key" class="col-12">
                 <div class="ingredient-card">
                     <div class="row align-items-center h-100">
-                        <div class="col-3">
-                            {{ ingredient.amount }} {{ ingredient.unit }}
-                        </div>
-                        <div class="col-6">
+                        <div class="col-9">
+                            {{ ingredient.amount }}{{ ingredient.unit }}
                             {{ ingredient.name }}
                         </div>
+
                         <div class="col-3 justify-content-end d-flex align-items-center">
                             <i class="las la-lg la-pencil-alt mr-2"
                                @click="editIngredient(ingredient, key)"
