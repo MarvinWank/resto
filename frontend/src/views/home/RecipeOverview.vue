@@ -2,10 +2,14 @@
     <div class="row">
 
         <div class="col-12">
-            <div v-for="(recipe, id) in topRecipes" :key="id">
-                <RecipeCard
-                    :recipe="recipe"
-                />
+            <div class="row">
+                <div v-for="(recipe, id) in topRecipes" :key="id" class="col-12 col-lg-6">
+                    <div class="recipe-card-wrapper">
+                        <RecipeCard
+                            :recipe="recipe"
+                        />
+                    </div>
+                </div>
             </div>
         </div>
 
