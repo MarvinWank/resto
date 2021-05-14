@@ -34,14 +34,28 @@
                 </div>
             </div>
 
+            <div class="col-12 mt-3">
+                <button class="btn btn-primary btn-block"
+                    @click="showAddIngredientModal = true"
+                >
+                    Zutat hinzufügen
+                </button>
+            </div>
 
-            <v-easy-dialog v-model="showIngredientModal">
+
+            <v-easy-dialog v-model="showEditIngredientModal">
                 <EditIngredientModal
                     :id="ingredientBeingEditedId"
                     :name="currentIngredient.name"
                     :amount="currentIngredient.amount"
                     :unit="currentIngredient.unit"
                     @addIngredient="saveIngredient"
+                />
+            </v-easy-dialog>
+
+            <v-easy-dialog v-model="showAddIngredientModal">
+                <AddIngredientModal
+                    @addIngredient="addIngredient"
                 />
             </v-easy-dialog>
 
@@ -77,9 +91,10 @@ import SetBasicRecipeData from "@/views/addRecipe/SetBasicRecipeData.vue";
 /* @ts-ignore */
 import VEasyDialog from 'v-easy-dialog'
 import EditIngredientModal from "@/views/editRecipe/EditIngredientModal.vue";
+import AddIngredientModal from "@/views/addRecipe/AddIngredientModal.vue";
 
 @Component({
-    components: {EditIngredientModal, SetBasicRecipeData, RestoHeader, VEasyDialog}
+    components: {AddIngredientModal, EditIngredientModal, SetBasicRecipeData, RestoHeader, VEasyDialog}
 })
 export default class EditRecipe extends Vue {
 
@@ -102,7 +117,8 @@ export default class EditRecipe extends Vue {
         kcal: null
     }
 
-    showIngredientModal = false;
+    showEditIngredientModal = false;
+    showAddIngredientModal = false;
 
     @Watch("myRecipe")
     updateRecipe() {
@@ -139,7 +155,7 @@ export default class EditRecipe extends Vue {
     editIngredient(ingredient: Ingredient, id: number) {
         this.ingredientBeingEdited = ingredient;
         this.ingredientBeingEditedId = id;
-        this.showIngredientModal = true;
+        this.showEditIngredientModal = true;
     }
 
     deleteIngredient(key: number) {
@@ -148,11 +164,21 @@ export default class EditRecipe extends Vue {
         this.save();
     }
 
+    addIngredient(ingredient: Ingredient){
+        this.showAddIngredientModal = false;
+        //Is necessary, because the modal returns a string for whatever reason
+        ingredient.amount = Number.parseInt((ingredient.amount.toString()));
+        this.recipe.ingredients.push(ingredient);
+
+        this.updateRecipe();
+        this.save();
+    }
+
     saveIngredient(data: { ingredient: Ingredient; id: number }) {
         const ingredient: Ingredient = data.ingredient;
         const id = data.id;
 
-        this.showIngredientModal = false;
+        this.showEditIngredientModal = false;
         //Is necessary, because the modal returns a string for whatever reason
         ingredient.amount = Number.parseInt((ingredient.amount.toString()));
         const recipe = this.myRecipe;
