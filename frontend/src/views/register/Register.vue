@@ -155,7 +155,12 @@ export default class Register extends Vue {
                 const payload: setInitialDataPayload = {
                     apiKey: res.apiKey,
                     user: user,
-                    topRecipes: res.topRecipes
+                    topRecipes: res.topRecipes,
+                    shoppingList: {
+                        id: 0,
+                        ingredients: [],
+                        userId: 0
+                    }
                 }
                 this.$store.commit('setDataInitial', payload)
                 router.push({name: 'Home'});

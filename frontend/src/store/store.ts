@@ -24,7 +24,7 @@ const state: restoState = {
         title: "",
         description: ""
     },
-    shoppingList:{
+    shoppingList: {
         id: 0,
         ingredients: [],
         userId: 0
@@ -36,6 +36,7 @@ const mutations: MutationTree<restoState> = {
         state.apiKey = daten.apiKey;
         state.user = daten.user;
         state.topRecipes = daten.topRecipes;
+        state.shoppingList = daten.shoppingList;
         state.isLoggedin = true;
     },
     updateRecipe(state: restoState, recipe: Recipe) {

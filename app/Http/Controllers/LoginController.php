@@ -44,19 +44,21 @@ class LoginController extends Controller
         ]);
     }
 
-    public function login_with_api_key(State $state, RecipeFactory  $recipeFactory, UserFactory $userFactory)
+    public function login_with_api_key(State $state, RecipeFactory  $recipeFactory, UserFactory $userFactory, ShoppingListFactory $shoppingListFactory)
     {
         //ApiKey is validated by CheckApiKeyMiddleware
 
         $userID = $state->getUserID();
         $user = $userFactory->fromId($userID);
         $recipes = $recipeFactory->getTopRecipesForUser($user);
+        $shoppingList = $shoppingListFactory->forUser($user);
 
         return response()->json([
             "status" => "ok",
+            "apiKey" => $state->getStateId(),
             "user" => $user->toArray(),
             "topRecipes" => $recipes->toArray(),
-            "apiKey" => $state->getStateId()
+            "shoppingList" => $shoppingList->toArray()
         ]);
     }
 
