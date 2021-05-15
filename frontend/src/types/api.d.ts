@@ -6,6 +6,6 @@ export interface setInitialDataPayload {
     apiKey: string,
     user: User,
     topRecipes: Array<Recipe>,
-    shoppingList: ShoppingList,
+    shoppingList?: ShoppingList,
     targetUrl?: string
 }
