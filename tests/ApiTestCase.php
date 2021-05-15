@@ -20,7 +20,7 @@ class ApiTestCase extends TestCase
         $this->client = new Client(['base_uri' => $this->get_base_url()]);
     }
 
-    public function testLogin()
+    public function testLogin(): array
     {
         $body = ["json" => [
             'email' => $this->testUser->email(),
@@ -31,6 +31,8 @@ class ApiTestCase extends TestCase
 
         $this->assertEquals("ok", $response['status']);
         $this->apiKey = $response['apiKey'];
+
+        return $response;
     }
 
     public function apiPost(string $url, array $json_body = [])

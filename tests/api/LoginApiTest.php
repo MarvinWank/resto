@@ -6,24 +6,28 @@ namespace api;
 
 use App\Daos\RecipeDao;
 use App\Factories\RecipeFactory;
+use App\Factories\ShoppingListFactory;
 use App\Value\Cuisine;
 use App\Value\DietStyle;
 use App\Value\Ingredient;
 use App\Value\IngredientsSet;
 use App\Value\Recipe;
 use App\Value\RecipeSet;
+use App\Value\ShoppingList;
 use App\Value\SIUnit;
 
 class LoginApiTest extends \ApiTestCase
 {
 
     private RecipeFactory $recipeFactory;
+    private ShoppingListFactory $shoppingListFactory;
 
     public function setUp(): void
     {
         parent::setUp();
 
         $this->recipeFactory = app(RecipeFactory::class);
+        $this->shoppingListFactory = app(ShoppingListFactory::class);
     }
 
     public function tearDown(): void
@@ -46,6 +50,7 @@ class LoginApiTest extends \ApiTestCase
         $this->assertEquals("Test User", $response['user']['name']);
         $this->assertEquals("test@test.de", $response['user']['email']);
         $this->assertArrayHasKey("apiKey", $response);
+        $this->assertArrayHasKey("shoppingList", $response);
         $this->assertNotEquals("", $response['apiKey']);
     }
 
@@ -94,6 +99,27 @@ class LoginApiTest extends \ApiTestCase
         $this->assertEquals("ok", $result['status']);
         $this->assertEquals($this->testUser->toArray(), $result['user']);
         $this->assertEquals($this->apiKey, $result['apiKey']);
+    }
+
+    /** @test */
+    public function it_tests_get_shopping_list_on_login()
+    {
+        $ingredients = IngredientsSet::fromArray([
+            new Ingredient("Butter", 200, SIUnit::g(), 100),
+            new Ingredient("Schmalz", 200, SIUnit::g(), 100),
+            new Ingredient("Milch", 200, SIUnit::g(), 100),
+            new Ingredient("Mehl", 200, SIUnit::g(), 100),
+        ]);
+
+        $this->shoppingListFactory->addItemsToShoppingList($this->testUser, $ingredients);
+        $response = $this->testLogin();
+
+        $this->assertArrayHasKey("shoppingList", $response);
+        $shoppingList = ShoppingList::fromArray($response['shoppingList']);
+
+        $this->assertEquals($ingredients->toArray(), $shoppingList->ingredients()->toArray());
+
+        $this->shoppingListFactory->deleteShoppingList($shoppingList);
     }
 
     private function login(): array

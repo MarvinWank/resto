@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Factories\RecipeFactory;
+use App\Factories\ShoppingListFactory;
 use App\Factories\UserFactory;
 use App\Models\State;
 use Illuminate\Http\JsonResponse;
@@ -18,7 +19,7 @@ class LoginController extends Controller
         $this->userFactory = $userFactory;
     }
 
-    public function login(Request $request, State $session, RecipeFactory $recipeFactory): JsonResponse
+    public function login(Request $request, State $session, RecipeFactory $recipeFactory, ShoppingListFactory $shoppingListFactory): JsonResponse
     {
         $data = $request->json();
         $email = $data->get('email');
@@ -31,13 +32,15 @@ class LoginController extends Controller
         }
 
         $recipes = $recipeFactory->getTopRecipesForUser($user, 5);
+        $shoppingList = $shoppingListFactory->forUser($user);
 
         $session->setUserID($user->id());
         return response()->json([
             "status" => "ok",
+            "apiKey" => $session->getStateId(),
             "user" => $user->toArray(),
             "topRecipes" => $recipes->toArray(),
-            "apiKey" => $session->getStateId()
+            "shoppingList" => $shoppingList->toArray()
         ]);
     }
 

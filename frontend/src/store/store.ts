@@ -14,7 +14,6 @@ const state: restoState = {
     isLoggedin: false,
     user: undefined,
     topRecipes: [],
-
     recipeCurentlyBeingAdded: {
         id: -1,
         cuisine: "deutsch",
@@ -24,6 +23,11 @@ const state: restoState = {
         totalTime: 0,
         title: "",
         description: ""
+    },
+    shoppingList:{
+        id: 0,
+        ingredients: [],
+        userId: 0
     }
 }
 
