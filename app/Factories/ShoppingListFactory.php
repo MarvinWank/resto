@@ -96,7 +96,16 @@ class ShoppingListFactory
     public
     function forUser(User $user): ShoppingList
     {
-        $model = $this->shoppingListDao->getByUserId($user->id());
+        $model = null;
+        try {
+            $model = $this->shoppingListDao->getByUserId($user->id());
+        }catch (ModelNotFoundException $exception){
+            return new ShoppingList(
+                -1,
+                -1,
+                IngredientsSet::fromArray([])
+            );
+        }
 
         $ingredients = $model->ingredients();
         $ingredients = \Safe\json_decode($ingredients, true);
