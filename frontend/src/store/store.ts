@@ -89,7 +89,6 @@ const getters: GetterTree<restoState, any> = {
 }
 
 export default new Vuex.Store({
-
     state: state,
     mutations: mutations,
     actions: actions,
