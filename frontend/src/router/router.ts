@@ -54,6 +54,12 @@ const routes = [
         path: "/profile",
         name: "Profile",
         component: Profile
+    },
+    {
+        path: "/list/select/:recipeId",
+        name: "SelectItemsToAddToList",
+        // @ts-ignore
+        component:() => import("@/views/shoppingList/SelectIngredientsToAdd")
     }
 
 ]

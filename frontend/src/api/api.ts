@@ -2,6 +2,7 @@ import store from "../store/store";
 import axios from "axios"
 import router from "@/router/router";
 import {Recipe} from "@/types/recipe";
+import {IngredientsSet, ShoppingList} from "@/types/value";
 
 class Api {
     host = '';
@@ -74,6 +75,10 @@ class Api {
 
     saytSearch(search: string) {
         return this.post("/recipes/search/sayt", {search: search})
+    }
+
+    addItemsToShoppingList(ingredients: IngredientsSet){
+        return this.post("/list/add_items", {ingredients: ingredients})
     }
 }
 

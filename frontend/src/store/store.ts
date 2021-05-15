@@ -6,6 +6,7 @@ import {setInitialDataPayload} from "@/types/api";
 import {User} from "@/types/user";
 import {Recipe} from "@/types/recipe";
 import api from "@/api/api";
+import {IngredientsSet} from "@/types/value";
 
 Vue.use(Vuex)
 
@@ -63,6 +64,9 @@ const mutations: MutationTree<restoState> = {
             title: "",
             description: ""
         }
+    },
+    addIngredientToShoppingList(state: restoState, ingredientsSet: IngredientsSet){
+        return api.addItemsToShoppingList(ingredientsSet);
     }
 }
 

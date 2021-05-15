@@ -19,8 +19,9 @@
                     <i class="las la-lg la-trash-alt mr-2"
                        @click="showDeleteModal = true"
                     ></i>
-                    <i class="las la-lg la-list">
-
+                    <i class="las la-lg la-list"
+                        @click="addIngredientsToShoppingList"
+                    >
                     </i>
                 </div>
             </div>
@@ -70,6 +71,10 @@ export default class RecipeCard extends Vue {
 
     editRecipe() {
         this.$router.push("/recipe/edit/" + this.recipe?.id)
+    }
+
+    addIngredientsToShoppingList(){
+        this.$router.push("/list/select/" + this.recipe?.id)
     }
 
     get getCardClasses() {
