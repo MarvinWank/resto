@@ -33,6 +33,9 @@ class LoginController extends Controller
 
         $recipes = $recipeFactory->getTopRecipesForUser($user, 5);
         $shoppingList = $shoppingListFactory->forUser($user);
+        if ($shoppingList !== null){
+            $shoppingList = $shoppingList->toArray();
+        }
 
         $session->setUserID($user->id());
         return response()->json([
@@ -40,7 +43,7 @@ class LoginController extends Controller
             "apiKey" => $session->getStateId(),
             "user" => $user->toArray(),
             "topRecipes" => $recipes->toArray(),
-            "shoppingList" => $shoppingList->toArray()
+            "shoppingList" => $shoppingList
         ]);
     }
 
@@ -52,13 +55,16 @@ class LoginController extends Controller
         $user = $userFactory->fromId($userID);
         $recipes = $recipeFactory->getTopRecipesForUser($user);
         $shoppingList = $shoppingListFactory->forUser($user);
+        if ($shoppingList !== null){
+            $shoppingList = $shoppingList->toArray();
+        }
 
         return response()->json([
             "status" => "ok",
             "apiKey" => $state->getStateId(),
             "user" => $user->toArray(),
             "topRecipes" => $recipes->toArray(),
-            "shoppingList" => $shoppingList->toArray()
+            "shoppingList" => $shoppingList
         ]);
     }
 

@@ -29,16 +29,8 @@ class ShoppingListFactory
 
     public function addItemsToShoppingList(User $user, IngredientsSet $ingredientsSet): ShoppingList
     {
-        $listExists = true;
-        $existingList = null;
-
-        try {
-            $existingList = $this->forUser($user);
-        } catch (ModelNotFoundException $exception) {
-            $listExists = false;
-        }
-
-        if (!$listExists) {
+        $existingList = $this->forUser($user);
+        if ($existingList === null) {
             //Create new Shopping List
             return $this->addShoppingList($user, $ingredientsSet);
         } else {
@@ -93,18 +85,13 @@ class ShoppingListFactory
         );
     }
 
-    public
-    function forUser(User $user): ShoppingList
+    public function forUser(User $user): ?ShoppingList
     {
         $model = null;
         try {
             $model = $this->shoppingListDao->getByUserId($user->id());
-        }catch (ModelNotFoundException $exception){
-            return new ShoppingList(
-                -1,
-                -1,
-                IngredientsSet::fromArray([])
-            );
+        } catch (ModelNotFoundException $exception) {
+            return null;
         }
 
         $ingredients = $model->ingredients();
