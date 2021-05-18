@@ -5,6 +5,7 @@
                 v-model="title"
                 type="text"
                 label="Titel"
+                class="input"
             />
         </div>
 
@@ -15,6 +16,7 @@
                 type="select"
                 placeholder=""
                 label="Ernährungsweise"
+                class="input"
             />
         </div>
 
@@ -25,21 +27,26 @@
                 type="select"
                 placeholder=""
                 label="Küche"
+                class="input"
             />
         </div>
 
         <div class="col-12">
-            <div class="form-group">
-                <label for="time_to_prepare">geschätzte Arbeitszeit in Minuten</label>
-                <input v-model="timeToCook" id="time_to_prepare" class="form-control">
-            </div>
+            <FormulateInput
+                v-model="timeToCook"
+                type="text"
+                label="Arbeitszeit in Minuten"
+                class="input"
+            />
         </div>
 
         <div class="col-12">
-            <div class="form-group">
-                <label for="time_to_prepare">Gesamteit in Minuten (inkl. Wartezeiten)</label>
-                <input v-model="totalTime" id="total_time" class="form-control">
-            </div>
+            <FormulateInput
+                v-model="totalTime"
+                type="text"
+                label="Gesamteit in Minuten (inkl. Wartezeiten)"
+                class="input"
+            />
         </div>
 
         <div v-if="mode === 'add'" class="col-12">
