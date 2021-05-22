@@ -196,6 +196,12 @@ export default class EditRecipe extends Vue {
 
     save() {
         this.$store.commit("saveRecipe");
+
+        const currentMessage: currentMessage = {
+            text: 'Rezept ' + this.recipe.title + ' wurde gespeichert' ,
+            type: 'success'
+        }
+        this.$store.commit("setCurrentMessage", currentMessage);
     }
 }
 
