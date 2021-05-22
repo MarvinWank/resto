@@ -17,15 +17,11 @@
             />
         </div>
 
-        <div v-if="currentRecipe.description !== '' && currentRecipe.description && !recipeAdded"
+        <div v-if="currentRecipe.description !== '' && currentRecipe.description"
              class="mt-3 btn btn-primary btn-block"
              @click="saveRecipe"
         >
             Rezept hinzufügen
-        </div>
-
-        <div v-if="recipeAdded" class="mt-3 alert alert-success">
-            Rezept "{{ recipeAddedTitle }}" erfolgreich hinzugefügt.
         </div>
 
     </div>
@@ -39,6 +35,7 @@ import SetDescription from "@/views/addRecipe/SetDescription.vue";
 import Component from "vue-class-component";
 import Vue from "vue";
 import {Recipe} from "@/types/recipe";
+import {currentMessage} from "@/types/app";
 
 @Component({
     components: {
@@ -50,7 +47,6 @@ import {Recipe} from "@/types/recipe";
 })
 export default class AddRecipe extends Vue {
     currentStep = 1;
-    recipeAdded = false;
     recipeAddedTitle = "";
 
     get currentRecipe(): Recipe {
@@ -69,7 +65,12 @@ export default class AddRecipe extends Vue {
         this.$store.commit("addRecipe");
         this.recipeAddedTitle = this.currentRecipe.title;
         this.currentStep = 1;
-        this.recipeAdded = true;
+
+        const message: currentMessage = {
+            type: "success",
+            text: "Rezept erfolgreiche hinzugefügt"
+        }
+        this.$store.commit("setCurrentMessage", message)
         this.$store.commit("resetCurrentRecipe");
     }
 

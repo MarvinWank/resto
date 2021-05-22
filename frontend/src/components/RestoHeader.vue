@@ -1,7 +1,5 @@
 <template>
-    <div id="resto-header"
-
-    >
+    <div id="resto-header">
         <Menu/>
         <p class="homescreen-headline" @click="jumpToHome">resto</p>
     </div>
@@ -12,6 +10,7 @@ import Vue from "vue";
 import Component from "vue-class-component";
 import router from "@/router/router";
 import Menu from "@/components/Menu.vue";
+import {Watch} from "vue-property-decorator";
 
 @Component({
     components: {
@@ -27,7 +26,6 @@ export default class RestoHeader extends Vue {
     showImprint() {
         router.push({name: "Imprint"});
     }
-
 }
 </script>
 

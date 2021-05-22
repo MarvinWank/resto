@@ -11,9 +11,13 @@
 //@import '../../../node_modules/@braid/vue-formulate/themes/snow/snow.scss';
 
 #app{
-    padding-bottom: 10vh;
 }
 
+#message-area{
+    padding-top: 3vh;
+    padding-bottom: 1vh;
+    min-height: 5vh;
+}
 
 body {
     font-size: 18px;

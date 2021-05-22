@@ -6,7 +6,8 @@
         </div>
 
         <h2 class="mb-4 mt-3">
-            Anmelden <span class="color-grey">oder</span> <a @click="register" href="" class="link-primary">registrieren</a>
+            Anmelden <span class="color-grey">oder</span> <a @click="register" href=""
+                                                             class="link-primary">registrieren</a>
         </h2>
 
         <div class="form-group mt-4">
@@ -17,7 +18,6 @@
             <label for="passwort">Passwort</label>
             <input v-model="password" type="password" class="form-control" id="passwort" placeholder="Passwort">
         </div>
-        <div v-if="loginError" class="alert alert-danger">Login Fehlgeschlagen!</div>
         <button type="submit" :class="getLoginButtonClasses" @click="attemptLogin">Anmelden</button>
     </div>
 </template>
@@ -28,12 +28,12 @@ import api from "../api/api";
 import {Component, Vue} from 'vue-property-decorator'
 import {setCookie} from "@/CookieHandler";
 import router from "@/router/router";
+import {currentMessage} from "@/types/app";
 
 @Component
 export default class Login extends Vue {
     email = '';
     password = '';
-    loginError = false;
 
     get getLoginButtonClasses() {
         return {
@@ -44,8 +44,8 @@ export default class Login extends Vue {
         }
     }
 
-    register(){
-        router.push({name:'Register'});
+    register() {
+        router.push({name: 'Register'});
     }
 
 
@@ -54,10 +54,16 @@ export default class Login extends Vue {
         const apiResponse = await api.login(this.email, this.password);
 
         if (apiResponse.status !== "ok") {
-            this.loginError = true;
+
+            const message: currentMessage = {
+                text: 'Login Fehlgeschlagen',
+                type: 'error'
+            }
+            this.$store.commit("setCurrentMessage", message)
             return
         }
 
+        this.$store.commit("resetCurrentMessage");
         setCookie(apiResponse.apiKey);
 
         await this.$store.dispatch('setInitialData', {

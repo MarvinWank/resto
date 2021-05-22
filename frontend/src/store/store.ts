@@ -74,6 +74,9 @@ const mutations: MutationTree<restoState> = {
     setCurrentMessage(state: restoState, currentMessage: currentMessage) {
         state.currentMessage = currentMessage;
     },
+    resetCurrentMessage(state: restoState){
+        state.currentMessage.text = '';
+    },
     addIngredientToShoppingList(state: restoState, ingredientsSet: IngredientsSet) {
         return api.addItemsToShoppingList(ingredientsSet);
     }

@@ -2,7 +2,7 @@
     <div class="container-fluid container-lg container-xl" id="message-area">
 
         <div v-if="message.text !== ''" :class="classNames">
-            {{message.text}}
+            {{ message.text }}
         </div>
 
     </div>
@@ -19,11 +19,11 @@ import {currentMessage} from "@/types/app";
 export default class MessageArea extends Vue {
 
 
-    get message():currentMessage{
+    get message(): currentMessage {
         return this.$store.getters.currentMessage;
     }
 
-    get classNames(){
+    get classNames() {
         return {
             'alert': true,
             'alert-success': this.message.type === 'success',
