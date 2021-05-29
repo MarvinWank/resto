@@ -92,6 +92,7 @@ import SetBasicRecipeData from "@/views/addRecipe/SetBasicRecipeData.vue";
 import VEasyDialog from 'v-easy-dialog'
 import EditIngredientModal from "@/views/editRecipe/EditIngredientModal.vue";
 import AddIngredientModal from "@/views/addRecipe/AddIngredientModal.vue";
+import {currentMessage} from "@/types/app";
 
 @Component({
     components: {AddIngredientModal, EditIngredientModal, SetBasicRecipeData, RestoHeader, VEasyDialog}
@@ -196,6 +197,13 @@ export default class EditRecipe extends Vue {
 
     save() {
         this.$store.commit("saveRecipe");
+
+        const message: currentMessage = {
+            text: 'Rezept ' + this.recipe.title + ' wurde gespeichert' ,
+            type: 'success'
+        }
+        this.$router.push("/recipe/view/" + this.recipe?.id);
+        this.$store.commit("setCurrentMessage", message);
     }
 
     finishEditing() {

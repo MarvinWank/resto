@@ -33,7 +33,6 @@ export default class RestoHeader extends Vue {
     showImprint() {
         router.push({name: "Imprint"});
     }
-
 }
 </script>
 

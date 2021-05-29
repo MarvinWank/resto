@@ -7,6 +7,7 @@ import {User} from "@/types/user";
 import {Recipe} from "@/types/recipe";
 import api from "@/api/api";
 import {IngredientsSet} from "@/types/value";
+import {currentMessage} from "@/types/app";
 
 Vue.use(Vuex)
 
@@ -15,6 +16,11 @@ const state: restoState = {
     isLoggedin: false,
     user: undefined,
     topRecipes: [],
+    currentMessage: {
+        type: "success",
+        text: '',
+    },
+
     recipeCurentlyBeingAdded: {
         id: -1,
         cuisine: "deutsch",
@@ -65,11 +71,14 @@ const mutations: MutationTree<restoState> = {
             description: ""
         }
     },
-    addIngredientToShoppingList(state: restoState, ingredientsSet: IngredientsSet){
-        console.log(ingredientsSet);
-        api.addItemsToShoppingList(ingredientsSet).then(response => {
-             state.shoppingList = response.shoppingList;
-         });
+    setCurrentMessage(state: restoState, currentMessage: currentMessage) {
+        state.currentMessage = currentMessage;
+    },
+    resetCurrentMessage(state: restoState){
+        state.currentMessage.text = '';
+    },
+    addIngredientToShoppingList(state: restoState, ingredientsSet: IngredientsSet) {
+        return api.addItemsToShoppingList(ingredientsSet);
     }
 }
 
@@ -90,6 +99,9 @@ const getters: GetterTree<restoState, any> = {
     },
     apiKey(state: restoState): string {
         return state.apiKey
+    },
+    currentMessage(state: restoState): currentMessage {
+        return state.currentMessage;
     },
 
     currentRecipe(state: restoState): Recipe {
