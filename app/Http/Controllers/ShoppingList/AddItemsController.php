@@ -15,7 +15,7 @@ class AddItemsController extends Controller
 {
     public function addItems(Request $request, UserFactory $userFactory, ShoppingListFactory $shoppingListFactory): JsonResponse
     {
-        $ingredients = \Safe\json_decode($request->post('ingredients'), true);
+        $ingredients = $request->json('ingredients');
         $ingredients = IngredientsSet::fromArray($ingredients);
         $user = $userFactory->currentUser();
 

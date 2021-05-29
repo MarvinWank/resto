@@ -20,7 +20,7 @@ class ShoppingListFactory
         $this->shoppingListDao = $shoppingListDao;
     }
 
-    public function addShoppingList(User $user, IngredientsSet $ingredients): ShoppingList
+    private function addShoppingList(User $user, IngredientsSet $ingredients): ShoppingList
     {
         $shoppingList = new ShoppingList(null, $user->id(), $ingredients);
         $id = $this->shoppingListDao->add($shoppingList);
@@ -44,26 +44,40 @@ class ShoppingListFactory
 
     private function mergeIngredients(IngredientsSet $existingIngredients, IngredientsSet $newIngredients): IngredientsSet
     {
-        $resultIngredientSet = IngredientsSet::fromArray([]);
+        if ($existingIngredients->count() === 0) {
+            return $newIngredients;
+        }
+        if ($newIngredients->count() === 0) {
+            return $existingIngredients;
+        }
 
-        foreach ($existingIngredients as $existingIngredient) {
-            /** @var Ingredient $existingIngredient */
-            $resultIngredient = $existingIngredient;
+        $resultIngredientSet = $existingIngredients;
 
-            foreach ($newIngredients as $newIngredient) {
+        foreach ($newIngredients as $newIngredient) {
+
+            $ingredientMerged = false;
+
+            foreach ($existingIngredients as $existingIngredient) {
                 /** @var Ingredient $newIngredient */
                 if ($existingIngredient->name() === $newIngredient->name()) {
-                    $resultIngredient = new Ingredient(
-                        $existingIngredient->name(),
-                        $existingIngredient->amount() + $newIngredient->amount(),
-                        $existingIngredient->unit(),
-                        $existingIngredient->kcal()
+
+                    $resultIngredientSet = $resultIngredientSet->remove($existingIngredient);
+                    $resultIngredientSet = $resultIngredientSet->add(
+                        new Ingredient(
+                            $existingIngredient->name(),
+                            $existingIngredient->amount() + $newIngredient->amount(),
+                            $existingIngredient->unit(),
+                            $existingIngredient->kcal()
+                        )
                     );
+                    $ingredientMerged = true;
                     break;
                 }
             }
 
-            $resultIngredientSet = $resultIngredientSet->add($resultIngredient);
+            if (!$ingredientMerged){
+                $resultIngredientSet = $resultIngredientSet->add($newIngredient);
+            }
         }
 
         return $resultIngredientSet;
