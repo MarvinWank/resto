@@ -1,6 +1,9 @@
 # Roadmap
 
 ## Bugs
+### Prio 0
+
+### Prio 2
 - write cronjob on server to automatically touch a new logfile everyday and set 
 the correct ownership
   
