@@ -5,4 +5,6 @@
 the correct ownership
   
 ## Prio 1
-- 
+- Floating point values for ingredients
+- adding and editing ingredients during the recipe creation process
+- number of persons fed by the meal
