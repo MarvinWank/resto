@@ -8,6 +8,7 @@
                     v-model="name"
                     label="Name der Zutat"
                     type="text"
+                    class="input"
                 />
             </div>
 
@@ -16,6 +17,7 @@
                     v-model="amount"
                     label="Menge"
                     type="number"
+                    class="input"
                 />
             </div>
 

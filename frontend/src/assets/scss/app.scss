@@ -7,6 +7,7 @@
 @import "modal";
 @import "recipe";
 @import "burger-menu";
+@import "shopping-list";
 
 //@import '../../../node_modules/@braid/vue-formulate/themes/snow/snow.scss';
 
@@ -48,6 +49,13 @@ body {
     font-size: 1.2em;
 }
 
-.color-grey{
-    color: $grey;
+.color{
+    &-grey{
+        color: $grey;
+    }
+
+    &-grey-darker{
+        color: $grey-darker;
+    }
 }
+

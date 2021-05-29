@@ -66,7 +66,10 @@ const mutations: MutationTree<restoState> = {
         }
     },
     addIngredientToShoppingList(state: restoState, ingredientsSet: IngredientsSet){
-        return api.addItemsToShoppingList(ingredientsSet);
+        console.log(ingredientsSet);
+        api.addItemsToShoppingList(ingredientsSet).then(response => {
+             state.shoppingList = response.shoppingList;
+         });
     }
 }
 
