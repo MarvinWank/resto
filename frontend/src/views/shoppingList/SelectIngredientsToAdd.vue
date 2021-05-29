@@ -91,6 +91,7 @@ export default class SelectIngredientsToAdd extends Vue {
         })
 
         this.$store.commit("addIngredientToShoppingList", ingredients);
+        this.$router.push({name: 'ViewShoppingList'});
     }
 }
 
