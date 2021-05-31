@@ -90,7 +90,7 @@ export default class SelectIngredientsToAdd extends Vue {
 
     addToShoppingList() {
         const ingredients = this.recipe.ingredients.filter(ingredient => {
-            return this.checkedIngredients.includes(ingredient.name)
+            return this.checkedIngredients.includes(this.displayIngredientData(ingredient))
         })
 
         this.$store.commit("addIngredientToShoppingList", ingredients);
