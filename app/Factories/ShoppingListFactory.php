@@ -121,11 +121,14 @@ class ShoppingListFactory
         );
     }
 
-    public function deleteItems(ShoppingList $existingList, IngredientsSet $items)
+    /** @throw ModelNotFoundException */
+    public function deleteItems(ShoppingList $existingList, IngredientsSet $items): ShoppingList
     {
-        foreach ($items as $item){
-            $this->deleteItem($existingList, $item);
+        foreach ($items as $item) {
+            $existingList = $this->deleteItem($existingList, $item);
         }
+
+        return $existingList;
     }
 
     /** @throw ModelNotFoundException */
