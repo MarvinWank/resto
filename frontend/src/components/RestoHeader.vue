@@ -1,6 +1,10 @@
 <template>
-    <div id="resto-header">
-        <Menu/>
+    <div id="resto-header"
+
+    >
+        <Menu
+            v-if="isLoggedin"
+        />
         <p class="homescreen-headline" @click="jumpToHome">resto</p>
     </div>
 </template>
@@ -10,7 +14,6 @@ import Vue from "vue";
 import Component from "vue-class-component";
 import router from "@/router/router";
 import Menu from "@/components/Menu.vue";
-import {Watch} from "vue-property-decorator";
 
 @Component({
     components: {
@@ -18,6 +21,10 @@ import {Watch} from "vue-property-decorator";
     }
 })
 export default class RestoHeader extends Vue {
+
+    get isLoggedin(): boolean{
+        return this.$store.getters.isLoggedin;
+    }
 
     jumpToHome() {
         this.$router.push("/");

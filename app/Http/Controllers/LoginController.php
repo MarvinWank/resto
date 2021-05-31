@@ -64,6 +64,7 @@ class LoginController extends Controller
             "apiKey" => $state->getStateId(),
             "user" => $user->toArray(),
             "topRecipes" => $recipes->toArray(),
+            //Already made toArray
             "shoppingList" => $shoppingList
         ]);
     }

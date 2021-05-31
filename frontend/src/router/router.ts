@@ -61,6 +61,13 @@ const routes = [
         /* eslint-disable */
         // @ts-ignore
         component:() => import("@/views/shoppingList/SelectIngredientsToAdd")
+    },
+    {
+        path: '/list',
+        name: "ViewShoppingList",
+        /* eslint-disable */
+        // @ts-ignore
+        component:() => import("@/views/shoppingList/ViewShoppingList")
     }
 
 ]

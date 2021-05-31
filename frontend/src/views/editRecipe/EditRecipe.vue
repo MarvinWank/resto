@@ -35,8 +35,8 @@
             </div>
 
             <div class="col-12 mt-3">
-                <button class="btn btn-primary btn-block"
-                    @click="showAddIngredientModal = true"
+                <button class="btn btn-outline-primary btn-block"
+                        @click="showAddIngredientModal = true"
                 >
                     Zutat hinzufügen
                 </button>
@@ -69,7 +69,7 @@
 
 
             <div class="btn btn-primary btn-block mt-3" style="margin-left: 15px; margin-right: 15px"
-                 @click="save"
+                 @click="finishEditing"
             >
                 Rezept speichern
             </div>
@@ -165,7 +165,7 @@ export default class EditRecipe extends Vue {
         this.save();
     }
 
-    addIngredient(ingredient: Ingredient){
+    addIngredient(ingredient: Ingredient) {
         this.showAddIngredientModal = false;
         //Is necessary, because the modal returns a string for whatever reason
         ingredient.amount = Number.parseInt((ingredient.amount.toString()));
@@ -204,6 +204,11 @@ export default class EditRecipe extends Vue {
         }
         this.$router.push("/recipe/view/" + this.recipe?.id);
         this.$store.commit("setCurrentMessage", message);
+    }
+
+    finishEditing() {
+        this.save();
+        this.$router.push("/recipe/view/" + this.recipe?.id)
     }
 }
 

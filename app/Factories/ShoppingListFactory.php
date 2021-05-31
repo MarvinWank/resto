@@ -20,7 +20,7 @@ class ShoppingListFactory
         $this->shoppingListDao = $shoppingListDao;
     }
 
-    public function addShoppingList(User $user, IngredientsSet $ingredients): ShoppingList
+    private function addShoppingList(User $user, IngredientsSet $ingredients): ShoppingList
     {
         $shoppingList = new ShoppingList(null, $user->id(), $ingredients);
         $id = $this->shoppingListDao->add($shoppingList);
@@ -44,33 +44,49 @@ class ShoppingListFactory
 
     private function mergeIngredients(IngredientsSet $existingIngredients, IngredientsSet $newIngredients): IngredientsSet
     {
-        $resultIngredientSet = IngredientsSet::fromArray([]);
+        if ($existingIngredients->count() === 0) {
+            return $newIngredients;
+        }
+        if ($newIngredients->count() === 0) {
+            return $existingIngredients;
+        }
 
-        foreach ($existingIngredients as $existingIngredient) {
-            /** @var Ingredient $existingIngredient */
-            $resultIngredient = $existingIngredient;
+        $resultIngredientSet = $existingIngredients;
 
-            foreach ($newIngredients as $newIngredient) {
+        foreach ($newIngredients as $newIngredient) {
+
+            $ingredientMerged = false;
+
+            foreach ($existingIngredients as $existingIngredient) {
                 /** @var Ingredient $newIngredient */
-                if ($existingIngredient->name() === $newIngredient->name()) {
-                    $resultIngredient = new Ingredient(
-                        $existingIngredient->name(),
-                        $existingIngredient->amount() + $newIngredient->amount(),
-                        $existingIngredient->unit(),
-                        $existingIngredient->kcal()
+                /** @var Ingredient $existingIngredient */
+                if ($existingIngredient->name() === $newIngredient->name()
+                    && $existingIngredient->unit()->equals($newIngredient->unit())
+                ) {
+
+                    $resultIngredientSet = $resultIngredientSet->remove($existingIngredient);
+                    $resultIngredientSet = $resultIngredientSet->add(
+                        new Ingredient(
+                            $existingIngredient->name(),
+                            $existingIngredient->amount() + $newIngredient->amount(),
+                            $existingIngredient->unit(),
+                            $existingIngredient->kcal()
+                        )
                     );
+                    $ingredientMerged = true;
                     break;
                 }
             }
 
-            $resultIngredientSet = $resultIngredientSet->add($resultIngredient);
+            if (!$ingredientMerged) {
+                $resultIngredientSet = $resultIngredientSet->add($newIngredient);
+            }
         }
 
         return $resultIngredientSet;
     }
 
-    public
-    function fromId(int $id): ShoppingList
+    public function fromId(int $id): ShoppingList
     {
         $model = $this->shoppingListDao->getById($id);
 
@@ -105,8 +121,28 @@ class ShoppingListFactory
         );
     }
 
-    public
-    function deleteShoppingList(ShoppingList $list)
+    /** @throw ModelNotFoundException */
+    public function deleteItems(ShoppingList $existingList, IngredientsSet $items): ShoppingList
+    {
+        foreach ($items as $item) {
+            $existingList = $this->deleteItem($existingList, $item);
+        }
+
+        return $existingList;
+    }
+
+    /** @throw ModelNotFoundException */
+    public function deleteItem(ShoppingList $existingList, Ingredient $item): ShoppingList
+    {
+        $ingredients = $existingList->ingredients()->remove($item);
+
+        $newList = $this->shoppingListDao->updateIngredients($existingList->id(), $ingredients);
+
+        //TODO: Write a proper fromDao() method
+        return $this->fromId($newList->id());
+    }
+
+    public function deleteShoppingList(ShoppingList $list)
     {
         $this->shoppingListDao->deleteById($list->id());
     }

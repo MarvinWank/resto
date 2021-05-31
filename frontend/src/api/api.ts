@@ -80,6 +80,10 @@ class Api {
     addItemsToShoppingList(ingredients: IngredientsSet){
         return this.post("/list/add_items", {ingredients: ingredients})
     }
+
+    removeItemsFromShoppingList(ingredients: IngredientsSet){
+        return this.post("/list/delete_items", {ingredients: ingredients})
+    }
 }
 
 export default new Api();
