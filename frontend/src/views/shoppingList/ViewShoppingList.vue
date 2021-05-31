@@ -70,7 +70,7 @@ export default class ViewShoppingList extends Vue {
         return ingredients;
     }
 
-    displayIngredientData(ingredient: Ingredient) {
+    displayIngredientData(ingredient: Ingredient): string {
         return ingredient.amount + ingredient.unit + ' ' + ingredient.name;
     }
 

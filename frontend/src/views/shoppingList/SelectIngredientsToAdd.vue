@@ -32,9 +32,8 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import api from "@/api/api";
-import {Recipe} from "@/types/recipe";
+import {Ingredient, Recipe} from "@/types/recipe";
 import {Watch} from "vue-property-decorator";
-import {IngredientsSet} from "@/types/value";
 
 @Component
 export default class SelectIngredientsToAdd extends Vue {
@@ -67,10 +66,14 @@ export default class SelectIngredientsToAdd extends Vue {
         const ingredients: Array<string> = [];
 
         this.recipe.ingredients.forEach(ingredient => {
-            ingredients.push(ingredient.name);
+            ingredients.push(this.displayIngredientData(ingredient));
         })
 
         return ingredients;
+    }
+
+    displayIngredientData(ingredient: Ingredient): string {
+        return ingredient.amount + ingredient.unit + ' ' + ingredient.name;
     }
 
     @Watch('allChecked')
@@ -78,7 +81,7 @@ export default class SelectIngredientsToAdd extends Vue {
 
         if (this.allChecked) {
             this.recipe.ingredients.forEach(ingredient => {
-                this.checkedIngredients.push(ingredient.amount + ingredient.unit + ' ' + ingredient.name);
+                this.checkedIngredients.push(this.displayIngredientData(ingredient));
             })
         } else {
             this.checkedIngredients = [];
