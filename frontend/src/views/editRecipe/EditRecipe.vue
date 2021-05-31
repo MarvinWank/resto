@@ -14,6 +14,11 @@
                 />
             </div>
 
+
+            <div class="col-12 mb-3">
+                <div class="h3 text-center mt-4">Zutaten</div>
+            </div>
+
             <div v-for="(ingredient, key) in recipe.ingredients" :key="key" class="col-12">
                 <div class="ingredient-card">
                     <div class="row align-items-center h-100">
@@ -35,7 +40,7 @@
             </div>
 
             <div class="col-12 mt-3">
-                <button class="btn btn-outline-primary btn-block"
+                <button class="btn btn-primary btn-block"
                         @click="showAddIngredientModal = true"
                 >
                     Zutat hinzufügen
@@ -59,11 +64,13 @@
                 />
             </v-easy-dialog>
 
+            <div class="col-12 mb-3">
+                <div class="h3 text-center mt-5">Beschreibung</div>
+            </div>
             <div class="col-12 mt-3">
                 <FormulateInput
                     type="textarea"
                     v-model="description"
-                    label="Beschreibung"
                 />
             </div>
 
