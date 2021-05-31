@@ -4,22 +4,9 @@
             Zutaten
         </div>
 
-        <div v-for="(ingredient, key) in ingredients" :key="key" class="col-12">
-            <div class="ingredient-card">
-                <div class="row align-items-center h-100">
-                    <div class="col-3">
-                        {{ ingredient.amount }} {{ ingredient.unit }}
-                    </div>
-                    <div class="col-6">
-                        {{ ingredient.name }}
-                    </div>
-                    <div class="col-3">
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
+        <EditableIngredientList
+            :ingredients="ingredients"
+        />
 
         <div class="col-12 mt-3">
             <div class="add-ingredient" @click="showModal">
@@ -58,9 +45,11 @@ import AddIngredientModal from "@/views/addRecipe/AddIngredientModal.vue";
 import Component from "vue-class-component";
 import Vue from "vue";
 import {Ingredient, Recipe} from "@/types/recipe";
+import EditableIngredientList from "@/components/EditableIngredientList.vue";
 
 @Component({
     components: {
+        EditableIngredientList,
         AddIngredientModal,
         VEasyDialog
     }

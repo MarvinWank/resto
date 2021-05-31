@@ -167,7 +167,6 @@ export default class EditRecipe extends Vue {
             unit: "g",
             kcal: null
         };
-        this.updateRecipe();
         this.save();
     }
 
