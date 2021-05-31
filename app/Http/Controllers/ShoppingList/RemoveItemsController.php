@@ -9,6 +9,7 @@ use App\Factories\UserFactory;
 use App\Http\Controllers\Controller;
 use App\Value\IngredientsSet;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Log\Logger;
 
@@ -19,7 +20,7 @@ class RemoveItemsController extends Controller
         UserFactory $userFactory,
         ShoppingListFactory $shoppingListFactory,
         Logger $logger
-    )
+    ): JsonResponse
     {
         $ingredients = $request->json('ingredients');
         $ingredients = IngredientsSet::fromArray($ingredients);
