@@ -82,13 +82,25 @@ const mutations: MutationTree<restoState> = {
 
             if (response.status === "error"){
                 state.currentMessage.type = "error";
-                state.currentMessage.text = "Fehler beim Hnzufügen zur Einkaufslist"
+                state.currentMessage.text = "Fehler beim Hnzufügen zur Einkaufsliste"
             }
 
-            state.shoppingList = response.shoppingList;
             state.currentMessage.type = "success";
-            state.currentMessage.text = "Zutaten erfolgreich zur Einkaufslist hinzugefügt"
+            state.currentMessage.text = "Zutaten erfolgreich zur Einkaufsliste hinzugefügt"
+            state.shoppingList = response.shoppingList;
+        });
+    },
+    deleteIngredientsFromShoppingList(state: restoState, IngrediensSet: IngredientsSet){
+        api.removeItemsFromShoppingList(IngrediensSet).then( response => {
 
+            if (response.status === "error"){
+                state.currentMessage.type = "error";
+                state.currentMessage.text = "Fehler beim Entfernen von der Einkaufsliste"
+            }
+
+            state.currentMessage.type = "success";
+            state.currentMessage.text = "Zutaten erfolgreich von der Einkaufslist entfernt"
+            state.shoppingList = response.shoppingList;
         });
     }
 }
