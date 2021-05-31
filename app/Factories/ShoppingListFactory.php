@@ -59,7 +59,10 @@ class ShoppingListFactory
 
             foreach ($existingIngredients as $existingIngredient) {
                 /** @var Ingredient $newIngredient */
-                if ($existingIngredient->name() === $newIngredient->name()) {
+                /** @var Ingredient $existingIngredient */
+                if ($existingIngredient->name() === $newIngredient->name()
+                    && $existingIngredient->unit()->equals($newIngredient->unit())
+                ) {
 
                     $resultIngredientSet = $resultIngredientSet->remove($existingIngredient);
                     $resultIngredientSet = $resultIngredientSet->add(
@@ -75,7 +78,7 @@ class ShoppingListFactory
                 }
             }
 
-            if (!$ingredientMerged){
+            if (!$ingredientMerged) {
                 $resultIngredientSet = $resultIngredientSet->add($newIngredient);
             }
         }
@@ -83,8 +86,7 @@ class ShoppingListFactory
         return $resultIngredientSet;
     }
 
-    public
-    function fromId(int $id): ShoppingList
+    public function fromId(int $id): ShoppingList
     {
         $model = $this->shoppingListDao->getById($id);
 
@@ -119,8 +121,18 @@ class ShoppingListFactory
         );
     }
 
-    public
-    function deleteShoppingList(ShoppingList $list)
+    /** @throw ModelNotFoundException */
+    public function deleteItem(ShoppingList $existingList, Ingredient $item): ShoppingList
+    {
+        $ingredients = $existingList->ingredients()->remove($item);
+
+        $newList = $this->shoppingListDao->updateIngredients($existingList->id(), $ingredients);
+
+        //TODO: Write a proper fromDao() method
+        return $this->fromId($newList->id());
+    }
+
+    public function deleteShoppingList(ShoppingList $list)
     {
         $this->shoppingListDao->deleteById($list->id());
     }

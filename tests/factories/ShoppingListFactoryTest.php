@@ -136,4 +136,17 @@ class ShoppingListFactoryTest extends FactoryTestCase
 
         $this->assertEquals(5, $this->shoppingList->ingredients()->count());
     }
+
+    /** @test */
+    public function it_tests_removing_ingredient()
+    {
+        $list = $this->it_tests_adding_shopping_list();
+        $ingredientToDelete = new Ingredient("Butter", 200, SIUnit::g(), 100);
+        $this->shoppingListFactory->deleteItem($list, $ingredientToDelete);
+
+        $list = $this->shoppingListFactory->fromId($list->id());
+
+        $this->assertEquals(3, $list->ingredients()->count());
+        $this->assertFalse($list->ingredients()->contains($ingredientToDelete));
+    }
 }
