@@ -78,7 +78,7 @@ export default class SelectIngredientsToAdd extends Vue {
 
         if (this.allChecked) {
             this.recipe.ingredients.forEach(ingredient => {
-                this.checkedIngredients.push(ingredient.name);
+                this.checkedIngredients.push(ingredient.amount + ingredient.unit + ' ' + ingredient.name);
             })
         } else {
             this.checkedIngredients = [];

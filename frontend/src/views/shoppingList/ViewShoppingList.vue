@@ -1,8 +1,23 @@
 <template>
 
     <div>
-
         <h3 class="color-grey-darker">Einkaufsliste</h3>
+
+        <div class="row mt-3 mb-4">
+            <div class="col-12 col-md-9">
+                <FormulateInput
+                    v-model="name"
+                    placeholder="Name der Zutat"
+                    type="text"
+                    class="input"
+                />
+            </div>
+            <div class="col-12 col-md-3">
+                <div class="btn btn-primary">
+                    Hinzufügen
+                </div>
+            </div>
+        </div>
 
         <FormulateInput
             v-model="checkedIngredients"
@@ -30,8 +45,8 @@ export default class ViewShoppingList extends Vue {
     get ingredientOptions() {
         const ingredients: Array<string> = [];
 
-        this.$store.getters.shoppingList.ingredients.forEach((ingredient: Ingredient ) => {
-            ingredients.push(ingredient.name);
+        this.$store.getters.shoppingList.ingredients.forEach((ingredient: Ingredient) => {
+            ingredients.push(ingredient.amount + ingredient.unit + ' ' + ingredient.name);
         });
 
         return ingredients;
