@@ -20,6 +20,7 @@
 
 import Vue from "vue";
 import Component from "vue-class-component";
+import {Ingredient} from "@/types/value";
 
 @Component
 export default class ViewShoppingList extends Vue {
@@ -29,7 +30,7 @@ export default class ViewShoppingList extends Vue {
     get ingredientOptions() {
         const ingredients: Array<string> = [];
 
-        this.$store.getters.shoppingList.ingredients.forEach(ingredient => {
+        this.$store.getters.shoppingList.ingredients.forEach((ingredient: Ingredient ) => {
             ingredients.push(ingredient.name);
         });
 
