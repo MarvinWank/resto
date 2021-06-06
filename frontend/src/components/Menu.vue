@@ -1,10 +1,16 @@
 <template>
-    <Slide>
+    <Slide
+        :isOpen="isOpen"
+        @openMenu="handleOpenMenu"
+    >
         <div class="bm-user">
             {{this.user.name}}
         </div>
         <div class="col-12 bm-link link-hover">
             <div @click="showHome()">Startseite</div>
+        </div>
+        <div class="col-12 bm-link link-hover">
+            <div @click="showShoppingList()">Einkaufsliste</div>
         </div>
         <div class="col-12 bm-link link-hover">
             <div @click="showProfile()">Profil</div>
@@ -35,6 +41,8 @@ import {User} from "@/types/user";
 })
 export default class Menu extends Vue {
 
+    isOpen = false;
+
     get user(): User{
         if (this.$store.getters.currentUser !== undefined){
             return this.$store.getters.currentUser;
@@ -47,15 +55,27 @@ export default class Menu extends Vue {
         }
     }
 
+    handleOpenMenu() {
+        this.isOpen = true;
+    }
+
     showHome() {
+        this.isOpen = false;
         router.push({name: "Home"});
     }
 
+    showShoppingList(){
+        this.isOpen = false;
+        router.push({name: "ViewShoppingList"});
+    }
+
     showImprint() {
+        this.isOpen = false;
         router.push({name: "Imprint"});
     }
 
     showProfile() {
+        this.isOpen = false;
         router.push({name: "Profile"})
     }
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid container-lg container-xl" id="message-area">
+    <div class="" id="message-area">
 
         <div v-if="message.text !== ''" :class="classNames">
             {{ message.text }}

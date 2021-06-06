@@ -36,6 +36,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
         // Shopping List
         $router->post('/list/add_items', 'ShoppingList\AddItemsController@addItems');
+        $router->post('/list/delete_items', 'ShoppingList\RemoveItemsController@removeIngredients');
     });
 });
 

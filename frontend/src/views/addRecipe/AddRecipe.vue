@@ -72,6 +72,7 @@ export default class AddRecipe extends Vue {
         }
         this.$store.commit("setCurrentMessage", message)
         this.$store.commit("resetCurrentRecipe");
+        this.$router.push({name: "Home"})
     }
 
 }

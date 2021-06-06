@@ -1,0 +1,50 @@
+.ingredients-select-all{
+
+    margin-top: 2rem;
+
+    .formulate-input-wrapper{
+        display: flex;
+
+        padding-bottom: .7rem;
+        padding-top: .7rem;
+
+        font-size: 1.5rem;
+
+
+        label{
+            color: black;
+            margin-left: .5rem;
+        }
+
+        input[type=checkbox] {
+            transform: scale(1.5);
+        }
+
+    }
+}
+
+.ingredients-list{
+
+    .formulate-input[data-classification=box] .formulate-input-wrapper{
+        display: flex;
+    }
+
+    .formulate-input-group-item{
+        padding-bottom: .7rem;
+        padding-top: .7rem;
+
+        font-size: 3vh;
+
+        border-bottom: 1px solid $olivegreen_lightest;
+
+        label{
+            color: $grey_darker;
+            margin-left: .5rem;
+        }
+
+        input[type=checkbox] {
+            transform: scale(1.5);
+        }
+
+    }
+}

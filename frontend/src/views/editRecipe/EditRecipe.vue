@@ -14,44 +14,26 @@
                 />
             </div>
 
-            <div v-for="(ingredient, key) in recipe.ingredients" :key="key" class="col-12">
-                <div class="ingredient-card">
-                    <div class="row align-items-center h-100">
-                        <div class="col-9">
-                            {{ ingredient.amount }}{{ ingredient.unit }}
-                            {{ ingredient.name }}
-                        </div>
 
-                        <div class="col-3 justify-content-end d-flex align-items-center">
-                            <i class="las la-lg la-pencil-alt mr-2"
-                               @click="editIngredient(ingredient, key)"
-                            ></i>
-                            <i class="las la-lg la-trash-alt"
-                               @click="deleteIngredient(key)"
-                            ></i>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-12 mb-3">
+                <div class="h3 text-center mt-4">Zutaten</div>
             </div>
+
+            <EditableIngredientList
+                :ingredients="recipe.ingredients"
+                @ingredientUpdated="saveIngredient"
+                @ingredientDeleted="deleteIngredient"
+            />
+
 
             <div class="col-12 mt-3">
                 <button class="btn btn-primary btn-block"
-                    @click="showAddIngredientModal = true"
+                        @click="showAddIngredientModal = true"
                 >
                     Zutat hinzufügen
                 </button>
             </div>
 
-
-            <v-easy-dialog v-model="showEditIngredientModal">
-                <EditIngredientModal
-                    :id="ingredientBeingEditedId"
-                    :name="currentIngredient.name"
-                    :amount="currentIngredient.amount"
-                    :unit="currentIngredient.unit"
-                    @addIngredient="saveIngredient"
-                />
-            </v-easy-dialog>
 
             <v-easy-dialog v-model="showAddIngredientModal">
                 <AddIngredientModal
@@ -59,17 +41,19 @@
                 />
             </v-easy-dialog>
 
+            <div class="col-12 mb-3">
+                <div class="h3 text-center mt-5">Beschreibung</div>
+            </div>
             <div class="col-12 mt-3">
                 <FormulateInput
                     type="textarea"
                     v-model="description"
-                    label="Beschreibung"
                 />
             </div>
 
 
             <div class="btn btn-primary btn-block mt-3" style="margin-left: 15px; margin-right: 15px"
-                 @click="save"
+                 @click="finishEditing"
             >
                 Rezept speichern
             </div>
@@ -93,9 +77,12 @@ import VEasyDialog from 'v-easy-dialog'
 import EditIngredientModal from "@/views/editRecipe/EditIngredientModal.vue";
 import AddIngredientModal from "@/views/addRecipe/AddIngredientModal.vue";
 import {currentMessage} from "@/types/app";
+import EditableIngredientList from "@/components/EditableIngredientList.vue";
 
 @Component({
-    components: {AddIngredientModal, EditIngredientModal, SetBasicRecipeData, RestoHeader, VEasyDialog}
+    components: {
+        EditableIngredientList,
+        AddIngredientModal, EditIngredientModal, SetBasicRecipeData, RestoHeader, VEasyDialog}
 })
 export default class EditRecipe extends Vue {
 
@@ -110,7 +97,6 @@ export default class EditRecipe extends Vue {
         description: ""
     };
 
-    ingredientBeingEditedId = -1;
     ingredientBeingEdited: Ingredient = {
         name: "",
         amount: 0,
@@ -118,7 +104,6 @@ export default class EditRecipe extends Vue {
         kcal: null
     }
 
-    showEditIngredientModal = false;
     showAddIngredientModal = false;
 
     @Watch("myRecipe")
@@ -149,23 +134,13 @@ export default class EditRecipe extends Vue {
     }
 
 
-    get currentIngredient(): Ingredient {
-        return this.ingredientBeingEdited;
-    }
-
-    editIngredient(ingredient: Ingredient, id: number) {
-        this.ingredientBeingEdited = ingredient;
-        this.ingredientBeingEditedId = id;
-        this.showEditIngredientModal = true;
-    }
-
     deleteIngredient(key: number) {
         this.recipe.ingredients.splice(key, 1);
         this.updateRecipe();
         this.save();
     }
 
-    addIngredient(ingredient: Ingredient){
+    addIngredient(ingredient: Ingredient) {
         this.showAddIngredientModal = false;
         //Is necessary, because the modal returns a string for whatever reason
         ingredient.amount = Number.parseInt((ingredient.amount.toString()));
@@ -179,7 +154,6 @@ export default class EditRecipe extends Vue {
         const ingredient: Ingredient = data.ingredient;
         const id = data.id;
 
-        this.showEditIngredientModal = false;
         //Is necessary, because the modal returns a string for whatever reason
         ingredient.amount = Number.parseInt((ingredient.amount.toString()));
         const recipe = this.myRecipe;
@@ -193,11 +167,15 @@ export default class EditRecipe extends Vue {
             unit: "g",
             kcal: null
         };
+        this.save();
     }
 
     save() {
         this.$store.commit("saveRecipe");
+    }
 
+    finishEditing() {
+        this.save();
         const message: currentMessage = {
             text: 'Rezept ' + this.recipe.title + ' wurde gespeichert' ,
             type: 'success'

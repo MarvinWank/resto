@@ -8,7 +8,7 @@ export interface restoState {
     isLoggedin: boolean,
     user?: User,
     topRecipes: Array<Recipe>,
-    shoppingList?: ShoppingList
+    shoppingList: ShoppingList
     currentMessage: currentMessage,
 
     recipeCurentlyBeingAdded: Recipe

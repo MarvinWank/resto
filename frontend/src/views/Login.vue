@@ -67,9 +67,10 @@ export default class Login extends Vue {
         setCookie(apiResponse.apiKey);
 
         await this.$store.dispatch('setInitialData', {
+                "apiKey": apiResponse.apiKey,
                 "user": apiResponse.user,
                 "topRecipes": apiResponse.topRecipes,
-                "apiKey": apiResponse.apiKey
+                "shoppingList": apiResponse.shoppingList
             }
         )
     }

@@ -4,10 +4,10 @@ import router from "../router/router";
 import {restoState} from "@/types/store";
 import {setInitialDataPayload} from "@/types/api";
 import {User} from "@/types/user";
-import {Recipe} from "@/types/recipe";
+import {Ingredient, Recipe} from "@/types/recipe";
 import api from "@/api/api";
-import {IngredientsSet} from "@/types/value";
 import {currentMessage} from "@/types/app";
+import {IngredientsSet, ShoppingList} from "@/types/value";
 
 Vue.use(Vuex)
 
@@ -78,7 +78,30 @@ const mutations: MutationTree<restoState> = {
         state.currentMessage.text = '';
     },
     addIngredientToShoppingList(state: restoState, ingredientsSet: IngredientsSet) {
-        return api.addItemsToShoppingList(ingredientsSet);
+        api.addItemsToShoppingList(ingredientsSet).then( response => {
+
+            if (response.status === "error"){
+                state.currentMessage.type = "error";
+                state.currentMessage.text = "Fehler beim Hnzufügen zur Einkaufsliste"
+            }
+
+            state.currentMessage.type = "success";
+            state.currentMessage.text = "Zutaten erfolgreich zur Einkaufsliste hinzugefügt"
+            state.shoppingList = response.shoppingList;
+        });
+    },
+    deleteIngredientsFromShoppingList(state: restoState, IngrediensSet: IngredientsSet){
+        api.removeItemsFromShoppingList(IngrediensSet).then( response => {
+
+            if (response.status === "error"){
+                state.currentMessage.type = "error";
+                state.currentMessage.text = "Fehler beim Entfernen von der Einkaufsliste"
+            }
+
+            state.currentMessage.type = "success";
+            state.currentMessage.text = "Zutaten erfolgreich von der Einkaufslist entfernt"
+            state.shoppingList = response.shoppingList;
+        });
     }
 }
 
@@ -109,6 +132,9 @@ const getters: GetterTree<restoState, any> = {
     },
     topRecipes(state: restoState): Array<Recipe> {
         return state.topRecipes;
+    },
+    shoppingList(state: restoState): ShoppingList {
+        return state.shoppingList
     }
 }
 

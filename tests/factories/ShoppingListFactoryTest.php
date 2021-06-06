@@ -36,7 +36,7 @@ class ShoppingListFactoryTest extends FactoryTestCase
     /** @test */
     public function it_tests_adding_shopping_list(): ShoppingList
     {
-        $shoppingList = $this->shoppingListFactory->addShoppingList(
+        $shoppingList = $this->shoppingListFactory->addItemsToShoppingList(
             $this->testUser,
             $this->generateIngredients()
         );
@@ -44,6 +44,8 @@ class ShoppingListFactoryTest extends FactoryTestCase
         $this->shoppingList = $shoppingListFromDao;
 
         $this->assertEquals($shoppingList, $shoppingListFromDao);
+        $this->assertEquals($shoppingList->ingredients()->toArray(), $shoppingListFromDao->ingredients()->toArray());
+        $this->assertEquals(4, $shoppingList->ingredients()->count());
 
         return $shoppingList;
     }
@@ -90,8 +92,8 @@ class ShoppingListFactoryTest extends FactoryTestCase
         $resultIngredients = $resultList->ingredients()->toArray();
 
         $this->assertCount(4, $resultIngredients);
-        $this->assertEquals("Butter", $resultIngredients[0]['name']);
-        $this->assertEquals(400, $resultIngredients[0]['amount']);
+        $this->assertEquals("Butter", $resultIngredients[3]['name']);
+        $this->assertEquals(400, $resultIngredients[3]['amount']);
     }
 
     /** @test */
@@ -108,5 +110,43 @@ class ShoppingListFactoryTest extends FactoryTestCase
         $this->assertEquals(200, $resultIngredients[0]['amount']);
     }
 
+    /** @test */
+    public function it_tests_adding_ingredients_when_shopping_list_is_empty()
+    {
+        $newIngredientSet = IngredientsSet::fromArray([]);
+        $emptyList = $this->shoppingListFactory->addItemsToShoppingList($this->testUser, $newIngredientSet);
+        $this->assertEquals(0, $emptyList->ingredients()->count());
 
+        $this->it_tests_adding_shopping_list();
+    }
+
+    /** @test */
+    public function it_tests_adding_more_ingredients_than_existing()
+    {
+        $newIngredient = new Ingredient("Safran", 200, SIUnit::g(), 100);
+        $newIngredientSet = IngredientsSet::fromArray([$newIngredient]);
+        $this->shoppingListFactory->addItemsToShoppingList($this->testUser, $newIngredientSet);
+
+        $shoppingList = $this->shoppingListFactory->addItemsToShoppingList(
+            $this->testUser,
+            $this->generateIngredients()
+        );
+        $shoppingListFromDao = $this->shoppingListFactory->fromId($shoppingList->id());
+        $this->shoppingList = $shoppingListFromDao;
+
+        $this->assertEquals(5, $this->shoppingList->ingredients()->count());
+    }
+
+    /** @test */
+    public function it_tests_removing_ingredient()
+    {
+        $list = $this->it_tests_adding_shopping_list();
+        $ingredientToDelete = new Ingredient("Butter", 200, SIUnit::g(), 100);
+        $this->shoppingListFactory->deleteItem($list, $ingredientToDelete);
+
+        $list = $this->shoppingListFactory->fromId($list->id());
+
+        $this->assertEquals(3, $list->ingredients()->count());
+        $this->assertFalse($list->ingredients()->contains($ingredientToDelete));
+    }
 }
