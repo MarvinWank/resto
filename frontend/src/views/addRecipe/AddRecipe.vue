@@ -68,10 +68,11 @@ export default class AddRecipe extends Vue {
 
         const message: currentMessage = {
             type: "success",
-            text: "Rezept erfolgreiche hinzugefügt"
+            text: "Rezept erfolgreich hinzugefügt"
         }
         this.$store.commit("setCurrentMessage", message)
         this.$store.commit("resetCurrentRecipe");
+        this.$router.push({name: "Home"})
     }
 
 }

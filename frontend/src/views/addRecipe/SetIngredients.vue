@@ -4,22 +4,11 @@
             Zutaten
         </div>
 
-        <div v-for="(ingredient, key) in ingredients" :key="key" class="col-12">
-            <div class="ingredient-card">
-                <div class="row align-items-center h-100">
-                    <div class="col-3">
-                        {{ ingredient.amount }} {{ ingredient.unit }}
-                    </div>
-                    <div class="col-6">
-                        {{ ingredient.name }}
-                    </div>
-                    <div class="col-3">
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
+        <EditableIngredientList
+            :ingredients="ingredients"
+            @ingredientUpdated="updateIngredient"
+            @ingredientDeleted="deleteIngredient"
+        />
 
         <div class="col-12 mt-3">
             <div class="add-ingredient" @click="showModal">
@@ -58,9 +47,11 @@ import AddIngredientModal from "@/views/addRecipe/AddIngredientModal.vue";
 import Component from "vue-class-component";
 import Vue from "vue";
 import {Ingredient, Recipe} from "@/types/recipe";
+import EditableIngredientList from "@/components/EditableIngredientList.vue";
 
 @Component({
     components: {
+        EditableIngredientList,
         AddIngredientModal,
         VEasyDialog
     }
@@ -98,6 +89,22 @@ export default class SetIngredients extends Vue {
 
     goBack() {
         this.$emit("goBack", this.ingredients)
+    }
+
+    deleteIngredient(key: number) {
+        const recipe = this.currentRecipe;
+        recipe.ingredients.splice(key, 1);
+
+        this.$store.commit("updateRecipe", recipe);
+    }
+
+    updateIngredient(data: { ingredient: Ingredient; id: number }) {
+        const ingredient: Ingredient = data.ingredient;
+        const id = data.id;
+        const recipe: Recipe = this.currentRecipe;
+
+        recipe.ingredients[id] = ingredient;
+        this.$store.commit("updateRecipe", recipe);
     }
 
     addIngredient(ingredient: Ingredient){
