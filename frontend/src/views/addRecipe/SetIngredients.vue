@@ -6,6 +6,8 @@
 
         <EditableIngredientList
             :ingredients="ingredients"
+            @ingredientUpdated="updateIngredient"
+            @ingredientDeleted="deleteIngredient"
         />
 
         <div class="col-12 mt-3">
@@ -87,6 +89,22 @@ export default class SetIngredients extends Vue {
 
     goBack() {
         this.$emit("goBack", this.ingredients)
+    }
+
+    deleteIngredient(key: number) {
+        const recipe = this.currentRecipe;
+        recipe.ingredients.splice(key, 1);
+
+        this.$store.commit("updateRecipe", recipe);
+    }
+
+    updateIngredient(data: { ingredient: Ingredient; id: number }) {
+        const ingredient: Ingredient = data.ingredient;
+        const id = data.id;
+        const recipe: Recipe = this.currentRecipe;
+
+        recipe.ingredients[id] = ingredient;
+        this.$store.commit("updateRecipe", recipe);
     }
 
     addIngredient(ingredient: Ingredient){
