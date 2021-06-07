@@ -22,6 +22,10 @@
                 <i class="las la-lg la-trash-alt"
                 @click="showDeleteModal = true"
                 ></i>
+                <i class="las la-lg la-list"
+                   @click="addIngredientsToShoppingList"
+                >
+                </i>
             </div>
         </div>
 
@@ -98,8 +102,8 @@ export default class ViewRecipe extends Vue {
         this.$router.push("/recipe/edit/" + this.recipe.id)
     }
 
-    get deleteModalText() {
-        return "Wollen Sie das Rezept '" + this.recipe?.title + "' wirklich löschen?"
+    addIngredientsToShoppingList(){
+        this.$router.push("/list/select/" + this.recipe?.id)
     }
 
     deleteRecipe() {
@@ -107,6 +111,9 @@ export default class ViewRecipe extends Vue {
         api.deleteRecipe(this.recipe?.id);
     }
 
+    get deleteModalText() {
+        return "Wollen Sie das Rezept '" + this.recipe?.title + "' wirklich löschen?"
+    }
 
 }
 </script>
