@@ -1,6 +1,6 @@
 <template>
 
-    <div>
+    <div class="w-100">
 
         <div v-for="(ingredient, key) in ingredients" :key="key" class="col-12">
             <div class="ingredient-card">
