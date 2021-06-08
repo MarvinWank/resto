@@ -90,9 +90,6 @@ class RecipeFactoryTest extends \FactoryTestCase
 
         $recipes = $this->recipeFactory->getTopRecipesForUser($this->testUser, 2);
         $this->assertEquals(2, $recipes->count());
-
-        $allRecipes = $this->recipeFactory->getAllRecipesForUser($this->testUser);
-        $this->assertEquals(3, $allRecipes->count());
     }
 
     /**

@@ -13,6 +13,7 @@ use App\Value\Ingredient;
 use App\Value\IngredientsSet;
 use App\Value\Recipe;
 use App\Value\SIUnit;
+use App\Value\TypeOfDish;
 
 class DeleteRecipeApiTest extends ApiTestCase
 {
@@ -57,6 +58,7 @@ class DeleteRecipeApiTest extends ApiTestCase
             "Test Rezept",
             DietStyle::ALLES(),
             Cuisine::DEUTSCH(),
+            TypeOfDish::HAUPTSPEISE(),
             60,
             90,
             $ingredients,

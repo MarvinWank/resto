@@ -54,7 +54,7 @@ class AddRecipeTestApiTest extends ApiTestCase
 
         $this->assertEquals("ok", $response['status']);
 
-        $this->assertCount(9, $response['recipe']);
+        $this->assertCount(10, $response['recipe']);
         $this->assertEquals("Test Recipe", $response['recipe']['title']);
         $this->assertEquals("ALLES", $response['recipe']['dietStyle']);
         $this->assertEquals("ASIATISCH", $response['recipe']['cuisine']);
