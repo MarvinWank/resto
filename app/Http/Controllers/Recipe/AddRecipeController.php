@@ -11,6 +11,7 @@ use App\Models\State;
 use App\Value\AddRecipeRequestDto;
 use App\Value\Cuisine;
 use App\Value\DietStyle;
+use App\Value\TypeOfDish;
 use Illuminate\Http\Request;
 
 class AddRecipeController extends Controller
@@ -26,6 +27,7 @@ class AddRecipeController extends Controller
             $data->title(),
             DietStyle::fromName($data->dietStyle()),
             Cuisine::fromName($data->cuisine()),
+            TypeOfDish::fromName($data->typeOfDish()),
             $data->timeToCook(),
             $data->totalTime(),
             $data->ingredients(),

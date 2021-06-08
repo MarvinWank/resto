@@ -15,6 +15,7 @@ class AddRecipeRequestDto implements ValueObject
     private string $title;
     private string $dietStyle;
     private string $cuisine;
+    private string $typeOfDish;
     private int $timeToCook;
     private int $totalTime;
     private IngredientsSet $ingredients;
@@ -24,6 +25,7 @@ class AddRecipeRequestDto implements ValueObject
         string $title,
         string $dietStyle,
         string $cuisine,
+        string $typeOfDish,
         int $timeToCook,
         int $totalTime,
         IngredientsSet $ingredients,
@@ -32,6 +34,7 @@ class AddRecipeRequestDto implements ValueObject
         $this->title = $title;
         $this->dietStyle = $dietStyle;
         $this->cuisine = $cuisine;
+        $this->typeOfDish = $typeOfDish;
         $this->timeToCook = $timeToCook;
         $this->totalTime = $totalTime;
         $this->ingredients = $ingredients;
@@ -51,6 +54,11 @@ class AddRecipeRequestDto implements ValueObject
     public function cuisine(): string 
     {
         return $this->cuisine;
+    }
+    
+    public function typeOfDish(): string 
+    {
+        return $this->typeOfDish;
     }
     
     public function timeToCook(): int 
@@ -79,6 +87,7 @@ class AddRecipeRequestDto implements ValueObject
             $title,
             $this->dietStyle,
             $this->cuisine,
+            $this->typeOfDish,
             $this->timeToCook,
             $this->totalTime,
             $this->ingredients,
@@ -92,6 +101,7 @@ class AddRecipeRequestDto implements ValueObject
             $this->title,
             $dietStyle,
             $this->cuisine,
+            $this->typeOfDish,
             $this->timeToCook,
             $this->totalTime,
             $this->ingredients,
@@ -105,6 +115,21 @@ class AddRecipeRequestDto implements ValueObject
             $this->title,
             $this->dietStyle,
             $cuisine,
+            $this->typeOfDish,
+            $this->timeToCook,
+            $this->totalTime,
+            $this->ingredients,
+            $this->description
+        );
+    }
+    
+    public function with_typeOfDish(string $typeOfDish): self 
+    {
+        return new self(
+            $this->title,
+            $this->dietStyle,
+            $this->cuisine,
+            $typeOfDish,
             $this->timeToCook,
             $this->totalTime,
             $this->ingredients,
@@ -118,6 +143,7 @@ class AddRecipeRequestDto implements ValueObject
             $this->title,
             $this->dietStyle,
             $this->cuisine,
+            $this->typeOfDish,
             $timeToCook,
             $this->totalTime,
             $this->ingredients,
@@ -131,6 +157,7 @@ class AddRecipeRequestDto implements ValueObject
             $this->title,
             $this->dietStyle,
             $this->cuisine,
+            $this->typeOfDish,
             $this->timeToCook,
             $totalTime,
             $this->ingredients,
@@ -144,6 +171,7 @@ class AddRecipeRequestDto implements ValueObject
             $this->title,
             $this->dietStyle,
             $this->cuisine,
+            $this->typeOfDish,
             $this->timeToCook,
             $this->totalTime,
             $ingredients,
@@ -157,6 +185,7 @@ class AddRecipeRequestDto implements ValueObject
             $this->title,
             $this->dietStyle,
             $this->cuisine,
+            $this->typeOfDish,
             $this->timeToCook,
             $this->totalTime,
             $this->ingredients,
@@ -170,6 +199,7 @@ class AddRecipeRequestDto implements ValueObject
             'title' => $this->title,
             'dietStyle' => $this->dietStyle,
             'cuisine' => $this->cuisine,
+            'typeOfDish' => $this->typeOfDish,
             'timeToCook' => $this->timeToCook,
             'totalTime' => $this->totalTime,
             'ingredients' =>  $this->valueToArray($this->ingredients),
@@ -189,6 +219,10 @@ class AddRecipeRequestDto implements ValueObject
         
         if (!array_key_exists('cuisine', $array)) {
             throw new UnexpectedValueException('Array key cuisine does not exist');
+        }
+        
+        if (!array_key_exists('typeOfDish', $array)) {
+            throw new UnexpectedValueException('Array key typeOfDish does not exist');
         }
         
         if (!array_key_exists('timeToCook', $array)) {
@@ -218,6 +252,7 @@ class AddRecipeRequestDto implements ValueObject
             $array['title'],
             $array['dietStyle'],
             $array['cuisine'],
+            $array['typeOfDish'],
             $array['timeToCook'],
             $array['totalTime'],
             $array['ingredients'],

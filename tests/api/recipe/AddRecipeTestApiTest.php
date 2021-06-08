@@ -36,6 +36,7 @@ class AddRecipeTestApiTest extends ApiTestCase
                 "title" => "Test Recipe",
                 "dietStyle" => "ALLES",
                 "cuisine" => "ASIATISCH",
+                "typeOfDish" => "HAUPTSPEISE",
                 "timeToCook" => 60,
                 "totalTime" => 90,
                 "ingredients" => [
@@ -50,10 +51,14 @@ class AddRecipeTestApiTest extends ApiTestCase
         $response = $this->apiPost("/recipes/add", $body);
 
 
+
         $this->assertEquals("ok", $response['status']);
+
+        $this->assertCount(9, $response['recipe']);
         $this->assertEquals("Test Recipe", $response['recipe']['title']);
         $this->assertEquals("ALLES", $response['recipe']['dietStyle']);
         $this->assertEquals("ASIATISCH", $response['recipe']['cuisine']);
+        $this->assertEquals("HAUPTSPEISE", $response['recipe']['typeOfDish']);
         $this->assertEquals(60, $response['recipe']['timeToCook']);
         $this->assertEquals(90, $response['recipe']['totalTime']);
         $this->assertEquals(["name" => "Milch", "amount" => 200, "unit" => "g", "kcal" => 400], $response['recipe']['ingredients'][0]);

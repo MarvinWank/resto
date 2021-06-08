@@ -7,6 +7,7 @@ use App\Value\DietStyle;
 use App\Value\Ingredient;
 use App\Value\IngredientsSet;
 use App\Value\SIUnit;
+use App\Value\TypeOfDish;
 
 class FactoryTestCase extends TestCase
 {
@@ -29,6 +30,7 @@ class FactoryTestCase extends TestCase
             "Test Rezept",
             DietStyle::ALLES(),
             Cuisine::DEUTSCH(),
+            TypeOfDish::HAUPTSPEISE(),
             60,
             90,
             $ingredients,
@@ -39,6 +41,7 @@ class FactoryTestCase extends TestCase
             "Test Rezept 2",
             DietStyle::VEGAN(),
             Cuisine::ASIATISCH(),
+            TypeOfDish::VORSPEISE(),
             60,
             90,
             $ingredients,
@@ -49,6 +52,7 @@ class FactoryTestCase extends TestCase
             "Test Rezept 2",
             DietStyle::VEGAN(),
             Cuisine::ASIATISCH(),
+            TypeOfDish::NACHSPEISE(),
             60,
             90,
             $ingredients,
@@ -59,6 +63,7 @@ class FactoryTestCase extends TestCase
             "Sayt Test Recipe",
             DietStyle::VEGAN(),
             Cuisine::ASIATISCH(),
+            TypeOfDish::NACHSPEISE(),
             60,
             90,
             $ingredients,

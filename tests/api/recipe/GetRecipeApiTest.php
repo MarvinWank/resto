@@ -33,6 +33,7 @@ class GetRecipeApiTest extends ApiTestCase
                 "title" => "Test Recipe",
                 "dietStyle" => "ALLES",
                 "cuisine" => "ASIATISCH",
+                "typeOfDish" => "NACHSPEISE",
                 "timeToCook" => 60,
                 "totalTime" => 90,
                 "ingredients" => [
@@ -69,6 +70,7 @@ class GetRecipeApiTest extends ApiTestCase
                 "title" => "Test Recipe",
                 "dietStyle" => "ALLES",
                 "cuisine" => "ASIATISCH",
+                "typeOfDish" => "HAUPTSPEISE",
                 "timeToCook" => 60,
                 "totalTime" => 90,
                 "ingredients" => [
@@ -104,6 +106,7 @@ class GetRecipeApiTest extends ApiTestCase
                 "title" => "Test Recipe",
                 "dietStyle" => "ALLES",
                 "cuisine" => "ASIATISCH",
+                "typeOfDish" => "HAUPTSPEISE",
                 "timeToCook" => 60,
                 "totalTime" => 90,
                 "ingredients" => [

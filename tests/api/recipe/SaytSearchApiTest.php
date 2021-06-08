@@ -18,6 +18,7 @@ class SaytSearchApiTest extends \ApiTestCase
                 "title" => "Test Recipe",
                 "dietStyle" => "ALLES",
                 "cuisine" => "ASIATISCH",
+                "typeOfDish" => "HAUPTSPEISE",
                 "timeToCook" => 60,
                 "totalTime" => 90,
                 "ingredients" => [

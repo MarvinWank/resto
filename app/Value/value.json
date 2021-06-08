@@ -28,6 +28,7 @@
                 "title": "string",
                 "dietStyle": "string",
                 "cuisine": "string",
+                "typeOfDish": "string",
                 "timeToCook": "int",
                 "totalTime": "int",
                 "ingredients": "IngredientsSet",

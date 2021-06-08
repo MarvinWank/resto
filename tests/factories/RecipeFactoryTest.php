@@ -13,6 +13,7 @@ use App\Value\Ingredient;
 use App\Value\IngredientsSet;
 use App\Value\Recipe;
 use App\Value\SIUnit;
+use App\Value\TypeOfDish;
 
 class RecipeFactoryTest extends \FactoryTestCase
 {
@@ -47,6 +48,7 @@ class RecipeFactoryTest extends \FactoryTestCase
             "Test Rezept",
             DietStyle::ALLES(),
             Cuisine::DEUTSCH(),
+            TypeOfDish::HAUPTSPEISE(),
             60,
             90,
             $ingredients,
@@ -57,6 +59,7 @@ class RecipeFactoryTest extends \FactoryTestCase
         $this->assertEquals("Test Rezept", $recipe->title());
         $this->assertTrue(DietStyle::ALLES()->equals($recipe->dietStyle()));
         $this->assertTrue(Cuisine::DEUTSCH()->equals($recipe->cuisine()));
+        $this->assertTrue(TypeOfDish::HAUPTSPEISE()->equals($recipe->typeOfDish()));
         $this->assertEquals(60, $recipe->timeToCook());
         $this->assertEquals(90, $recipe->totalTime());
         $this->assertEquals(["name" => "Butter", "amount" => 200.0, "unit" => "g", "kcal" => 100], $recipe->ingredients()->toArray()[0]);

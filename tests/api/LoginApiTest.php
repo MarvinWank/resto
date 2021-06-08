@@ -15,6 +15,7 @@ use App\Value\Recipe;
 use App\Value\RecipeSet;
 use App\Value\ShoppingList;
 use App\Value\SIUnit;
+use App\Value\TypeOfDish;
 
 class LoginApiTest extends \ApiTestCase
 {
@@ -70,6 +71,7 @@ class LoginApiTest extends \ApiTestCase
             "Test Rezept",
             DietStyle::ALLES(),
             Cuisine::DEUTSCH(),
+            TypeOfDish::HAUPTSPEISE(),
             60,
             90,
             $ingredients,
