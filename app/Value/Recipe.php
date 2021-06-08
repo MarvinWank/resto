@@ -17,6 +17,7 @@ class Recipe implements ValueObject
     private User $author;
     private DietStyle $dietStyle;
     private Cuisine $cuisine;
+    private TypeOfDish $typeOfDish;
     private int $timeToCook;
     private int $totalTime;
     private IngredientsSet $ingredients;
@@ -28,6 +29,7 @@ class Recipe implements ValueObject
         User $author,
         DietStyle $dietStyle,
         Cuisine $cuisine,
+        TypeOfDish $typeOfDish,
         int $timeToCook,
         int $totalTime,
         IngredientsSet $ingredients,
@@ -38,6 +40,7 @@ class Recipe implements ValueObject
         $this->author = $author;
         $this->dietStyle = $dietStyle;
         $this->cuisine = $cuisine;
+        $this->typeOfDish = $typeOfDish;
         $this->timeToCook = $timeToCook;
         $this->totalTime = $totalTime;
         $this->ingredients = $ingredients;
@@ -69,6 +72,11 @@ class Recipe implements ValueObject
         return $this->cuisine;
     }
     
+    public function typeOfDish(): TypeOfDish 
+    {
+        return $this->typeOfDish;
+    }
+    
     public function timeToCook(): int 
     {
         return $this->timeToCook;
@@ -97,6 +105,7 @@ class Recipe implements ValueObject
             $this->author,
             $this->dietStyle,
             $this->cuisine,
+            $this->typeOfDish,
             $this->timeToCook,
             $this->totalTime,
             $this->ingredients,
@@ -112,6 +121,7 @@ class Recipe implements ValueObject
             $this->author,
             $this->dietStyle,
             $this->cuisine,
+            $this->typeOfDish,
             $this->timeToCook,
             $this->totalTime,
             $this->ingredients,
@@ -127,6 +137,7 @@ class Recipe implements ValueObject
             $author,
             $this->dietStyle,
             $this->cuisine,
+            $this->typeOfDish,
             $this->timeToCook,
             $this->totalTime,
             $this->ingredients,
@@ -142,6 +153,7 @@ class Recipe implements ValueObject
             $this->author,
             $dietStyle,
             $this->cuisine,
+            $this->typeOfDish,
             $this->timeToCook,
             $this->totalTime,
             $this->ingredients,
@@ -157,6 +169,23 @@ class Recipe implements ValueObject
             $this->author,
             $this->dietStyle,
             $cuisine,
+            $this->typeOfDish,
+            $this->timeToCook,
+            $this->totalTime,
+            $this->ingredients,
+            $this->description
+        );
+    }
+    
+    public function with_typeOfDish(TypeOfDish $typeOfDish): self 
+    {
+        return new self(
+            $this->id,
+            $this->title,
+            $this->author,
+            $this->dietStyle,
+            $this->cuisine,
+            $typeOfDish,
             $this->timeToCook,
             $this->totalTime,
             $this->ingredients,
@@ -172,6 +201,7 @@ class Recipe implements ValueObject
             $this->author,
             $this->dietStyle,
             $this->cuisine,
+            $this->typeOfDish,
             $timeToCook,
             $this->totalTime,
             $this->ingredients,
@@ -187,6 +217,7 @@ class Recipe implements ValueObject
             $this->author,
             $this->dietStyle,
             $this->cuisine,
+            $this->typeOfDish,
             $this->timeToCook,
             $totalTime,
             $this->ingredients,
@@ -202,6 +233,7 @@ class Recipe implements ValueObject
             $this->author,
             $this->dietStyle,
             $this->cuisine,
+            $this->typeOfDish,
             $this->timeToCook,
             $this->totalTime,
             $ingredients,
@@ -217,6 +249,7 @@ class Recipe implements ValueObject
             $this->author,
             $this->dietStyle,
             $this->cuisine,
+            $this->typeOfDish,
             $this->timeToCook,
             $this->totalTime,
             $this->ingredients,
@@ -232,6 +265,7 @@ class Recipe implements ValueObject
             'author' =>  $this->valueToArray($this->author),
             'dietStyle' =>  $this->valueToArray($this->dietStyle),
             'cuisine' =>  $this->valueToArray($this->cuisine),
+            'typeOfDish' =>  $this->valueToArray($this->typeOfDish),
             'timeToCook' => $this->timeToCook,
             'totalTime' => $this->totalTime,
             'ingredients' =>  $this->valueToArray($this->ingredients),
@@ -282,6 +316,17 @@ class Recipe implements ValueObject
             $array['cuisine'] = Cuisine::fromArray($array['cuisine']);
         }
 
+        if (!array_key_exists('typeOfDish', $array)) {
+            throw new UnexpectedValueException('Array key typeOfDish does not exist');
+        }
+                if (is_string($array['typeOfDish']) && is_a(TypeOfDish::class, Enum::class, true)) {
+            $array['typeOfDish'] = TypeOfDish::fromName($array['typeOfDish']);
+        }
+    
+        if (is_array($array['typeOfDish']) && (is_a(TypeOfDish::class, Set::class, true) || is_a(TypeOfDish::class, ValueObject::class, true))) {
+            $array['typeOfDish'] = TypeOfDish::fromArray($array['typeOfDish']);
+        }
+
         if (!array_key_exists('timeToCook', $array)) {
             throw new UnexpectedValueException('Array key timeToCook does not exist');
         }
@@ -311,6 +356,7 @@ class Recipe implements ValueObject
             $array['author'],
             $array['dietStyle'],
             $array['cuisine'],
+            $array['typeOfDish'],
             $array['timeToCook'],
             $array['totalTime'],
             $array['ingredients'],

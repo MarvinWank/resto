@@ -12,6 +12,7 @@ the correct ownership
 ## Prio 1
 - Floating point values for ingredients
 - number of persons fed by the meal
+- Vorspeise/Hauptspeise/Nachtisch
 
 ## Improvement/Refactoring
 - merge AddIngredientModal.vue and EditIngredientModal.vue

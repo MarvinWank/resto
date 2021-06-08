@@ -8,6 +8,7 @@ use App\Daos\RecipeDao;
 use App\Exceptions\RecipeNotFoundException;
 use App\Value\IngredientsSet;
 use App\Value\RecipeSet;
+use App\Value\TypeOfDish;
 use App\Value\User;
 use App\Value\Cuisine;
 use App\Value\DietStyle;
@@ -35,6 +36,7 @@ class RecipeFactory
         string $title,
         DietStyle $diet_style,
         Cuisine $cuisine,
+        TypeOfDish $type,
         int $timeToCook,
         int $totalTime,
         IngredientsSet $ingredients,
@@ -42,7 +44,7 @@ class RecipeFactory
 
     ): Recipe
     {
-        $recipe = new Recipe(-1, $title, $author, $diet_style, $cuisine, $timeToCook, $totalTime, $ingredients, $description);
+        $recipe = new Recipe(-1, $title, $author, $diet_style, $cuisine, $type, $timeToCook, $totalTime, $ingredients, $description);
         $id = $this->recipeDao->add($recipe);
 
         return $this->fromId($id);
@@ -79,6 +81,7 @@ class RecipeFactory
             $this->userFactory->fromId($daoRecipe->getAttribute(RecipeDao::PROPERTY_AUTHOR_ID)),
             DietStyle::fromName($daoRecipe->getAttribute(RecipeDao::PROPERTY_DIET_STYLE)),
             Cuisine::fromName($daoRecipe->getAttribute(RecipeDao::PROPERTY_CUISINE)),
+            TypeOfDish::fromName($daoRecipe->getAttribute(RecipeDao::PROPERTY_TYPE_OF_DISH)),
             $daoRecipe->getAttribute(RecipeDao::PROPERTY_TIME_TO_COOK),
             $daoRecipe->getAttribute(RecipeDao::PROPERTY_TOTAL_TIME),
             IngredientsSet::fromArray(\Safe\json_decode($daoRecipe->getAttribute(RecipeDao::PROPERTY_INGREDIENTS), true)),

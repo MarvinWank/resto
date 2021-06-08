@@ -43,6 +43,7 @@
                 "author": "User",
                 "dietStyle": "DietStyle",
                 "cuisine": "Cuisine",
+                "typeOfDish": "TypeOfDish",
                 "timeToCook": "int",
                 "totalTime": "int",
                 "ingredients": "IngredientsSet",
@@ -101,6 +102,15 @@
                 "id": "?int",
                 "userId": "int",
                 "ingredients": "IngredientsSet"
+            }
+        },
+        {
+            "type": "enum",
+            "name": "TypeOfDish",
+            "values": {
+                "VORSPEISE": "Vorspeise",
+                "HAUPTSPEISE": "Hauptspeise",
+                "NACHSPEISE": "Nachspeise"
             }
         }
     ]
