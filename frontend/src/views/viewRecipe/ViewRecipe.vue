@@ -67,6 +67,7 @@ import {Recipe} from "@/types/recipe";
 import api from "@/api/api";
 import RestoHeader from "@/components/RestoHeader.vue";
 import YesNoModal from "@/components/YesNoModal.vue";
+import {TypeOfDish} from "@/types/value";
 
 @Component({
     components: {
@@ -80,6 +81,7 @@ export default class ViewRecipe extends Vue {
         id: -1,
         cuisine: "deutsch",
         dietStyle: "alles",
+        typeOfDish: TypeOfDish.HAUPTSPEISE,
         ingredients: [],
         timeToCook: 0,
         totalTime: 0,

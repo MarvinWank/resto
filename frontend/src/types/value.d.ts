@@ -16,6 +16,7 @@ export interface AddRecipeRequestDto {
 	title: string
 	dietStyle: string
 	cuisine: string
+	typeOfDish: string
 	timeToCook: number
 	totalTime: number
 	ingredients: IngredientsSet
@@ -28,6 +29,7 @@ export interface Recipe {
 	author: User
 	dietStyle: DietStyle
 	cuisine: Cuisine
+	typeOfDish: TypeOfDish
 	timeToCook: number
 	totalTime: number
 	ingredients: IngredientsSet
@@ -65,5 +67,11 @@ export interface ShoppingList {
 	id?: number
 	userId: number
 	ingredients: IngredientsSet
+}
+
+export enum TypeOfDish {
+	VORSPEISE = 'Vorspeise',
+	HAUPTSPEISE = 'Hauptspeise',
+	NACHSPEISE = 'Nachspeise',
 }
 

@@ -4,10 +4,10 @@ import router from "../router/router";
 import {restoState} from "@/types/store";
 import {setInitialDataPayload} from "@/types/api";
 import {User} from "@/types/user";
-import {Ingredient, Recipe} from "@/types/recipe";
+import {Recipe} from "@/types/recipe";
 import api from "@/api/api";
 import {currentMessage} from "@/types/app";
-import {IngredientsSet, ShoppingList} from "@/types/value";
+import {IngredientsSet, ShoppingList, TypeOfDish} from "@/types/value";
 
 Vue.use(Vuex)
 
@@ -25,6 +25,7 @@ const state: restoState = {
         id: -1,
         cuisine: "deutsch",
         dietStyle: "alles",
+        typeOfDish: TypeOfDish.HAUPTSPEISE,
         ingredients: [],
         timeToCook: 0,
         totalTime: 0,
@@ -64,6 +65,7 @@ const mutations: MutationTree<restoState> = {
             id: -1,
             cuisine: "deutsch",
             dietStyle: "alles",
+            typeOfDish: TypeOfDish.HAUPTSPEISE,
             ingredients: [],
             timeToCook: 0,
             totalTime: 0,
