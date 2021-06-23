@@ -12,7 +12,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class RecipeDao extends Model
+class RecipeDao extends Dao
 {
     public const PROPERTY_ID = 'id';
     public const PROPERTY_AUTHOR_ID = 'author';
@@ -30,82 +30,48 @@ class RecipeDao extends Model
 
     /**
      * @throws \Safe\Exceptions\JsonException
+     * @throws \Throwable
      */
-    public function add(Recipe $recipe): int
+    public function add(Recipe $recipe): self
     {
-        return $this->newQuery()->insertGetId([
-            self::PROPERTY_AUTHOR_ID => $recipe->author()->id(),
-            self::PROPERTY_TITLE => $recipe->title(),
-            self::PROPERTY_DIET_STYLE => $recipe->dietStyle()->name(),
-            self::PROPERTY_CUISINE => $recipe->cuisine()->name(),
-            self::PROPERTY_TYPE_OF_DISH => $recipe->typeOfDish()->name(),
-            self::PROPERTY_TIME_TO_COOK => $recipe->timeToCook(),
-            self::PROPERTY_TOTAL_TIME => $recipe->totalTime(),
-            self::PROPERTY_INGREDIENTS => \Safe\json_encode($recipe->ingredients()->toArray()),
-            self::PROPERTY_DESCRIPTION => $recipe->description()
-        ]);
+        $this->setAttribute(self::PROPERTY_AUTHOR_ID, $recipe->author()->id());
+        $this->setAttribute(self::PROPERTY_TITLE, $recipe->title());
+        $this->setAttribute(self::PROPERTY_DIET_STYLE, $recipe->dietStyle()->name());
+        $this->setAttribute(self::PROPERTY_CUISINE, $recipe->cuisine()->name());
+        $this->setAttribute(self::PROPERTY_TYPE_OF_DISH, $recipe->typeOfDish()->name());
+        $this->setAttribute(self::PROPERTY_TIME_TO_COOK, $recipe->timeToCook());
+        $this->setAttribute(self::PROPERTY_TOTAL_TIME, $recipe->totalTime());
+        $this->setAttribute(self::PROPERTY_INGREDIENTS, \Safe\json_encode($recipe->ingredients()->toArray()));
+        $this->setAttribute(self::PROPERTY_DESCRIPTION, $recipe->description());
+
+        $this->saveOrFail();
+
+        return $this;
     }
 
-    public function deleteForUser(User $user)
+    /**
+     * @throws \Throwable
+     * @throws RecipeNotFoundException
+     */
+    public function updateRecipe(Recipe $recipe): self
     {
-        $this->newQuery()
-            ->where(self::PROPERTY_AUTHOR_ID, "=", $user->id())
-            ->delete();
+        $ingredients = \Safe\json_encode($recipe->ingredients()->toArray());
+
+        $this->setAttribute(self::PROPERTY_AUTHOR_ID, $recipe->author()->id());
+        $this->setAttribute(self::PROPERTY_TITLE, $recipe->title());
+        $this->setAttribute(self::PROPERTY_DIET_STYLE, $recipe->dietStyle()->toString());
+        $this->setAttribute(self::PROPERTY_CUISINE, $recipe->cuisine()->toString());
+        $this->setAttribute(self::PROPERTY_TYPE_OF_DISH, $recipe->typeOfDish()->name());
+        $this->setAttribute(self::PROPERTY_TIME_TO_COOK, $recipe->timeToCook());
+        $this->setAttribute(self::PROPERTY_TOTAL_TIME, $recipe->totalTime());
+        $this->setAttribute(self::PROPERTY_INGREDIENTS, $ingredients);
+        $this->setAttribute(self::PROPERTY_DESCRIPTION, $recipe->description());
+
+        $this->saveOrFail();
+
+        return $this;
     }
 
-    public function getForUser(User $user): Collection
-    {
-        return $this->newQuery()
-            ->where(self::PROPERTY_AUTHOR_ID, '=', $user->id())
-            ->get();
-    }
 
-    public function getTopRecipesForUser(User $user, int $limit = -1): Collection
-    {
-        $query = $this->newQuery();
-        $query = $this->onlyGetAllowedRecipesForUser($query, $user);
-        if ($limit !== -1) {
-            $query->limit($limit);
-        }
 
-        return $query->get();
-    }
-
-    public function updateRecipe(Recipe $recipe)
-    {
-        try {
-            $currentRecipe = $this->newQuery()->findOrFail($recipe->id());
-        } catch (ModelNotFoundException $exception) {
-            throw RecipeNotFoundException::recipeNotFound($recipe->id());
-        }
-
-        $currentRecipe->setAttribute(self::PROPERTY_AUTHOR_ID, $recipe->author()->id());
-        $currentRecipe->setAttribute(self::PROPERTY_TITLE, $recipe->title());
-        $currentRecipe->setAttribute(self::PROPERTY_DIET_STYLE, $recipe->dietStyle()->toString());
-        $currentRecipe->setAttribute(self::PROPERTY_CUISINE, $recipe->cuisine()->toString());
-        $currentRecipe->setAttribute(self::PROPERTY_TYPE_OF_DISH, $recipe->typeOfDish()->name());
-        $currentRecipe->setAttribute(self::PROPERTY_TIME_TO_COOK, $recipe->timeToCook());
-        $currentRecipe->setAttribute(self::PROPERTY_TOTAL_TIME, $recipe->totalTime());
-        $currentRecipe->setAttribute(self::PROPERTY_INGREDIENTS, $recipe->ingredients()->toArray());
-        $currentRecipe->setAttribute(self::PROPERTY_DESCRIPTION, $recipe->description());
-
-        $currentRecipe->save();
-    }
-
-    public function getRecipesForSaytSearch(string $searchString, User $user, int $limit): Collection
-    {
-        $query = $this->newQuery();
-        $query = $this->onlyGetAllowedRecipesForUser($query, $user);
-        return $query
-            ->where(self::PROPERTY_TITLE, 'LIKE', "%" . $searchString . "%")
-            ->limit($limit)
-            ->get();
-    }
-
-    private function onlyGetAllowedRecipesForUser(Builder $query, User $user): Builder
-    {
-        //TODO this is incomplete
-        return $query
-            ->where(self::PROPERTY_AUTHOR_ID, "=", $user->id());
-    }
 }

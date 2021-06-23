@@ -14,22 +14,26 @@ use App\Value\Cuisine;
 use App\Value\DietStyle;
 use App\Value\Recipe;
 use Exception;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Safe\Exceptions\JsonException;
 
 class RecipeFactory
 {
 
-    private RecipeDao $recipeDao;
     private UserFactory $userFactory;
 
-    public function __construct(RecipeDao $recipeDao, UserFactory $userFactory)
+    public function __construct(UserFactory $userFactory)
     {
-        $this->recipeDao = $recipeDao;
         $this->userFactory = $userFactory;
     }
 
+    /**
+     * @throws \Throwable
+     * @throws JsonException
+     */
     public function addRecipe
     (
         User $author,
@@ -45,48 +49,65 @@ class RecipeFactory
     ): Recipe
     {
         $recipe = new Recipe(-1, $title, $author, $diet_style, $cuisine, $type, $timeToCook, $totalTime, $ingredients, $description);
-        $id = $this->recipeDao->add($recipe);
+        $dao = new RecipeDao();
+        $dao = $dao->add($recipe);
 
-        return $this->fromId($id);
+        return $this->fromDao($dao);
     }
 
     public function getAllRecipesForUser(User $user): RecipeSet
     {
-        $results = $this->recipeDao->getForUser($user);
+        $dao = new RecipeDao();
+        $results = $dao->where(RecipeDao::PROPERTY_AUTHOR_ID, '=',$user->id())->get();
         return $this->collectionToSet($results);
     }
 
     public function getTopRecipesForUser(User $user, int $limit = 3): RecipeSet
     {
-        $results = $this->recipeDao->getTopRecipesForUser($user, $limit);
+        $dao = new RecipeDao();
+        $results = $dao->where(RecipeDao::PROPERTY_AUTHOR_ID, '=',$user->id())
+            ->limit($limit)
+            ->get()
+        ;
         return $this->collectionToSet($results);
     }
 
     /**
+     * @throws JsonException
+     */
+    public function fromDao(RecipeDao $dao): Recipe
+    {
+        $ingredients = IngredientsSet::fromArray(
+            \Safe\json_decode($dao->getAttribute(RecipeDao::PROPERTY_INGREDIENTS), true)
+        );
+        return new Recipe(
+            $dao->getAttribute(RecipeDao::PROPERTY_ID),
+            $dao->getAttribute(RecipeDao::PROPERTY_TITLE),
+            $this->userFactory->fromId($dao->getAttribute(RecipeDao::PROPERTY_AUTHOR_ID)),
+            DietStyle::fromName($dao->getAttribute(RecipeDao::PROPERTY_DIET_STYLE)),
+            Cuisine::fromName($dao->getAttribute(RecipeDao::PROPERTY_CUISINE)),
+            TypeOfDish::fromName($dao->getAttribute(RecipeDao::PROPERTY_TYPE_OF_DISH)),
+            $dao->getAttribute(RecipeDao::PROPERTY_TIME_TO_COOK),
+            $dao->getAttribute(RecipeDao::PROPERTY_TOTAL_TIME),
+            $ingredients,
+            $dao->getAttribute(RecipeDao::PROPERTY_DESCRIPTION)
+        );
+    }
+
+    /**
      * @throws RecipeNotFoundException
-     * @throws \Safe\Exceptions\JsonException
+     * @throws JsonException
      */
     public function fromId(int $id): Recipe
     {
         try {
-            /** @var Model $daoRecipe */
-            $daoRecipe = $this->recipeDao->newQuery()->findOrFail($id);
+            $dao = new RecipeDao();
+            $dao = $dao->findOrFail($id);
         } catch (ModelNotFoundException $exception) {
             throw RecipeNotFoundException::recipeNotFound($id);
         }
 
-        return new Recipe(
-            $id,
-            $daoRecipe->getAttribute(RecipeDao::PROPERTY_TITLE),
-            $this->userFactory->fromId($daoRecipe->getAttribute(RecipeDao::PROPERTY_AUTHOR_ID)),
-            DietStyle::fromName($daoRecipe->getAttribute(RecipeDao::PROPERTY_DIET_STYLE)),
-            Cuisine::fromName($daoRecipe->getAttribute(RecipeDao::PROPERTY_CUISINE)),
-            TypeOfDish::fromName($daoRecipe->getAttribute(RecipeDao::PROPERTY_TYPE_OF_DISH)),
-            $daoRecipe->getAttribute(RecipeDao::PROPERTY_TIME_TO_COOK),
-            $daoRecipe->getAttribute(RecipeDao::PROPERTY_TOTAL_TIME),
-            IngredientsSet::fromArray(\Safe\json_decode($daoRecipe->getAttribute(RecipeDao::PROPERTY_INGREDIENTS), true)),
-            $daoRecipe->getAttribute(RecipeDao::PROPERTY_DESCRIPTION)
-        );
+        return $this->fromDao($dao);
     }
 
     /**
@@ -94,7 +115,14 @@ class RecipeFactory
      */
     public function delete(int $id)
     {
-        RecipeDao::query()->find($id)->delete();
+        $dao = new RecipeDao();
+        $dao->findOrFail($id)->delete();
+    }
+
+    public function deleteForUser(User $user)
+    {
+        $dao = new RecipeDao();
+        $results = $dao->where(RecipeDao::PROPERTY_AUTHOR_ID, '=', $user->id())->delete();
     }
 
     /**
@@ -102,14 +130,31 @@ class RecipeFactory
      */
     public function update(Recipe $updatedRecipe, int $id): Recipe
     {
-        $this->recipeDao->updateRecipe($updatedRecipe);
-        return $this->fromId($id);
+        $dao = new RecipeDao();
+        $dao = $dao->findOrFail($id);
+        $dao = $dao->updateRecipe($updatedRecipe);
+
+        return $this->fromDao($dao);
     }
 
-    public function getRecipesForSaytSearch(string $searchString, User $user, int $limit): RecipeSet
+    public function getRecipesForSaytSearch(string $searchString, User $user, int $limit = 5): RecipeSet
     {
-        $collection = $this->recipeDao->getRecipesForSaytSearch($searchString, $user, $limit);
-        return $this->collectionToSet($collection);
+        $dao = new RecipeDao();
+        $query = $dao->newQuery();
+        $query = $this->onlyGetAllowedRecipesForUser($query, $user);
+        $results =  $query
+            ->where(RecipeDao::PROPERTY_TITLE, 'LIKE', "%" . $searchString . "%")
+            ->limit($limit)
+            ->get();
+
+        return $this->collectionToSet($results);
+    }
+
+    private function onlyGetAllowedRecipesForUser(Builder $query, User $user): Builder
+    {
+        //TODO this is incomplete
+        return $query
+            ->where(RecipeDao::PROPERTY_AUTHOR_ID, "=", $user->id());
     }
 
     private function collectionToSet(Collection $collection): RecipeSet
