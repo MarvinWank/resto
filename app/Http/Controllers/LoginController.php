@@ -28,7 +28,7 @@ class LoginController extends Controller
         $user = $this->userFactory->fromAuth($email, $password);
 
         if ($user === null) {
-            return response()->json(["status" => "fehler"]);
+            return $this->responseWithError("Login unsuccessful");
         }
 
         $recipes = $recipeFactory->getTopRecipesForUser($user, 5);

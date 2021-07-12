@@ -2,18 +2,25 @@
 
 use App\Factories\UserFactory;
 use App\Value\User;
-use Laravel\Lumen\Testing\DatabaseMigrations;
+use Laravel\Lumen\Testing\DatabaseTransactions;
 use Laravel\Lumen\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-    use DatabaseMigrations;
+    use DatabaseTransactions;
 
     /** @var UserFactory $userFactory */
     private $userFactory;
     public function setUp(): void
     {
         parent::setUp();
+        touch("testsRunning");
+    }
+
+    public function tearDown(): void
+    {
+        unlink("testsRunning");
+        parent::tearDown();
     }
 
     /**

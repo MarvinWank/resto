@@ -39,7 +39,8 @@ class UserFactory
     {
         $dao = new UsersDao();
         try {
-            $dao_user = $dao->where(UsersDao::PROPERTY_EMAIL, '=', $email)->firstOrFail();
+            $dao_user = $dao->where(UsersDao::PROPERTY_EMAIL, '=', $email);
+            $dao_user = $dao_user->firstOrFail();
         } catch (\Throwable $exception) {
             //Email existiert nicht
             return null;
@@ -64,8 +65,8 @@ class UserFactory
         $usersDao->setAttribute(UsersDao::PROPERTY_NAME, $name);
         $usersDao->setAttribute(UsersDao::PROPERTY_EMAIL, $email);
         $usersDao->setAttribute(UsersDao::PROPERTY_PASSWORD, $pasword);
-        $usersDao->saveOrFail();
 
+        $usersDao->saveOrFail();
         return $this->fromDao($usersDao);
     }
 
