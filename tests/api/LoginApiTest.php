@@ -34,8 +34,7 @@ class LoginApiTest extends \ApiTestCase
     public function tearDown(): void
     {
         /** @var RecipeDao $recipeDao */
-        $recipeDao = app(RecipeDao::class);
-        $recipeDao->deleteForUser($this->testUser);
+        $this->recipeFactory->deleteForUser($this->testUser);
         parent::tearDown();
     }
 

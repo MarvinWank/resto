@@ -6,6 +6,7 @@ namespace api\recipe;
 
 use ApiTestCase;
 use App\Daos\RecipeDao;
+use App\Factories\RecipeFactory;
 use App\Value\Recipe;
 
 class GetRecipeApiTest extends ApiTestCase
@@ -18,9 +19,9 @@ class GetRecipeApiTest extends ApiTestCase
 
     public function tearDown(): void
     {
-        /** @var RecipeDao $recipeDao */
-        $recipeDao = app(RecipeDao::class);
-        $recipeDao->deleteForUser($this->testUser);
+        /** @var RecipeFactory $recipeFactory */
+        $recipeFactory = $this->app->make(RecipeFactory::class);
+        $recipeFactory->deleteForUser($this->testUser);
         parent::tearDown();
     }
     /**

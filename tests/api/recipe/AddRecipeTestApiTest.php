@@ -20,9 +20,9 @@ class AddRecipeTestApiTest extends ApiTestCase
 
     public function tearDown(): void
     {
-        /** @var RecipeDao $recipeDao */
-        $recipeDao = app(RecipeDao::class);
-        $recipeDao->deleteForUser($this->testUser);
+        /** @var RecipeFactory $recipeFactory */
+        $recipeFactory = $this->app->make(RecipeFactory::class);
+        $recipeFactory->deleteForUser($this->testUser);
         parent::tearDown();
     }
 
