@@ -58,7 +58,8 @@
             "values": {
                 "id": "int",
                 "name": "string",
-                "email": "string"
+                "email": "string",
+                "friends": "IntegerSet"
             },
             "string_value": "id"
         },
@@ -94,6 +95,12 @@
             "type": "set",
             "name": "RecipeSet",
             "itemType": "Recipe",
+            "mutable": true
+        },
+        {
+            "type": "set",
+            "name": "IntegerSet",
+            "itemType": "int",
             "mutable": true
         },
         {
