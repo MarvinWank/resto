@@ -36,4 +36,10 @@ class UserFactoryTestCase extends FactoryTestCase
 
         $dao_user->delete();
     }
+
+    /** @test */
+    public function it_tests_adding_friends_to_user()
+    {
+
+    }
 }

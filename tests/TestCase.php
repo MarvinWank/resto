@@ -1,15 +1,16 @@
 <?php
 
 use App\Factories\UserFactory;
+use App\Value\User;
+use Laravel\Lumen\Testing\DatabaseMigrations;
 use Laravel\Lumen\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
+    use DatabaseMigrations;
+
     /** @var UserFactory $userFactory */
     private $userFactory;
-
-    protected $testUser;
-
     public function setUp(): void
     {
         parent::setUp();
@@ -33,12 +34,14 @@ abstract class TestCase extends BaseTestCase
         $this->createApplication();
 
         $this->userFactory = app(UserFactory::class);
-
-        $this->testUser = $this->create_test_user();
     }
 
-    private function create_test_user(): \App\Value\User
+    public function generateTestUser(): User
     {
-        return $this->userFactory->fromId(1);
+        return $this->userFactory->addUser(
+            "Test User",
+            "test@test.de",
+            "test"
+        );
     }
 }

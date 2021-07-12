@@ -5,8 +5,19 @@ use App\Http\Middleware\CheckApiKeyMiddleware;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+$env = env('APP_ENV');
+$file = '.env.'.$env;
+
+// If the specific environment file doesn't exist, null out the $file variable.
+if (!file_exists(dirname(__DIR__).'/'.$file)) {
+    $file = null;
+}
+
+// Pass in the .env file to load. If no specific environment file
+// should be loaded, the $file parameter should be null.
 (new Laravel\Lumen\Bootstrap\LoadEnvironmentVariables(
-    dirname(__DIR__)
+    dirname(__DIR__),
+    $file
 ))->bootstrap();
 
 date_default_timezone_set(env('APP_TIMEZONE', 'UTC'));

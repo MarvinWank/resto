@@ -51,6 +51,7 @@
         "vog-generate" : "php vendor/bin/vog generate app/Value/value.json",
         "vog-generate-typescript" : "php vendor/bin/vog generate-typescript app/Value/value.json frontend/src/types/value.d.ts",
         "phpstan": "php7.4 vendor/bin/phpstan analyse --memory-limit=16M -c phpstan.neon",
-        "phpunit": "php7.4 vendor/bin/phpunit tests/"
+        "phpunit": "php7.4 vendor/bin/phpunit tests/",
+        "migrate-testdb": "export APP_ENV=\"testing\" && php artisan migrate"
     }
 }

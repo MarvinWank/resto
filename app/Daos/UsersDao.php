@@ -4,10 +4,15 @@
 namespace App\Daos;
 
 
+use App\Models\Subject;
 use App\Value\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @mixin Builder
+ */
 class UsersDao extends Model
 {
     protected $connection = "mysql";
@@ -21,19 +26,6 @@ class UsersDao extends Model
     protected $primaryKey = 'id';
     public $timestamps = false;
     protected static $unguarded = true;
-
-    public function get_user_by_id(string $id): Model
-    {
-        return UsersDao::query()->find($id);
-    }
-
-    public function get_user_by_email(string $email): UsersDao
-    {
-        $collection = UsersDao::query()
-            ->select('*')
-            ->where(self::PROPERTY_EMAIL, '=', $email);
-        return  $collection->get()->first();
-    }
 
     public function validate_auth(string $email, string $password): bool
     {
@@ -56,5 +48,15 @@ class UsersDao extends Model
             self::PROPERTY_EMAIL => $user->email(),
             self::PROPERTY_PASSWORD => \Safe\password_hash($password, 1)
         ]);
+    }
+
+    public function getFriends(): Collection
+    {
+        return $this->belongsToMany(
+            UsersDao::class,
+            "friends",
+            "user_id",
+            "friend_id"
+        )->getResults();
     }
 }
