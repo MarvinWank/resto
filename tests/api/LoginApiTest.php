@@ -16,16 +16,20 @@ use App\Value\RecipeSet;
 use App\Value\ShoppingList;
 use App\Value\SIUnit;
 use App\Value\TypeOfDish;
+use App\Value\User;
 
 class LoginApiTest extends \ApiTestCase
 {
 
     private RecipeFactory $recipeFactory;
     private ShoppingListFactory $shoppingListFactory;
+    private User $testUser;
 
     public function setUp(): void
     {
         parent::setUp();
+
+        $this->testUser = $this->generateTestUser();
 
         $this->recipeFactory = app(RecipeFactory::class);
         $this->shoppingListFactory = app(ShoppingListFactory::class);
@@ -33,8 +37,6 @@ class LoginApiTest extends \ApiTestCase
 
     public function tearDown(): void
     {
-        /** @var RecipeDao $recipeDao */
-        $this->recipeFactory->deleteForUser($this->testUser);
         parent::tearDown();
     }
 

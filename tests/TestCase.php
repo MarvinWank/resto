@@ -42,6 +42,7 @@ abstract class TestCase extends BaseTestCase
         StateDao::query()->truncate();
         StepsDao::query()->truncate();
         UsersDao::query()->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 
     /**
