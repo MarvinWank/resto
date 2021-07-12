@@ -21,7 +21,7 @@ if (!file_exists(dirname(__DIR__).'/'.$file)) {
 // should be loaded, the $file parameter should be null.
 (new Laravel\Lumen\Bootstrap\LoadEnvironmentVariables(
     dirname(__DIR__),
-//    $file
+    $file
 ))->bootstrap();
 
 date_default_timezone_set(env('APP_TIMEZONE', 'UTC'));

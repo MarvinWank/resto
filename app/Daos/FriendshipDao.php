@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class FriendshipDao extends Model
 {
-    protected $table = 'users';
+    protected $table = 'friends';
     protected $primaryKey = 'id';
     public $timestamps = false;
 
