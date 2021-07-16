@@ -7,9 +7,8 @@ namespace App\Http\Middleware;
 use App\Factories\StateFactory;
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
-class CheckApiKeyMiddleware
+class CheckApiKeyMiddleware implements Middleware
 {
     private StateFactory $stateFactory;
 

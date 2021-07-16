@@ -2,6 +2,10 @@
 
 use App\Daos\StateDao;
 use App\Http\Middleware\CheckApiKeyMiddleware;
+use App\Http\Middleware\CheckTestsRunningMiddleware;
+use App\Http\Middleware\SaveStateMiddleware;
+use App\Providers\SessionServiceProvider;
+use palanik\lumen\Middleware\LumenCors;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -95,8 +99,8 @@ $app->routeMiddleware([
     'checkApiKey' =>  CheckApiKeyMiddleware::class
 ]);
 $app->middleware([
-    \palanik\lumen\Middleware\LumenCors::class,
-    \App\Http\Middleware\SaveStateMiddleware::class,
+    LumenCors::class,
+    SaveStateMiddleware::class,
 ]);
 
 
@@ -114,7 +118,7 @@ $app->middleware([
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
-$app->register(\App\Providers\SessionServiceProvider::class);
+$app->register(SessionServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

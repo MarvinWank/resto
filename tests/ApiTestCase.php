@@ -25,7 +25,8 @@ class ApiTestCase extends TestCase
         $testUser = $this->generateTestUser();
         $body = ["json" => [
             'email' => $testUser->email(),
-            'password' => "test"
+            'password' => "test",
+            'testRequest' => true
         ]];
         $response = $this->client->post('/api/login', $body)->getBody()->getContents();
         $response = \Safe\json_decode($response, true);
@@ -39,6 +40,8 @@ class ApiTestCase extends TestCase
     public function apiPost(string $url, array $json_body = [])
     {
         $json_body['apiKey'] = $this->apiKey;
+        $json_body['testRequest'] = true;
+
         $body = ["json" => $json_body];
         $response = $this->client->post("/api".$url, $body);
         $response = $response->getBody()->getContents();
@@ -49,6 +52,8 @@ class ApiTestCase extends TestCase
     {
         $json_body = [];
         $json_body['apiKey'] = $this->apiKey;
+        $json_body['testRequest'] = true;
+
         $body = ["json" => $json_body];
         return $this->client->get("/api".$url, $body);
     }

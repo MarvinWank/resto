@@ -6,10 +6,11 @@ namespace App\Http\Middleware;
 use App\Factories\StateFactory;
 use App\Models\State;
 use Closure;
+use Illuminate\Http\Request;
 
-class SaveStateMiddleware
+class SaveStateMiddleware implements Middleware
 {
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         $response = $next($request);
 
