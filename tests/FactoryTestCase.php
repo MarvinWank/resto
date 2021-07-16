@@ -20,13 +20,13 @@ class FactoryTestCase extends TestCase
         $this->recipeFactory = app(RecipeFactory::class);
     }
 
-    protected function generateRecipes(): array
+    protected function generateRecipes(\App\Value\User  $user): array
     {
         $recipes = [];
         $ingredients = $this->generateIngredients();
 
         $recipes[] = $this->recipeFactory->addRecipe(
-            $this->testUser,
+            $user,
             "Test Rezept",
             DietStyle::ALLES(),
             Cuisine::DEUTSCH(),
@@ -37,7 +37,7 @@ class FactoryTestCase extends TestCase
             "Your add here"
         );
         $recipes[] = $this->recipeFactory->addRecipe(
-            $this->testUser,
+            $user,
             "Test Rezept 2",
             DietStyle::VEGAN(),
             Cuisine::ASIATISCH(),
@@ -48,7 +48,7 @@ class FactoryTestCase extends TestCase
             "Your add here"
         );
         $recipes[] = $this->recipeFactory->addRecipe(
-            $this->testUser,
+            $user,
             "Test Rezept 2",
             DietStyle::VEGAN(),
             Cuisine::ASIATISCH(),
@@ -59,7 +59,7 @@ class FactoryTestCase extends TestCase
             "Your add here"
         );
         $recipes[] = $this->recipeFactory->addRecipe(
-            $this->testUser,
+            $user,
             "Sayt Test Recipe",
             DietStyle::VEGAN(),
             Cuisine::ASIATISCH(),

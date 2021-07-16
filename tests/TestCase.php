@@ -22,13 +22,13 @@ abstract class TestCase extends BaseTestCase
     public function setUp(): void
     {
         parent::setUp();
-        touch("testsRunning");
+        $this->truncateTables();
+        \Safe\touch("testsRunning");
     }
 
     public function tearDown(): void
     {
-        unlink("testsRunning");
-        $this->truncateTables();
+        \Safe\unlink("testsRunning");
         parent::tearDown();
     }
 

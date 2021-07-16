@@ -1,16 +1,20 @@
 <?php
 
 
+use App\Value\User;
 use GuzzleHttp\Client;
 
 class ApiTestCase extends TestCase
 {
     protected $client;
+    protected User $testUser;
     protected string $apiKey;
 
     public function setUp(): void
     {
         parent::setUp();
+
+        $this->testUser = $this->generateTestUser();
     }
 
     public function __construct()
@@ -22,9 +26,8 @@ class ApiTestCase extends TestCase
 
     public function testLogin(): array
     {
-        $testUser = $this->generateTestUser();
         $body = ["json" => [
-            'email' => $testUser->email(),
+            'email' => $this->testUser->email(),
             'password' => "test",
             'testRequest' => true
         ]];
@@ -43,7 +46,7 @@ class ApiTestCase extends TestCase
         $json_body['testRequest'] = true;
 
         $body = ["json" => $json_body];
-        $response = $this->client->post("/api".$url, $body);
+        $response = $this->client->post("/api" . $url, $body);
         $response = $response->getBody()->getContents();
         return \Safe\json_decode($response, true);
     }
@@ -55,7 +58,7 @@ class ApiTestCase extends TestCase
         $json_body['testRequest'] = true;
 
         $body = ["json" => $json_body];
-        return $this->client->get("/api".$url, $body);
+        return $this->client->get("/api" . $url, $body);
     }
 
     private function get_base_url(): string

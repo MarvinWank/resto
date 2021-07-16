@@ -23,13 +23,10 @@ class LoginApiTest extends \ApiTestCase
 
     private RecipeFactory $recipeFactory;
     private ShoppingListFactory $shoppingListFactory;
-    private User $testUser;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->testUser = $this->generateTestUser();
 
         $this->recipeFactory = app(RecipeFactory::class);
         $this->shoppingListFactory = app(ShoppingListFactory::class);
@@ -94,7 +91,6 @@ class LoginApiTest extends \ApiTestCase
     public function it_tests_login_with_api_key()
     {
         $this->testLogin();
-
         $result = $this->apiPost("/login_with_api_key", [
             "apiKey" => $this->apiKey
         ]);

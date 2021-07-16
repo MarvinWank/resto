@@ -7,16 +7,20 @@ namespace factories;
 use App\Daos\StateDao;
 use App\Factories\StateFactory;
 use App\Models\State;
+use App\Value\User;
 use Ramsey\Uuid\Uuid;
 
 class StateFactoryTestCase extends \FactoryTestCase
 {
     private StateFactory $stateFactory;
     private StateDao $stateDao;
+    private User $testUser;
 
     public function setUp(): void
     {
         parent::setUp();
+
+        $this->testUser = $this->generateTestUser();
         $this->stateFactory = app(StateFactory::class);
         $this->stateDao = app(StateDao::class);
     }

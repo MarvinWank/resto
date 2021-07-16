@@ -14,21 +14,21 @@ use App\Value\IngredientsSet;
 use App\Value\Recipe;
 use App\Value\SIUnit;
 use App\Value\TypeOfDish;
+use App\Value\User;
 
 class RecipeFactoryTest extends \FactoryTestCase
 {
 
+    private User $testUser;
 
     public function setUp(): void
     {
         parent::setUp();
+        $this->testUser = $this->generateTestUser();
     }
 
     public function tearDown(): void
     {
-        /** @var RecipeDao $recipeDao */
-        $recipeDao = app(RecipeDao::class);
-        $this->recipeFactory->deleteForUser($this->testUser);
         parent::tearDown();
     }
 
@@ -71,7 +71,7 @@ class RecipeFactoryTest extends \FactoryTestCase
      */
     public function it_tests_give_all_for_user()
     {
-        $this->generateRecipes();
+        $this->generateRecipes($this->testUser);
 
         $allRecipes = $this->recipeFactory->getAllRecipesForUser($this->testUser);
         $recipe1 = $allRecipes->toArray()[0];
@@ -86,7 +86,7 @@ class RecipeFactoryTest extends \FactoryTestCase
      */
     public function it_tests_give_top_recipes_for_user()
     {
-        $this->generateRecipes();
+        $this->generateRecipes($this->testUser);
 
         $recipes = $this->recipeFactory->getTopRecipesForUser($this->testUser, 2);
         $this->assertEquals(2, $recipes->count());
@@ -97,7 +97,7 @@ class RecipeFactoryTest extends \FactoryTestCase
      */
     public function it_tests_sucessfully_get_recipe_by_id(): Recipe
     {
-        $recipes = $this->generateRecipes();
+        $recipes = $this->generateRecipes($this->testUser);
         $recipeFromId = $this->recipeFactory->fromId($recipes[0]->id());
         $this->assertEquals($recipes[0], $recipeFromId);
 
@@ -123,7 +123,7 @@ class RecipeFactoryTest extends \FactoryTestCase
     public function it_tests_update_recipe()
     {
         $recipe = $this->it_tests_sucessfully_get_recipe_by_id();
-        $alteredIngredients = IngredientsSet::fromArray([  new Ingredient("Schmalz", 200, SIUnit::g(), 100)]);
+        $alteredIngredients = IngredientsSet::fromArray([new Ingredient("Schmalz", 200, SIUnit::g(), 100)]);
 
         $updatedRecipe = $recipe
             ->with_title("New title")
@@ -142,7 +142,7 @@ class RecipeFactoryTest extends \FactoryTestCase
     /** @test */
     public function it_tests_give_recipes_for_sayt_search()
     {
-        $recipes = $this->generateRecipes();
+        $recipes = $this->generateRecipes($this->testUser);
 
         $recipesfromDao = $this->recipeFactory->getRecipesForSaytSearch("Test", $this->testUser, 100);
 
@@ -156,7 +156,7 @@ class RecipeFactoryTest extends \FactoryTestCase
     /** @test */
     public function it_tests_give_no_recipes_for_invalid_sayt_search()
     {
-        $this->generateRecipes();
+        $this->generateRecipes($this->testUser);
         $recipesfromDao = $this->recipeFactory->getRecipesForSaytSearch("Foo", $this->testUser, 100);
         $this->assertEmpty($recipesfromDao);
     }

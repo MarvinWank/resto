@@ -9,6 +9,7 @@ use App\Value\Ingredient;
 use App\Value\IngredientsSet;
 use App\Value\ShoppingList;
 use App\Value\SIUnit;
+use App\Value\User;
 use FactoryTestCase;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -16,11 +17,13 @@ class ShoppingListFactoryTest extends FactoryTestCase
 {
     private ShoppingListFactory $shoppingListFactory;
     private ?ShoppingList $shoppingList;
+    private User $testUser;
 
     public function setUp(): void
     {
         parent::setUp();
 
+        $this->testUser = $this->generateTestUser();
         $this->shoppingListFactory = $this->app->make(ShoppingListFactory::class);
     }
 

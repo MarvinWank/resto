@@ -1,8 +1,6 @@
 <?php
 
-use App\Daos\StateDao;
 use App\Http\Middleware\CheckApiKeyMiddleware;
-use App\Http\Middleware\CheckTestsRunningMiddleware;
 use App\Http\Middleware\SaveStateMiddleware;
 use App\Providers\SessionServiceProvider;
 use palanik\lumen\Middleware\LumenCors;

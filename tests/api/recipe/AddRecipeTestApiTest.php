@@ -5,25 +5,13 @@ namespace api\recipe;
 
 
 use ApiTestCase;
-use App\Daos\RecipeDao;
-use App\Factories\RecipeFactory;
-use App\Value\Ingredient;
 
 class AddRecipeTestApiTest extends ApiTestCase
 {
     public function setUp(): void
     {
         parent::setUp();
-
         $this->testLogin();
-    }
-
-    public function tearDown(): void
-    {
-        /** @var RecipeFactory $recipeFactory */
-        $recipeFactory = $this->app->make(RecipeFactory::class);
-        $recipeFactory->deleteForUser($this->testUser);
-        parent::tearDown();
     }
 
     /**
