@@ -75,14 +75,23 @@ class UserFactory
     public function searchUsersByEmail(string $email, int $limit = 10): UserSet
     {
         $usersDao = new UsersDao();
-        $collection = $usersDao->where(UsersDao::PROPERTY_EMAIL, 'LIKE', '%'.$email.'%')
+        $collection = $usersDao->where(UsersDao::PROPERTY_EMAIL, 'LIKE', '%' . $email . '%')
             ->limit($limit)
             ->get();
 
         return $this->collectionToSet($collection);
     }
 
-    private function collectionToSet(Collection  $collection): UserSet
+    public function searchUsersByName(string $name, int $limit = 10): UserSet
+    {
+        $dao = new UsersDao();
+        $collection = $dao->where(UsersDao::PROPERTY_NAME, 'LIKE', '%' . $name . '%')
+            ->limit($limit)
+            ->get();
+        return $this->collectionToSet($collection);
+    }
+
+    private function collectionToSet(Collection $collection): UserSet
     {
         $userSet = UserSet::fromArray([]);
 
