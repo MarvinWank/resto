@@ -78,7 +78,6 @@ import EditIngredientModal from "@/views/editRecipe/EditIngredientModal.vue";
 import AddIngredientModal from "@/views/addRecipe/AddIngredientModal.vue";
 import {currentMessage} from "@/types/app";
 import EditableIngredientList from "@/components/EditableIngredientList.vue";
-import {TypeOfDish} from "@/types/value";
 
 @Component({
     components: {
@@ -91,7 +90,6 @@ export default class EditRecipe extends Vue {
         id: -1,
         cuisine: "deutsch",
         dietStyle: "alles",
-        typeOfDish: TypeOfDish.HAUPTSPEISE,
         ingredients: [],
         timeToCook: 0,
         totalTime: 0,

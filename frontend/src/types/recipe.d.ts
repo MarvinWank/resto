@@ -1,11 +1,8 @@
-import {TypeOfDish} from "@/types/value";
-
 export interface Recipe {
     id: number;
     title: string;
     dietStyle: dietStyle;
     cuisine: Cuisine;
-    typeOfDish: TypeOfDish;
     timeToCook: number;
     totalTime: number;
     ingredients: Array<Ingredient>;

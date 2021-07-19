@@ -34,7 +34,6 @@ import Component from "vue-class-component";
 import api from "@/api/api";
 import {Ingredient, Recipe} from "@/types/recipe";
 import {Watch} from "vue-property-decorator";
-import {TypeOfDish} from "@/types/value";
 
 @Component
 export default class SelectIngredientsToAdd extends Vue {
@@ -43,7 +42,6 @@ export default class SelectIngredientsToAdd extends Vue {
         id: -1,
         cuisine: "deutsch",
         dietStyle: "alles",
-        typeOfDish: TypeOfDish.HAUPTSPEISE,
         ingredients: [],
         timeToCook: 0,
         totalTime: 0,
