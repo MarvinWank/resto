@@ -12,11 +12,12 @@ use App\Value\AddRecipeRequestDto;
 use App\Value\Cuisine;
 use App\Value\DietStyle;
 use App\Value\TypeOfDish;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class AddRecipeController extends Controller
 {
-    public function add(Request $request, RecipeFactory $recipeFactory, UserFactory $userFactory)
+    public function add(Request $request, RecipeFactory $recipeFactory, UserFactory $userFactory): JsonResponse
     {
         $data = $request->json()->all();
         $data = AddRecipeRequestDto::fromArray($data['recipe']);

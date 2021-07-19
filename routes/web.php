@@ -15,6 +15,9 @@
 
 
 /** @var \Laravel\Lumen\Routing\Router $router */
+
+use App\Http\Controllers\Friends\SearchUsersController;
+
 $router->group(['prefix' => 'api'], function () use ($router) {
 
     //You can't have an API-Key if you're not logged in
@@ -37,6 +40,11 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         // Shopping List
         $router->post('/list/add_items', 'ShoppingList\AddItemsController@addItems');
         $router->post('/list/delete_items', 'ShoppingList\RemoveItemsController@removeIngredients');
+
+        $router->group(['prefix' => 'friends'], function () use ($router) {
+            $router->get('search', [SearchUsersController::class, 'handle']);
+        });
+
     });
 });
 
