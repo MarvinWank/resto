@@ -13,13 +13,22 @@ use Illuminate\Http\Request;
 
 class AddItemsController extends Controller
 {
-    public function addItems(Request $request, UserFactory $userFactory, ShoppingListFactory $shoppingListFactory): JsonResponse
+    private UserFactory $userFactory;
+    private ShoppingListFactory $shoppingListFactory;
+
+    public function __construct(UserFactory $userFactory, ShoppingListFactory $shoppingListFactory)
+    {
+        $this->userFactory = $userFactory;
+        $this->shoppingListFactory = $shoppingListFactory;
+    }
+
+    public function handle(Request $request): JsonResponse
     {
         $ingredients = $request->json('ingredients');
         $ingredients = IngredientsSet::fromArray($ingredients);
-        $user = $userFactory->currentUser();
+        $user = $this->userFactory->currentUser();
 
-        $newList = $shoppingListFactory->addItemsToShoppingList($user, $ingredients);
+        $newList = $this->shoppingListFactory->addItemsToShoppingList($user, $ingredients);
 
         return response()->json([
             "status" => "ok",

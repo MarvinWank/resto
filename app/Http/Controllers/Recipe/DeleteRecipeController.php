@@ -8,11 +8,21 @@ use App\Exceptions\RecipeNotFoundException;
 use App\Factories\RecipeFactory;
 use App\Factories\UserFactory;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class DeleteRecipeController extends Controller
 {
-    public function delete(Request $request, UserFactory $userFactory, RecipeFactory $recipeFactory)
+    private UserFactory  $userFactory;
+    private RecipeFactory  $recipeFactory;
+
+    public function __construct(UserFactory $userFactory, RecipeFactory $recipeFactory)
+    {
+        $this->userFactory = $userFactory;
+        $this->recipeFactory = $recipeFactory;
+    }
+
+    public function handle(Request $request): JsonResponse
     {
         $id = $request->json()->get('id');
 
@@ -24,7 +34,7 @@ class DeleteRecipeController extends Controller
         }
 
         try {
-            $recipe = $recipeFactory->fromId($id);
+            $recipe = $this->recipeFactory->fromId($id);
         } catch (RecipeNotFoundException $e) {
             return response()->json([
                 "status" => "error",
@@ -32,7 +42,7 @@ class DeleteRecipeController extends Controller
             ]);
         }
 
-        $currentUser = $userFactory->currentUser();
+        $currentUser = $this->userFactory->currentUser();
 
         //TODO: Author != Owner
         if ($currentUser->id() !== $recipe->author()->id()){
@@ -42,7 +52,7 @@ class DeleteRecipeController extends Controller
             ]);
         }
 
-        $recipeFactory->delete($recipe->id());
+        $this->recipeFactory->delete($recipe->id());
         return response()->json([
             "status" => "ok",
             "message" => "Recipe with ID $id was deleted"

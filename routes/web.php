@@ -14,32 +14,33 @@
  */
 
 
-/** @var \Laravel\Lumen\Routing\Router $router */
+/** @var Router $router */
 
 use App\Http\Controllers\Friends\SearchUsersController;
+use Laravel\Lumen\Routing\Router;
 
 $router->group(['prefix' => 'api'], function () use ($router) {
 
     //You can't have an API-Key if you're not logged in
-    $router->post('/login', 'LoginController@login');
+    $router->post('/login', 'LoginController@handle');
     //Or registered
-    $router->post('/register', 'RegisterController@register');
+    $router->post('/register', 'RegisterController@handle');
 
     $router->group(["middleware" => "checkApiKey"], function () use ($router) {
-        $router->post('/login_with_api_key', 'LoginController@login_with_api_key');
+        $router->post('/login_with_api_key', 'LoginController@handle');
 
         //Recipes
-        $router->post('/recipes/add', 'Recipe\AddRecipeController@add');
-        $router->post('/recipes/all', 'Recipe\GetRecipesController@getAll');
-        $router->post('/recipes/top', 'Recipe\GetRecipesController@getTop');
-        $router->post('/recipes/get_by_id', 'Recipe\GetRecipeByIdController@get');
-        $router->post('/recipes/update', 'Recipe\UpdateRecipeController@updateRecipe');
-        $router->post("/recipes/delete", 'Recipe\DeleteRecipeController@delete');
-        $router->post("/recipes/search/sayt", 'Search\SearchSaytController@saytList');
+        $router->post('/recipes/add', 'Recipe\AddRecipeController@handle');
+        $router->post('/recipes/all', 'Recipe\GetRecipesController@handle');
+        $router->post('/recipes/top', 'Recipe\GetRecipesController@handle');
+        $router->post('/recipes/get_by_id', 'Recipe\GetRecipeByIdController@handle');
+        $router->post('/recipes/update', 'Recipe\UpdateRecipeController@handle');
+        $router->post("/recipes/delete", 'Recipe\DeleteRecipeController@handle');
+        $router->post("/recipes/search/sayt", 'Search\SearchSaytController@handle');
 
         // Shopping List
-        $router->post('/list/add_items', 'ShoppingList\AddItemsController@addItems');
-        $router->post('/list/delete_items', 'ShoppingList\RemoveItemsController@removeIngredients');
+        $router->post('/list/add_items', 'ShoppingList\AddItemsController@handle');
+        $router->post('/list/delete_items', 'ShoppingList\RemoveItemsController@handle');
 
         $router->group(['prefix' => 'friends'], function () use ($router) {
             $router->get('search', [SearchUsersController::class, 'handle']);

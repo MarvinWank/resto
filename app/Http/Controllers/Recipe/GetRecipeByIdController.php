@@ -11,8 +11,15 @@ use Illuminate\Http\Request;
 
 class GetRecipeByIdController extends Controller
 {
+    private RecipeFactory  $recipeFactory;
+
+    public function __construct(RecipeFactory $recipeFactory)
+    {
+        $this->recipeFactory = $recipeFactory;
+    }
+
     //TODO: Only give Recipes if user has access rights
-    public function get(Request $request, RecipeFactory $recipeFactory): JsonResponse
+    public function handle(Request $request): JsonResponse
     {
         $id = $request->json('id');
         if ($id == null) {
@@ -21,7 +28,7 @@ class GetRecipeByIdController extends Controller
                 "message" => "no id was given"
             ]);
         }
-        $recipe = $recipeFactory->fromId($id);
+        $recipe = $this->recipeFactory->fromId($id);
 
         return response()->json([
             "status" => "ok",

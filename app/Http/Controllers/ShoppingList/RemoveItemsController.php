@@ -15,23 +15,27 @@ use Illuminate\Log\Logger;
 
 class RemoveItemsController extends Controller
 {
-    public function removeIngredients(
-        Request $request,
-        UserFactory $userFactory,
-        ShoppingListFactory $shoppingListFactory,
-        Logger $logger
-    ): JsonResponse
+    private UserFactory $userFactory;
+    private ShoppingListFactory $shoppingListFactory;
+
+    public function __construct(UserFactory $userFactory, ShoppingListFactory $shoppingListFactory)
+    {
+
+        $this->userFactory = $userFactory;
+        $this->shoppingListFactory = $shoppingListFactory;
+    }
+
+    public function handle(Request $request): JsonResponse
     {
         $ingredients = $request->json('ingredients');
         $ingredients = IngredientsSet::fromArray($ingredients);
 
-        $user = $userFactory->currentUser();
-        $shoppingList = $shoppingListFactory->forUser($user);
+        $user = $this->userFactory->currentUser();
+        $shoppingList = $this->shoppingListFactory->forUser($user);
 
         try {
-            $shoppingList = $shoppingListFactory->deleteItems($shoppingList, $ingredients);
+            $shoppingList = $this->shoppingListFactory->deleteItems($shoppingList, $ingredients);
         } catch (ModelNotFoundException $exception) {
-            $logger->error($exception->getMessage());
             $this->responseWithError("Fehler beim löschen der Zutaten");
         }
 

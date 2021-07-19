@@ -8,17 +8,26 @@ use App\Exceptions\RecipeNotFoundException;
 use App\Factories\RecipeFactory;
 use App\Http\Controllers\Controller;
 use App\Value\Recipe;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class UpdateRecipeController extends Controller
 {
-    public function updateRecipe(Request $request, RecipeFactory $recipeFactory)
+    private RecipeFactory $recipeFactory;
+
+
+    public function __construct(\App\Factories\RecipeFactory $recipeFactory)
+    {
+        $this->recipeFactory = $recipeFactory;
+    }
+
+    public function handle(Request $request): JsonResponse
     {
         $data = $request->json()->all();
         $recipe = Recipe::fromArray($data['recipe']);
 
         try {
-            $recipeFactory->update($recipe, $recipe->id());
+            $this->recipeFactory->update($recipe, $recipe->id());
         } catch (RecipeNotFoundException $exception) {
             $id = $recipe->id();
             return response()->json([

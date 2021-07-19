@@ -11,11 +11,16 @@ use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
-    public function register(
-        Request $request,
-        State $state,
-        UserFactory $userFactory
-    ): JsonResponse
+    private State  $state;
+    private UserFactory  $userFactory;
+
+    public function __construct(State $state, UserFactory  $userFactory)
+    {
+        $this->state = $state;
+        $this->userFactory = $userFactory;
+    }
+
+    public function handle(Request $request): JsonResponse
     {
         $data = $request->json();
         $userName = $data->get('name');
@@ -24,15 +29,15 @@ class RegisterController extends Controller
 
         $user = null;
         try {
-            $user = $userFactory->addUser($userName, $email, $password);
+            $user = $this->userFactory->addUser($userName, $email, $password);
         }catch (\Throwable $exception){
             $this->responseWithError($exception->getMessage());
         }
-        $state->setUserID($user->id());
+        $this->state->setUserID($user->id());
 
         return  response()->json([
             "status" => "ok",
-            "apiKey" => $state->getStateId(),
+            "apiKey" => $this->state->getStateId(),
             "user" => $user->toArray(),
             "topRecipes" => []
         ]);

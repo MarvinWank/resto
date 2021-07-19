@@ -17,13 +17,22 @@ use Illuminate\Http\Request;
 
 class AddRecipeController extends Controller
 {
-    public function add(Request $request, RecipeFactory $recipeFactory, UserFactory $userFactory): JsonResponse
+    private RecipeFactory  $recipeFactory;
+    private UserFactory  $userFactory;
+
+    public function __construct(RecipeFactory $recipeFactory, UserFactory $userFactory)
+    {
+        $this->recipeFactory = $recipeFactory;
+        $this->userFactory = $userFactory;
+    }
+
+    public function handle(Request $request): JsonResponse
     {
         $data = $request->json()->all();
         $data = AddRecipeRequestDto::fromArray($data['recipe']);
-        $user = $userFactory->currentUser();
+        $user = $this->userFactory->currentUser();
 
-        $recipe = $recipeFactory->addRecipe(
+        $recipe = $this->recipeFactory->addRecipe(
             $user,
             $data->title(),
             DietStyle::fromName($data->dietStyle()),
