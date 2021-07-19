@@ -14,6 +14,7 @@ use App\Value\DietStyle;
 use App\Value\TypeOfDish;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Safe\Exceptions\JsonException;
 
 class AddRecipeController extends Controller
 {
@@ -31,18 +32,24 @@ class AddRecipeController extends Controller
         $data = $request->json()->all();
         $data = AddRecipeRequestDto::fromArray($data['recipe']);
         $user = $this->userFactory->currentUser();
+        $recipe = null;
 
-        $recipe = $this->recipeFactory->addRecipe(
-            $user,
-            $data->title(),
-            DietStyle::fromName($data->dietStyle()),
-            Cuisine::fromName($data->cuisine()),
-            TypeOfDish::fromName($data->typeOfDish()),
-            $data->timeToCook(),
-            $data->totalTime(),
-            $data->ingredients(),
-            $data->description()
-        );
+        try {
+            $recipe = $this->recipeFactory->addRecipe(
+                $user,
+                $data->title(),
+                DietStyle::fromName($data->dietStyle()),
+                Cuisine::fromName($data->cuisine()),
+                TypeOfDish::fromName($data->typeOfDish()),
+                $data->timeToCook(),
+                $data->totalTime(),
+                $data->ingredients(),
+                $data->description()
+            );
+        } catch (JsonException $e) {
+        } catch (\Throwable $e) {
+            return $this->responseWithError($e);
+        }
 
 
         return response()->json([
