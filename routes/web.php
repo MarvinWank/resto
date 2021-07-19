@@ -43,7 +43,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         $router->post('/list/delete_items', 'ShoppingList\RemoveItemsController@handle');
 
         $router->group(['prefix' => 'friends'], function () use ($router) {
-            $router->get('search', [SearchUsersController::class, 'handle']);
+            $router->get('search', 'Friends\SearchUsersController@handle');
         });
 
     });

@@ -65,12 +65,12 @@ abstract class TestCase extends BaseTestCase
         $this->userFactory = app(UserFactory::class);
     }
 
-    public function generateTestUser(): User
+    public function generateTestUser(string $username = "Test User", string $email = "test@test.de", string $password = "test"): User
     {
         return $this->userFactory->addUser(
-            "Test User",
-            "test@test.de",
-            "test"
+            $username,
+            $email,
+            $password
         );
     }
 }

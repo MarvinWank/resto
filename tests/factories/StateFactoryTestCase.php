@@ -8,9 +8,10 @@ use App\Daos\StateDao;
 use App\Factories\StateFactory;
 use App\Models\State;
 use App\Value\User;
+use FactoryTestCase;
 use Ramsey\Uuid\Uuid;
 
-class StateFactoryTestCase extends \FactoryTestCase
+class StateFactoryTestCase extends FactoryTestCase
 {
     private StateFactory $stateFactory;
     private StateDao $stateDao;

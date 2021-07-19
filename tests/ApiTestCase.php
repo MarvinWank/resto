@@ -51,14 +51,15 @@ class ApiTestCase extends TestCase
         return \Safe\json_decode($response, true);
     }
 
-    public function apiGet(string $url)
+    public function apiGet(string $url, array $params = [])
     {
-        $json_body = [];
-        $json_body['apiKey'] = $this->apiKey;
-        $json_body['testRequest'] = true;
+        $params['apiKey'] = $this->apiKey;
+        $params['testRequest'] = true;
 
-        $body = ["json" => $json_body];
-        return $this->client->get("/api" . $url, $body);
+        $body = ["json" => $params];
+        $response = $this->client->get("/api" . $url, $body);
+        $response = $response->getBody()->getContents();
+        return \Safe\json_decode($response, true);
     }
 
     private function get_base_url(): string

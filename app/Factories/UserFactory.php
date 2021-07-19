@@ -74,8 +74,12 @@ class UserFactory
 
     public function searchUsersByEmail(string $email, int $limit = 10): UserSet
     {
+        $currentUser = $this->currentUser();
+
         $usersDao = new UsersDao();
-        $collection = $usersDao->where(UsersDao::PROPERTY_EMAIL, 'LIKE', '%' . $email . '%')
+        $collection = $usersDao
+            ->where(UsersDao::PROPERTY_EMAIL, 'LIKE', '%' . $email . '%')
+            ->where(UsersDao::PROPERTY_ID, '!=', $currentUser->id())
             ->limit($limit)
             ->get();
 
@@ -84,10 +88,15 @@ class UserFactory
 
     public function searchUsersByName(string $name, int $limit = 10): UserSet
     {
+        $currentUser = $this->currentUser();
+
         $dao = new UsersDao();
-        $collection = $dao->where(UsersDao::PROPERTY_NAME, 'LIKE', '%' . $name . '%')
+        $collection = $dao
+            ->where(UsersDao::PROPERTY_NAME, 'LIKE', '%' . $name . '%')
+            ->where(UsersDao::PROPERTY_ID, '!=', $currentUser->id())
             ->limit($limit)
             ->get();
+
         return $this->collectionToSet($collection);
     }
 
