@@ -10,6 +10,8 @@ use App\Exceptions\SaveException;
 use App\Models\State;
 use App\Value\IntegerSet;
 use App\Value\User;
+use App\Value\UserSet;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserFactory
@@ -68,6 +70,30 @@ class UserFactory
 
         $usersDao->saveOrFail();
         return $this->fromDao($usersDao);
+    }
+
+    public function searchUsersByEmail(string $email, int $limit = 10): UserSet
+    {
+        $usersDao = new UsersDao();
+        $collection = $usersDao->where(UsersDao::PROPERTY_EMAIL, 'LIKE', '%'.$email.'%')
+            ->limit($limit)
+            ->get();
+
+        return $this->collectionToSet($collection);
+    }
+
+    private function collectionToSet(Collection  $collection): UserSet
+    {
+        $userSet = UserSet::fromArray([]);
+
+        /** @var UsersDao $item */
+        foreach ($collection as $item) {
+            $friendIds = IntegerSet::fromArray($item->getFriends()->toArray());
+            $user = new User($item->getId(), $item->getName(), $item->getEmail(), $friendIds);
+            $userSet->add($user);
+        }
+
+        return $userSet;
     }
 
     /**

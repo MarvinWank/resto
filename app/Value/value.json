@@ -53,6 +53,12 @@
             "string_value": "id"
         },
         {
+            "type": "set",
+            "name": "UserSet",
+            "itemType": "User",
+            "mutable": true
+        },
+        {
             "type": "valueObject",
             "name": "User",
             "values": {

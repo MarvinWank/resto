@@ -50,6 +50,21 @@ class UsersDao extends Model
         ]);
     }
 
+    public function getId(): int
+    {
+        return $this->getAttribute(self::PROPERTY_ID);
+    }
+
+    public function getEmail(): string
+    {
+        return $this->getAttribute(self::PROPERTY_EMAIL);
+    }
+
+    public function getName(): string
+    {
+        return $this->getAttribute(self::PROPERTY_NAME);
+    }
+
     public function getFriends(): Collection
     {
         return $this->belongsToMany(

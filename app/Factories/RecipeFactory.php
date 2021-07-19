@@ -45,7 +45,6 @@ class RecipeFactory
         int $totalTime,
         IngredientsSet $ingredients,
         string $description
-
     ): Recipe
     {
         $recipe = new Recipe(-1, $title, $author, $diet_style, $cuisine, $type, $timeToCook, $totalTime, $ingredients, $description);
