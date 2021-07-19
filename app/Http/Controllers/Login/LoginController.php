@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Login;
 
 use App\Factories\RecipeFactory;
 use App\Factories\ShoppingListFactory;
 use App\Factories\UserFactory;
+use App\Http\Controllers\Controller;
 use App\Models\State;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -13,13 +14,19 @@ class LoginController extends Controller
 {
 
     private UserFactory $userFactory;
+    private State $session;
+    private RecipeFactory $recipeFactory;
+    private ShoppingListFactory $shoppingListFactory;
 
-    public function __construct(UserFactory $userFactory)
+    public function __construct(UserFactory $userFactory, State $session, RecipeFactory $recipeFactory, ShoppingListFactory $shoppingListFactory)
     {
         $this->userFactory = $userFactory;
+        $this->session = $session;
+        $this->recipeFactory = $recipeFactory;
+        $this->shoppingListFactory = $shoppingListFactory;
     }
 
-    public function login(Request $request, State $session, RecipeFactory $recipeFactory, ShoppingListFactory $shoppingListFactory): JsonResponse
+    public function handle(Request $request): JsonResponse
     {
         $data = $request->json();
         $email = $data->get('email');
@@ -31,16 +38,16 @@ class LoginController extends Controller
             return $this->responseWithError("Login unsuccessful");
         }
 
-        $recipes = $recipeFactory->getTopRecipesForUser($user, 5);
-        $shoppingList = $shoppingListFactory->forUser($user);
-        if ($shoppingList !== null){
+        $recipes = $this->recipeFactory->getTopRecipesForUser($user, 5);
+        $shoppingList = $this->shoppingListFactory->forUser($user);
+        if ($shoppingList !== null) {
             $shoppingList = $shoppingList->toArray();
         }
 
-        $session->setUserID($user->id());
+        $this->session->setUserID($user->id());
         return response()->json([
             "status" => "ok",
-            "apiKey" => $session->getStateId(),
+            "apiKey" => $this->session->getStateId(),
             "user" => $user->toArray(),
             "topRecipes" => $recipes->toArray(),
             "shoppingList" => $shoppingList

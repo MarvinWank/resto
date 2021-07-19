@@ -22,21 +22,21 @@ use Laravel\Lumen\Routing\Router;
 $router->group(['prefix' => 'api'], function () use ($router) {
 
     //You can't have an API-Key if you're not logged in
-    $router->post('/login', 'LoginController@handle');
+    $router->post('/login', 'Login\LoginController@handle');
     //Or registered
     $router->post('/register', 'RegisterController@handle');
 
     $router->group(["middleware" => "checkApiKey"], function () use ($router) {
-        $router->post('/login_with_api_key', 'LoginController@handle');
+        $router->post('/login_with_api_key', 'Login\LoginWithApiKeyController@handle');
 
         //Recipes
         $router->post('/recipes/add', 'Recipe\AddRecipeController@handle');
-        $router->post('/recipes/all', 'Recipe\GetRecipesController@handle');
-        $router->post('/recipes/top', 'Recipe\GetRecipesController@handle');
+        $router->post('/recipes/all', 'Recipe\GetAllRecipesController@handle');
+        $router->post('/recipes/top', 'Recipe\GetTopRecipesController@handle');
         $router->post('/recipes/get_by_id', 'Recipe\GetRecipeByIdController@handle');
         $router->post('/recipes/update', 'Recipe\UpdateRecipeController@handle');
         $router->post("/recipes/delete", 'Recipe\DeleteRecipeController@handle');
-        $router->post("/recipes/search/sayt", 'Search\SearchSaytController@handle');
+        $router->post("/recipes/search/sayt", 'Recipe\SearchRecipesController@handle');
 
         // Shopping List
         $router->post('/list/add_items', 'ShoppingList\AddItemsController@handle');
