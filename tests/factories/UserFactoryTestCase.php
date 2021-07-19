@@ -38,8 +38,32 @@ class UserFactoryTestCase extends FactoryTestCase
     }
 
     /** @test */
+    public function it_tests_finding_users_by_email()
+    {
+        $user1 = $this->generateTestUser();
+        $user2 = $this->userFactory->addUser("Similar Email", "friend1@test.de", "test");
+        $this->userFactory->addUser("Different Email", "foo@bar.de", "test");
+
+        $results = $this->userFactory->searchUsersByEmail("@test.de");
+
+        $this->assertEquals(2, $results->count());
+        $this->assertTrue($results->contains($user1));
+        $this->assertTrue($results->contains($user2));
+    }
+
+    /** @test */
     public function it_tests_adding_friends_to_user()
     {
+        $user = $this->generateTestUser();
+        $friend1 = $this->userFactory->addUser("Friend 1", "friend1@test.de", "test");
+        $friend2 = $this->userFactory->addUser("Friend 2", "friend2@test.de", "test");
 
+        $this->userFactory->addFriendToUser($user, $friend1);
+        $this->userFactory->addFriendToUser($user, $friend2);
+
+        $userWithFriends = $this->userFactory->fromId($user->id());
+
+        $this->assertTrue($userWithFriends->friends()->contains($friend1->id()));
+        $this->assertTrue($userWithFriends->friends()->contains($friend2->id()));
     }
 }

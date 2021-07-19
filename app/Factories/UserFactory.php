@@ -117,7 +117,12 @@ class UserFactory
         $id = $dao_user->getAttribute(UsersDao::PROPERTY_ID);
         $email = $dao_user->getAttribute(UsersDao::PROPERTY_EMAIL);
         $name = $dao_user->getAttribute(UsersDao::PROPERTY_NAME);
-        $friendsSet = IntegerSet::fromArray($dao_user->getFriends()->toArray());
+
+        $friendsSet = IntegerSet::fromArray([]);
+        /** @var UsersDao $friend */
+        foreach ($dao_user->getFriends() as $friend) {
+            $friendsSet->add($friend->getId());
+        }
 
         return new User($id, $name, $email, $friendsSet);
     }
