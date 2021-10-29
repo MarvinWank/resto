@@ -20,7 +20,7 @@ class Api {
         return this.host;
     }
 
-    async post(route: string, data: any) {
+    async post(route: string, data?: any) {
         const result = await axios.post(this.host + route, {
             ...data,
             "apiKey": store.getters.apiKey
@@ -58,6 +58,10 @@ class Api {
     async addRecipe(recipe: Recipe) {
         const data = await this.post('/recipes/add', {recipe: recipe})
         return data;
+    }
+
+    async allRecipes(){
+        return await this.post('/recipes/all');
     }
 
     async saveRecipe(recipe: Recipe) {

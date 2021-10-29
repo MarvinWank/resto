@@ -18,6 +18,11 @@
             <div class="mt-4">Rezept hinzufügen +</div>
         </router-link>
 
+        <router-link class="mt-4 px-0" to="recipe/all">
+            alle Rezepte
+        </router-link>
+
+
     </div>
 </template>
 

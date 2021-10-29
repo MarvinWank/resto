@@ -3,10 +3,8 @@
 
         <SearchBar/>
 
-        <div class="col-12 mt-3">
-            <div class="row mb-3">
-                <div class="text-center">Rezepte für heute</div>
-            </div>
+        <div class="col-12 mt-5 px-2">
+
             <RecipeOverview/>
         </div>
     </div>

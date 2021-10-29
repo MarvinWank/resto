@@ -9,6 +9,7 @@ import EditRecipe from "@/views/editRecipe/EditRecipe.vue";
 import Register from "@/views/register/Register.vue";
 import Imprint from "@/views/footer/Imprint.vue";
 import Profile from "@/views/profile/Profile.vue";
+import AllRecipes from "@/views/allRecipes/AllRecipes.vue";
 
 Vue.use(VueRouter)
 
@@ -29,6 +30,11 @@ const routes = [
         path: '/register',
         name: 'Register',
         component: Register
+    },
+    {
+        path: '/recipe/all',
+        name: 'AllRecipes',
+        component: AllRecipes
     },
     {
         path: '/recipe/add',
