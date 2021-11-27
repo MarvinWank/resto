@@ -124,7 +124,8 @@
             "values": {
                 "VORSPEISE": "Vorspeise",
                 "HAUPTSPEISE": "Hauptspeise",
-                "NACHSPEISE": "Nachspeise"
+                "NACHSPEISE": "Nachspeise",
+                "SNACK": "Snack"
             }
         }
     ]

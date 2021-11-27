@@ -2,6 +2,7 @@ export interface Recipe {
     id: number;
     title: string;
     dietStyle: dietStyle;
+    typeOfDish: typeOfDish,
     cuisine: Cuisine;
     timeToCook: number;
     totalTime: number;
@@ -10,6 +11,8 @@ export interface Recipe {
 }
 
 export type dietStyle = "alles" | "vegetarisch" | "vegan"
+
+export type typeOfDish = "Vorspeise" | "Hauptspeise" | "Nachspeise" | "Snack"
 
 export type Cuisine = "deutsch" | "mediteran" | "asiatisch" | "amerikanisch" | "indisch";
 

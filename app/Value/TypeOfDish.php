@@ -12,17 +12,19 @@ use InvalidArgumentException;
 
 class TypeOfDish implements Enum
 {
-    public const VALUES = ['Vorspeise', 'Hauptspeise', 'Nachspeise', ];               
-    public const NAMES = ['VORSPEISE', 'HAUPTSPEISE', 'NACHSPEISE', ];               
+    public const VALUES = ['Vorspeise', 'Hauptspeise', 'Nachspeise', 'Snack', ];               
+    public const NAMES = ['VORSPEISE', 'HAUPTSPEISE', 'NACHSPEISE', 'SNACK', ];               
     public const OPTIONS = [ 
         'VORSPEISE' => 'Vorspeise',
         'HAUPTSPEISE' => 'Hauptspeise',
         'NACHSPEISE' => 'Nachspeise',
+        'SNACK' => 'Snack',
     ];
 
     public const VORSPEISE = 'Vorspeise';               
     public const HAUPTSPEISE = 'Hauptspeise';               
-    public const NACHSPEISE = 'Nachspeise';                       
+    public const NACHSPEISE = 'Nachspeise';               
+    public const SNACK = 'Snack';                       
     private string $name;
     private string $value;
         
@@ -45,6 +47,11 @@ class TypeOfDish implements Enum
     public static function NACHSPEISE(): self
     {
         return new self('NACHSPEISE');
+    }
+    
+    public static function SNACK(): self
+    {
+        return new self('SNACK');
     }
     
     public static function fromValue(string $value): self

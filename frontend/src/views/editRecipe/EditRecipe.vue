@@ -90,6 +90,7 @@ export default class EditRecipe extends Vue {
         id: -1,
         cuisine: "deutsch",
         dietStyle: "alles",
+        typeOfDish: "Vorspeise",
         ingredients: [],
         timeToCook: 0,
         totalTime: 0,
