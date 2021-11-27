@@ -5,7 +5,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": "^7.4",
+        "php": "^8.0",
         "ext-iconv": "*",
         "ext-json": "*",
         "ext-xdebug": "*",
@@ -50,8 +50,8 @@
         ],
         "vog-generate" : "php vendor/bin/vog generate app/Value/value.json",
         "vog-generate-typescript" : "php vendor/bin/vog generate-typescript app/Value/value.json frontend/src/types/value.d.ts",
-        "phpstan": "php7.4 vendor/bin/phpstan analyse --memory-limit=16M -c phpstan.neon",
-        "phpunit": "php7.4 vendor/bin/phpunit tests/",
+        "phpstan": "php vendor/bin/phpstan analyse --memory-limit=1G -c phpstan.neon",
+        "phpunit": "php vendor/bin/phpunit tests/",
         "migrate": "php artisan migrate:fresh --seed; export APP_ENV=\"testing\" && php artisan migrate:fresh",
         "migrate-testdb": "export APP_ENV=\"testing\" && php artisan migrate:fresh"
     }
