@@ -29,7 +29,7 @@
                 Zurück
             </div>
             <div :disabled="buttonDisabled"
-                 class="mt-3 btn btn-primary float-right"
+                 class="mt-3 btn btn-primary float-right ml-lg-3"
                  :class="buttonDisabledClass"
                  @click="emitData"
             >

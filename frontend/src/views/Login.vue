@@ -37,6 +37,7 @@ export default class Login extends Vue {
 
     get getLoginButtonClasses() {
         return {
+            "mt-3": true,
             "btn": true,
             "btn-primary": true,
             "btn-block": true,

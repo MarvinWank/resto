@@ -33,6 +33,17 @@
 
         <div class="col-12">
             <FormulateInput
+                v-model="typeOfDish"
+                :options="typesOfDish"
+                type="select"
+                placeholder=""
+                label="Art der Speise"
+                class="input"
+            />
+        </div>
+
+        <div class="col-12">
+            <FormulateInput
                 v-model="timeToCook"
                 type="text"
                 label="Arbeitszeit in Minuten"
@@ -65,7 +76,7 @@
 
 
 import Component from "vue-class-component";
-import {Cuisine, dietStyle, Recipe} from "@/types/recipe";
+import {Cuisine, dietStyle, Recipe, typeOfDish} from "@/types/recipe";
 import Vue from "vue";
 import {Prop} from "vue-property-decorator";
 
@@ -86,6 +97,12 @@ export default class SetBasicRecipeData extends Vue {
         {value: "VEGETARISCH", label: "vegetarisch"},
         {value: "VEGAN", label: "vegan"},
     ];
+    typesOfDish = [
+        {value: "VORSPEISE", label: "Vorspeise"},
+        {value: "HAUPTSPEISE", label: "Hauptspeise"},
+        {value: "NACHSPEISE", label: "Nachspeise"},
+        {value: "SNACK", label: "Snack"},
+    ]
 
 
     get currentRecipe(): Recipe {
@@ -138,6 +155,17 @@ export default class SetBasicRecipeData extends Vue {
     set cuisine(cusine: Cuisine){
         const recipe = this.currentRecipe;
         recipe.cuisine = cusine;
+
+        this.save(recipe);
+    }
+
+    get typeOfDish(): typeOfDish{
+        return this.currentRecipe.typeOfDish;
+    }
+
+    set typeOfDish(typeOfDish: typeOfDish) {
+        const recipe = this.currentRecipe;
+        recipe.typeOfDish = typeOfDish;
 
         this.save(recipe);
     }
