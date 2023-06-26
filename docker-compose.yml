@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  db:
+    image: mariadb:latest
+    restart: always
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    volumes:
+      - resto-data:/var/lib/mysql
+    environment:
+      MARIADB_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "ingredients"
+      MARIADB_USER: "resto"
+      MARIADB_PASSWORD: "admin"
+
+volumes:
+  resto-data:
