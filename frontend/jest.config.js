@@ -10,6 +10,13 @@ module.exports = {
     "transform": {
         // process `*.vue` files with `vue-jest`
         // ".*\\.(vue)$": "vue-jest",
-        ".*(vue)$": "vue-jest"
+        ".*(vue)$": "vue-jest",
+        // ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$":
+        //     "jest-transform-stub",
     },
+    transformIgnorePatterns: [
+        "/node_modules/"
+    ],
+    testEnvironment: "jsdom",
 }
+
