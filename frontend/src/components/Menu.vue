@@ -33,6 +33,7 @@ import Component from "vue-class-component";
 import {Slide} from 'vue-burger-menu';
 import router from "@/router/router";
 import {User} from "@/types/user";
+import {Prop} from "vue-property-decorator";
 
 @Component({
     components: {
@@ -41,19 +42,9 @@ import {User} from "@/types/user";
 })
 export default class Menu extends Vue {
 
-    isOpen = false;
+    @Prop() user: User
 
-    get user(): User{
-        if (this.$store.getters.currentUser !== undefined){
-            return this.$store.getters.currentUser;
-        }else {
-            return {
-                id: -1,
-                name: '',
-                email: ''
-            }
-        }
-    }
+    isOpen = false;
 
     handleOpenMenu() {
         this.isOpen = true;
