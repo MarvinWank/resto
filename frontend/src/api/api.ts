@@ -9,7 +9,7 @@ class Api {
 
     constructor() {
         if (process.env.NODE_ENV === "development") {
-            this.host = "http://resto.local/api";
+            this.host = "http://localhost:8000/api";
         }
         if (process.env.NODE_ENV === "production") {
             this.host = "https://resto.marvin-wank.de/api";
